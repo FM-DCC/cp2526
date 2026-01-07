@@ -1,0 +1,317 @@
+% \usepackage[utf8]{inputenc}
+% %\usepackage[portuges]{babel}
+% \usepackage{alltt}
+% \usepackage{xspace}
+% \usepackage{longtable}
+% \usepackage{amsfonts}
+% \usepackage{latexsym}
+% \usepackage{amsmath}
+% \usepackage{amssymb}
+% %\usepackage{xcolor}
+% \usepackage{enumerate}
+% \usepackage{graphicx}
+% %\usepackage{moreverb}
+% %\usepackage{ifthen}
+% \usepackage{url}
+% \usepackage{tikz} 
+
+% %\usetikzlibrary{snakes}
+% \usetikzlibrary{decorations}
+% \usetikzlibrary{shapes,shapes.geometric,arrows,fit,calc,positioning,automata,decorations.pathmorphing}
+% \tikzset{state/.style={draw,ellipse}}
+
+% \usepackage{algorithmicx}
+% \usepackage[noend]{algpseudocode}
+% \usepackage[Algoritmo]{algorithm}
+
+\newcommand{\Versao}{pdf}
+
+\newcommand{\lixo}[1]{}
+% VFS6
+
+\newcommand{\REs}{REs\xspace}
+\newcommand{\Regfin}{\mathsf{Rfin}\xspace}
+\newcommand{\dfa}{DFA\xspace}
+\newcommand{\dfas}{DFAs\xspace}
+\newcommand{\nfa}{NFA\xspace}
+\newcommand{\enfa}{$\varepsilon$-NFA\xspace}
+\newcommand{\enfas}{$\varepsilon$-NFAs\xspace}
+\newcommand{\nfas}{NFAs\xspace}
+\newcommand{\Set}[1]{\{\,#1\,\}}
+\newcommand{\fun}{\rightarrow}
+ \newcommand{\Implica}{\mbox{$\Rightarrow$}}
+ \newcommand{\equival}{\mbox{$\Leftrightarrow$}}
+ \newcommand{\halmos}{\mbox{$\Box$} \vspace{0.25in}}
+ % \newcommand{\ie}{\mbox{\em i.e.}}
+ \newcommand{\prim}{$1^{\mbox{\small \b{a}}}$\ }
+ \newcommand{\eira}[1]{$#1^{\mbox{\small \b{a}}}$\ }
+ \newcommand{\eiro}[1]{$#1^{\mbox{\small \b{o}}}$\ }
+ \newcommand{\num}{$\mbox{n}^{\mbox{\small \b{o}}}$\ }
+ % \newcommand{\set}[1]{\{#1\}}
+ \newcommand{\Union}{\cup}
+ \newcommand{\Inter}{\cap}
+ \newcommand{\AND}{\;\land\;}
+ \newcommand{\ANDe}{\;\land}
+ \newcommand{\Or}{\;\lor\;}
+ \newcommand{\Ore}{\;\lor}
+ \newcommand{\Imp}{\to}
+ \newcommand{\Impv}{\;\to\;}
+ \newcommand{\Equiv}{\leftrightarrow}
+ \newcommand{\True}{\mathsf{true}}
+ \newcommand{\False}{\mathsf{false}}
+ \newcommand{\NAND}{\tilde{\AND}}
+ \newcommand{\NOR}{\tilde{\Or}}
+ \newcommand{\ORE}{\dot{\lor}}
+ \newcommand{\bool}{{\cal BOOL}}
+ \newcommand{\EEquiv}{\Longleftrightarrow}
+ \newcommand{\V}{{\color{red} \textbf{V}}}
+ \newcommand{\Fa}{{\color{red} \textbf{F}}}
+
+\newcommand{\Ident}{\equiv}
+
+
+
+%MC
+\newcommand{\kleene}[1]{\mbox{${#1}^\star$}}
+\newcommand{\nter}[1] {\mbox{$\langle #1 \rangle$}}
+\newcommand{\deriva}{\Rightarrow}
+\newcommand{\produ}{\to}
+\newcommand{\blank}{\bullet}
+\newcommand{\esqa}{\mbox{$\gets$}}
+\newcommand{\dira}{\mbox{$\to$}}
+
+%LC
+\newcommand{\Varp}{\mbox{${\cal V}_{Prop}$}}
+\newcommand{\suf}{\mbox{$\Rightarrow$}}
+\newcommand{\nec}{\mbox{$\Leftarrow$}}
+\newcommand{\esimo}[2]{$#1^{\mbox{\small \b{#2}}}$\ }
+
+
+%SD
+\newcommand{\la}{\lambda}
+\newcommand{\lc}{$\lambda$-calculus\xspace}
+\newcommand{\lt}{$\lambda$-termo\xspace}
+\newcommand{\lts}{$\lambda$-termos\xspace}
+\newcommand{\LC}{\Lambda(\CC)}
+\newcommand{\CLC}{{\cal CL}(\CC)}
+\newcommand{\CL}{{\cal CL}}
+\newcommand{\lapp}{\backslash}
+\newcommand{\Rbu}[2]{ #1\rightarrow_{1\beta} #2 } 
+\newcommand{\Rb}[2]{ #1\rightarrow_{\beta} #2 } 
+\newcommand{\Ra}[2]{ #1\rightarrow_{\alpha} #2 } 
+\newcommand{\Cb}[2]{ #1\equiv_{\beta} #2 } 
+\newcommand{\Reu}[2]{ #1\rightarrow_{1\eta} #2 } 
+\newcommand{\Ret}[2]{ #1\rightarrow_{\eta} #2 } 
+\newcommand{\Ce}[2]{ #1\equiv_{\eta} #2 } 
+\newcommand{\Rbeu}[2]{ #1\rightarrow_{1\beta\eta} #2 } 
+\newcommand{\Rbet}[2]{ #1\rightarrow_{\beta\eta} #2 } 
+\newcommand{\Cbe}[2]{ #1\equiv_{\beta\eta} #2 } 
+
+%FLP
+
+\newcommand{\Rw}{ \mapsto_{w} } 
+\newcommand{\Rws}{ \mapsto_{w}^\star } 
+
+
+\newcommand{\nums}[1]{\lceil\ #1\rceil}
+\newcommand{\cpo}{($D$,$\sqsubseteq$)\ }
+
+\newcommand{\cp}[1]{(#1,$\sqsubseteq$)}
+\newcommand{\nn}{\mbox{$\mathbb{N}$}}
+\newcommand{\nb}{\mbox{$\,\mathbb{N}_\bot\,$}}
+\newcommand{\sse}{\Longleftrightarrow}
+\newcommand{\ordu}{\sqsubseteq}
+\newcommand{\nttr}{\;\nrightarrow\;}
+\newcommand{\ttr}{\;\rightsquigarrow\xspace}
+\newcommand{\tr}{\longrightarrow\xspace}
+\newcommand{\trs}{\;\longrightarrow^\star\xspace}
+\newcommand{\trtau}{\;\Rightarrow\;}
+\newcommand{\tc}{\;\hookrightarrow\;}
+\newcommand{\trd}{\;\rightarrow^d_v\;}
+\newcommand{\confd}[2]{\langle #1,#2 \rangle}
+\newcommand{\son}[3]{\confd{#1}{#2}\;\tr\;#3}
+\newcommand{\sos}[4]{\confd{#1}{#2}\;\tr\;\confd{#3}{#4}}
+\newcommand{\transt}[3]{#1\stackrel{#2}{\ttr}#3}
+% \newcommand{\trans}[3]{#1\stackrel{#2}{\tr}#3}
+\newcommand{\transs}[3]{#1\stackrel{#2}{\trs}#3}
+\newcommand{\transc}[3]{#1\stackrel{#2}{\tc}#3}
+\newcommand{\transi}[4]{#1\stackrel{#2}{\tr_{#4}}#3}
+\newcommand{\transci}[4]{#1\stackrel{#2}{\tc_{#4}}#3}
+\newcommand{\transtau}[3]{#1\stackrel{#2}{\trtau}#3}
+
+\newcommand{\sta}[1]{\langle #1 \rangle}
+\newcommand{\einf}{\stackrel{\infty}{\exists}}
+\newcommand{\ainf}{\stackrel{\infty}{\forall}}
+\newcommand{\sap}{(2^{AP})^\omega}
+\newcommand{\sas}{(2^{AP})^\star}
+\newcommand{\sam}{(2^{AP})^\plus}
+\newcommand{\pw}{{\bf P}$\omega$}
+\newcommand{\nat} {{\bf N}}
+\newcommand{\fnn} {[\nat \longrightarrow \nat]_\bot}
+\newcommand{\fff} {\fnn \longrightarrow \fnn}
+
+
+\newcommand{\Lub}{\bigsqcup}
+
+
+\newcommand{\rb}{\rightarrow_\beta}
+\newcommand{\cb}{=_\beta}
+\newcommand{\cbe}{=_{\beta\eta}}
+\newcommand{\re}{\rightarrow_\eta}
+
+%\newcommand{\vec}[1]{\overline{#1}}
+\newcommand{\lsbra}{[\![}
+\newcommand{\rsbra}{]\!]}
+\newcommand{\bras}[1]{\lsbra  #1 \rsbra}
+\newcommand{\brase}[1]{\lsbra  #1 \rsbra_\Gamma}
+%\newcommand{\brass}[1]{Sat(#1)}
+\newcommand{\sv}[2]{{\cal #1}\lsbra #2\rsbra}
+\newcommand{\svs}[3]{{\cal #1}\lsbra #2\rsbra #3}
+\newcommand{\svsc}[3]{{#1}\lsbra #2\rsbra #3}
+\newcommand{\svsd}[4]{{#1}\lsbra #2\rsbra #3\, #4}
+\newcommand{\svd}[2]{{#1}\lsbra #2\rsbra}
+\newcommand{\svr}[3]{#1\lsbra #2\rsbra #3}
+\newcommand{\svl}[2]{{\cal #1}\lsbra #2\rsbra\rho}
+\newcommand{\svc}[2]{{\cal #1}\lsbra #2\rsbra\varphi\rho}
+%\newcommand{\svc}[2]{{\cal #1}\lsbra #2\rsbra\rho\kappa}
+%\newcommand{\svt}[2]{{\cal #1}\lsbra #2\rsbra\rho\theta}
+
+\newcommand{\IFF}[3]{#1\,\fun \,#2,#3} 
+
+
+\newcommand{\namesn}[1]{{#1}_{sn}}
+\newcommand{\namess}[1]{{#1}_{ss}}
+\newcommand{\namesd}[1]{{#1}_{sd}}
+
+\newcommand{\fixp}[1] {\textsf{FIX}\; #1}
+
+%VFS
+
+
+\newenvironment{inducao}[2]{
+  \begin{description}
+      \setlength{\itemsep}{0cm}\setlength{\parsep}{0cm}
+    \item[{\em Base.}] #1
+    \item[{\em Indução.}] #2}
+    {\end{description}}
+
+\newenvironment{inducaoi}[1]{
+    \begin{description}
+      \setlength{\itemsep}{0cm}\setlength{\parsep}{0cm}
+    \item[{\em Indução.}] #1}
+    {\end{description}}
+
+\newenvironment{inducaob}[1]{
+    \begin{description}
+      \setlength{\itemsep}{0cm}\setlength{\parsep}{0cm}
+    \item[{\em Base.}] #1}
+    {\end{description}}
+
+
+\newenvironment{pequeno}{
+
+\small
+
+}{}
+
+\newenvironment{mini}{
+
+\tiny
+
+}{}
+
+
+ \newenvironment{twocol}[4]{
+
+  \begin{tabular}{l|l}
+    \begin{minipage}[t]{#1cm}
+#2
+    \end{minipage}
+&
+    \begin{minipage}[t]{#3cm}
+#4
+\end{minipage}
+\end{tabular}
+}{}
+
+
+
+
+
+
+\newcounter{cont}
+\newcounter{conti}
+
+\newenvironment{dem}{{\bf Dem:} }
+
+\newenvironment{proofu}{\setlength{\topsep}{-0.3cm}\setlength{\partopsep}{-0.3cm}\begin{description}\item[Dem.] }{\hfill $\Box$ \bigskip
+\end{description}}
+
+ \newenvironment{resolv}[1]{
+ {\bf Resolução #1}
+
+ }{}
+
+ \newenvironment{coment}[1]{
+ {\bf Comentário #1}
+
+ }{}
+
+
+\newenvironment{exerc}{\begin{exe} \it }{ 
+$\diamond$ \end{exe}}
+
+\newenvironment{exercicio}{\begin{Ex} \em }{ 
+ \end{Ex}}
+
+\newenvironment{resposta}[1]{{\parbox[t]{14cm}{{\bf R:}
+  \vspace*{#1}}}}
+
+\newenvironment{resposta1}[1]{{\parbox[t]{8cm}{{\bf R:} \vspace*{#1}}}}
+
+\newcounter{taben}
+
+\newenvironment{tabenum}{
+\begin{enumerate}
+  \setcounter{enumi}{\value{taben}}
+  \renewcommand{\labelenumi}{\arabic{enumi}.}
+  \renewcommand{\theenumi}{\arabic{enumi}.} }{\setcounter{taben}{\value{enumi}}\end{enumerate}}
+
+%\usepackage{aula}
+
+\newcounter{aula}
+
+\newtheorem{exe}{Exercício}[aula]
+\newtheorem{exem}{Exemplo}[aula]
+\newtheorem{Ex}{Ex}[aula]
+ \newtheorem{prob}{Problema}[aula]
+ \newtheorem{lema}{Lema}[aula]
+ \newtheorem{resol}{Resolução}[aula]
+\newtheorem{teor}{Teorema}[aula]
+\newtheorem{Def}{Definição}[aula]
+
+\newtheorem{propos}{Proposição}[aula]
+\newtheorem{cor}{Corolário}[aula]
+
+%\newenvironment{saida}[1]{\fbox{\begin{verbatim} #1}{\end{verbatim}}}
+
+
+\newcommand{\apply}{\textsc{apply}}
+\newcommand{\restrict}{\textsc{restrict}}
+\newcommand{\reduce}{\textsc{reduce}}
+\newcommand{\foral}{\textsc{forall}}
+\newcommand{\exist}{\textsc{exists}}
+
+
+%\setlength{\itemsep}{0cm}
+
+
+
+
+
+
+
+
+
+
+
