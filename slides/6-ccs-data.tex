@@ -1,0 +1,479 @@
+\documentclass[aspectratio=169]{beamer}
+
+\input{src/macros/preamble}
+\input{src/macros/sli_aux}
+
+% \newboolean{portuguese}
+% \setboolean{portuguese}{true}
+% %\setboolean{portuguese}{false}
+
+% \newboolean{normal}
+% \setboolean{normal}{true}
+
+% \newcommand{\pten}[2]{\ifthenelse{\boolean{portuguese}}{#1}{#2}}
+% \pten{\usepackage[portuges]{babel}}{\usepackage[british]{babel}}
+
+
+\usepackage{bussproofs}
+
+\begin{document}
+
+% \setLectureBasic{Cyber-Physical Computation}
+\setLecture[\\\emph{(slides mainly from Nelma Moreira)}]%
+    {6}{CCS com passagem de valores}
+
+	
+\begin{frame}
+\frametitle{Máquina de Café}
+
+\only<1>{
+O modelo básico
+\begin{eqnarray*}
+Machine&:=& coin?.coffee!.Machine	
+\end{eqnarray*}
+
+é muito simplista. Normalmente temos de  usar várias moedas
+}
+\only<2>{
+\begin{eqnarray*}
+Machine&:=& coin?.Machine+ coin?.PaidMachine\\
+PaidMachine &:=& coffee?.(change!.Machine+\tau. 	Machine)
+\end{eqnarray*}}
+\only<3->{
+Mas, suponham uma máquina em que o café custa 5 euros e aceita moedas de 1, 2 e 5 euros. Como tomar café? 
+Solução: considerar todas as possibilidades... e troco
+}
+\only<4->{	\begin{eqnarray*}
+	Machine0 &:=& coin1?.Machine1 + coin2?.Machine2 + coin5?.Machine5\\[-2pt]
+Machine1 &:=& coin1?.Machine2 + coin2?.Machine3 + coin5?.Machine6\\[-2pt]
+Machine2 &:=& coin1?.Machine3 + coin2?.Machine4 + coin5?.Machine7\\[-2pt]
+Machine3 &:=& coin1?.Machine4 + coin2?.Machine5 + coin5?.Machine8\\[-2pt]
+Machine4 &:=& coin1?.Machine5 + coin2?.Machine6 + coin5?.Machine9\\[-2pt]
+Machine5 &:=& coffee?.Machine0\\[-2pt]
+Machine6 &:=& coffee?.change1!.Machine0\\[-2pt]
+Machine7 &:=& coffee?.change1!.change1!.Machine0\\[-2pt]
+Machine8 &:=& coffee?.change1!.change1!.change1!.Machine0\\[-2pt]
+Machine9 &:=& coffee?.change1!.change1!.change1!.change1!.Machine0
+	\end{eqnarray*}}
+	\only<5->{Por favor usar variáveis...}
+\end{frame}	
+	
+\begin{frame}{Exemplo de um Protocolo  com erro no meio --Pseuco}
+\only<1>{\begin{center}\includegraphics[width=7cm]{src/img/nam/SendRec1}\end{center}
+}	
+\only<2>{
+\begin{eqnarray*}
+Sender &:= &put? . send! . Sending\\[-2pt]
+Sending& :=& receiveAck? . Sender +receiveNAck?.send!.Sending\\[-2pt]
+Receiver &:= &receive? . get? . sendAck! . Receiver +\\[-2pt]
+&&gargled?.sendNAck!.Receiver\\[-2pt]
+	Medium& :=& send? . (receive! . Medium +i.garbled!.Medium)\\[-2pt]
+AckMedium &:=& sendAck? . receiveAck! . AckMedium+\\[-2pt]
+&&sendNAck?.receivedNAck!.AckMedium\\[-2pt]
+DupMedium &:= &Medium | AckMedium\\[-2pt]
+Protocol &:=& (Sender \mid Receiver \mid DupMedium) \backslash \\[-2pt]
+&&\{send, receive, sendAck, receiveAck,\\[-2pt]
+&&receiveNAck,sendNAck,garbled\}
+\end{eqnarray*}}
+\end{frame}
+
+\begin{frame}{Envio de uma mensagem}
+	\only<1>{
+\begin{eqnarray*}
+Sender &:= &put?x . send!x . Sending[x]\\[-2pt]
+Sending[x]& :=& receiveAck? . Sender +receiveNAck?.send!x.Sending[x]\\[-2pt]
+Receiver[x] &:= &receive?x . get?x . sendAck! . Receiver[x] +\\[-2pt]
+&&gargled?.sendNAck!.Receiver[x]\\[-2pt]
+	Medium& :=& send?x . (receive! x. Medium +i.garbled!.Medium)\\[-2pt]
+AckMedium &:=& sendAck? . receiveAck! . AckMedium+\\[-2pt]
+&&sendNAck?.receivedNAck!.AckMedium\\[-2pt]
+DupMedium &:= &Medium | AckMedium\\[-2pt]
+Protocol &:=& (Sender \mid Receiver \mid DupMedium) \backslash \\[-2pt]
+&&\{send, receive, sendAck, receiveAck,\\[-2pt]
+&&receiveNAck,sendNAck,garbled\}
+\end{eqnarray*}
+%$Protocol | put!1.put!2.put!3.put!4.0\backslash \{put\}$
+}
+\only<2>{
+$$Protocol| put!2.put!4.put!2.put!8.0\backslash \{put\}$$
+\begin{center}
+\includegraphics[width=150pt]{src/img/nam/sendx.png}
+\end{center}
+}
+\end{frame}
+
+\begin{frame}{$CCS_{vp}$ com passagem de valor}
+	\begin{itemize}[<+->]
+		\item $a!v$: saída do valor $v$ no canal $a$ (enviar)
+\item  $a?v$: entrada do valor $v$ pelo canal $a$ (receber)
+\item ou usar variáveis 
+	\item $a!x$: saída do valor guardado em $x$ no canal $a$ (enviar)
+\item  $a?x$: entrada  de um valor que se guarda em $x$ pelo canal $a$ (receber)
+\item e os nomes dos processos podem ter  variáveis com parâmetros permitindo assim enviar e receber valores ($A[x,y]$)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Uma célula de memória (1-\emph{buffer})}
+	\begin{eqnarray*}
+		B&:=put?x.B1[x]\\
+		B1[x]& := get!(x+1).B
+	\end{eqnarray*}
+	Então temos para
+	$$(B|put!3.get?y.println!y)\{*,println\}$$
+	o LTS
+	
+	\begin{center}
+		\includegraphics[scale=.2]{src/img/nam/cell}
+	\end{center}
+\end{frame}
+
+\begin{frame}{$CCS_{vp}$ com passagem de valor}
+	Sendo $\mathbb{V}$ um conjunto de valores e $\mathbb{K}$ um conjunto de canais  temos 
+\only<2->{
+\begin{eqnarray*}
+	A^!&=&\{a!v\mid a\in \mathbb{K},v\in \mathbb{V}\}\cup\{a!\mid a\in \mathbb{K}\}, \\
+A^?&=&\{a?v\mid a\in \mathbb{K},v\in \mathbb{V}\}\cup\{a?\mid a\in \mathbb{K}\},\\
+Com &=&  A^! \cup A^?\\
+Act &=&Com \cup \{\tau\}
+\end{eqnarray*}
+}
+\only<3->{
+\begin{eqnarray*}
+P&::=& 0 \;\mid\; X[r_1,\ldots ,r_n] \;\mid \;P+P\;  \mid \; \chi.P\;\mid\; P | P \;\mid\; P\backslash H \\
+\chi& ::=& \tau \mid a! \mid a? \mid a!v \mid a?v \mid a!x \mid a?x  \end{eqnarray*}
+onde $X\in Var$, $x\in D$, $r_i \in D\cup \mathbb{V} \cup \mathbb{K}$
+}
+\end{frame}
+
+\begin{frame}{Regras do $CCS_{vp}$}
+\only<1-4>{
+\begin{prooftree}
+	\LeftLabel{Pref} \AxiomC{ $\alpha \in Act $}
+\UnaryInfC{$\trans{\alpha.P}{\alpha}{P}$}
+\end{prooftree}
+}
+\only<2-3>{A avaliação de expressões $e\Downarrow z$: a expressão $e$ avalia para $z$.
+}
+
+\only<3>{\begin{prooftree}
+	\LeftLabel{Output} \AxiomC{ $e \Downarrow z $}
+\UnaryInfC{$\trans{a!e.P}{a!z}{P}$}
+\end{prooftree}
+
+\begin{prooftree}
+	\LeftLabel{Valor} \AxiomC{$e \Downarrow z$}
+\UnaryInfC{$\trans{a?e.P}{a?z}{P}$}
+\end{prooftree}
+
+\begin{prooftree}
+	\LeftLabel{Input} \AxiomC{$v\in \mathbb{V}$}
+\UnaryInfC{$\trans{a?x.P}{a?v}{P\{v/x\}}$}
+\end{prooftree}
+onde $P\{v/x\}$ é $P$ onde $x$ é substituito por $v$ (e $x$ não é uma ação)}
+\only<4>{
+\begin{prooftree}
+	\LeftLabel{Input} \AxiomC{$v\in \mathbb{V}$}
+\UnaryInfC{$\trans{a?x.P}{a?v}{P\{v/x\}}$}
+\end{prooftree}
+onde $P\{v/x\}$ é $P$ onde $x$ é substituito por $v$ (e $x$ não é uma ação)
+\begin{eqnarray*}
+	(a!y.P)\{v/x\}&=&a!y.P\{v/x\}\quad \text{ se } y\not=x\\[-2pt]
+	(a!x.P)\{v/x\}&=&\alert{a!v.P\{v/x\}}\\[-2pt]
+(a?y.P)\{v/x\}&=&a?y.P\{v/x\}\quad \text{ se }y\not=x\\[-2pt]
+	(a?x.P)\{v/x\}&=&\alert{a?x.P}\\[-2pt]
+X[x]\{v/x\}&=& \alert{X[v]}\\[-2pt]
+X[y]\{v/x\}&=& X[y] \quad \text{ se }y\not=x
+\end{eqnarray*}
+Para as restantes expressões é passado para as subexpressões.
+}
+\only<article>
+{\begin{exem}}
+
+\only<5>{
+\begin{eqnarray*}
+	send!y.Sending[x]\{3/x,5/y\}&=& send!5.Sending[3]\\
+send!y.Sending[x]\{3/x,5/y,receive/send\}&=&receive!5.Sending[3]
+\end{eqnarray*}
+}
+\only<article>
+{\begin{exem}}
+
+	\only<5>{
+\begin{eqnarray*}
+	send!(x+y)\{3/x,5/y\}&=& sent !(8)\\
+	3+5 &\Downarrow & 8
+\end{eqnarray*}
+	}
+\only<article>
+{\end{exem}
+}
+
+
+\only<article>
+{\begin{exem}}
+\only<6>{Calcular o LTS de 
+$put?x:0..5.send!x.0$
+\begin{center}
+		\includegraphics[scale=.2]{src/img/nam/ps}
+	\end{center}}
+\only<article>
+{\end{exem}}
+
+
+\only<7->{
+\begin{prooftree}
+	\LeftLabel{Rec} \AxiomC{$\trans{P\{v_1/r_1,\ldots,v_n/r_n\}}{\alpha}{P'}$}
+\AxiomC{$\Gamma(X[r_1,\ldots,r_n])=P$}
+\BinaryInfC{$\trans{X[v_1,\ldots,v_n]}{\alpha}{P'}$}
+\end{prooftree}
+}
+\only<article>
+{\end{exem}}
+\end{frame}
+
+
+ 
+\begin{frame}
+\frametitle{ $when$: Bloqueador Condicional }
+Supomos $\mathbb{V}=\mathbb{Z}$ ($CCS_{vp}^{Z}$)
+\only<article>
+{\begin{exem}}
+\only<1>{
+\begin{eqnarray*}
+	B[x]&:= &when(x<4) put?.B[x+1]+ when(x>0) get?.B[x-1]
+\end{eqnarray*}
+	$B[0]$ ou $B[5]$ o que fazem?
+	}
+\only<article>
+{\end{exem}}
+
+\only<2>{ 
+A expressão
+$when(b)P$ se $b$ é verdade comporta-se como $P$ senão bloqueia.
+
+Vamos só considerar expressões  com inteiros.
+
+\begin{prooftree}
+	\LeftLabel{cond} \AxiomC{$\trans{P}{\alpha}{P'}$}
+\AxiomC{$b\Downarrow True$}
+\BinaryInfC{$\trans{when(b)P}{\alpha}{P'}$}
+\end{prooftree}
+}
+\end{frame}
+
+\begin{frame}
+Acrescentamos à gramática
+\begin{eqnarray*}
+P&::=& 0 \;\mid\; X[r_1,\ldots ,r_n] \;\mid \;P+P\;  \mid \;\chi.P\;\mid\; P | P \;\mid\; P\backslash H\mid\alert{ when(b) P}\\
+\chi& ::=& \tau \mid a! \mid a? \mid a!v \mid a?v \mid a!x \mid a?x  
+\end{eqnarray*}
+
+\end{frame}
+
+
+\begin{frame}
+\only<article>
+{\begin{exem}}
+\begin{eqnarray*}
+Machine[b]&:=&when(b<5)coin?c.Machine[b+c]\\
+&& +when(b\geq 5)coffee!.ReturnMachine[b-5]\\
+ReturnMachine[b] &:=& when(b>0)change!.ReturnMachine[b-1]\\&&+Machine[0]\\
+ User&:=&coin!2.coin!2.coin!2.coffee?.change?.0
+\end{eqnarray*}
+
+Calcula $\bras{(Machine[0] | User)\backslash\{coin,change,coffee\}}_\Gamma$.
+\only<article>
+{\end{exem}}
+\end{frame}
+
+
+\begin{frame}
+\only<article>
+{\begin{exem}}
+
+\begin{eqnarray*}
+	IterMult[z,x,y] &:=& when(x>0) i.IterMult[z+y,x-1,y] \\&&
+        + when(x==0) println!z.0\\
+IterMult[0,3,7]
+\end{eqnarray*}
+
+\only<article>
+{\end{exem}}
+
+\end{frame}
+
+\begin{frame}{Regras  $CCS_{vp}^{Z}$}
+\splittwo{0.6}{0.35}{
+%\only<3->{
+\begin{prooftree}
+	\LeftLabel{Pref} \AxiomC{ $\alpha \in Act $}
+\UnaryInfC{$\trans{\alpha.P}{\alpha}{P}$}
+\end{prooftree}
+%}
+%\only<2->{
+\begin{prooftree}
+	\LeftLabel{Input} \AxiomC{$v\in \mathbb{V}$}
+\UnaryInfC{$\trans{a?x.P}{a?v}{P\{v/x\}}$}	
+\end{prooftree}
+
+\begin{prooftree}
+	\LeftLabel{Rec} \AxiomC{$\trans{P\{v_1/r_1,\ldots,v_n/r_n\}}{\alpha}{P'}$}
+\AxiomC{$\Gamma(X[r_1,\ldots,r_n])=P$}
+\BinaryInfC{$\trans{X[r_1,\ldots,r_n]}{\alpha}{P'}$}
+\end{prooftree}
+%}
+}{
+\begin{prooftree}
+	\LeftLabel{Output} \AxiomC{ $e \Downarrow z $}
+\UnaryInfC{$\trans{a!e.P}{a!.z}{P}$}
+\end{prooftree}
+
+\begin{prooftree}
+	\LeftLabel{Valor} \AxiomC{$e \Downarrow z$}
+\UnaryInfC{$\trans{a?e.P}{a?z}{P}$}
+\end{prooftree}
+
+%\only<3->{
+\begin{prooftree}
+	\LeftLabel{cond} \AxiomC{$\trans{P}{\alpha}{P'}$}
+\AxiomC{$b\Downarrow True$}
+\BinaryInfC{$\trans{when(b)P}{\alpha}{P'}$}
+\end{prooftree}
+%}
+}
+\end{frame}
+
+\begin{frame}
+\only<presentation>{\frametitle{Factorial}}
+\only<article>
+{\begin{exem} O exemplo do factorial}
+
+\begin{eqnarray*}
+Fac[n,j] &:= &when (j>0) i. Fac[n*j,j-1]\\
+&&             + when (j==0) println!n. 0\\
+\end{eqnarray*}
+Calcular
+$Fac[1,5]$
+
+\only<article>
+{\end{exem}	}
+\end{frame}
+
+\begin{frame}
+\only<presentation>{\frametitle{Células de Memória (partilhada)}}
+\only<article>{\begin{exem} Podemos definir um processo que corresponde a uma célula de memória que pode ser partilhada entre processos. Permite obter o valor guardado e guardar um valor}	
+
+ 
+\only<1>{
+\begin{eqnarray*}
+Cell_x[cur]& :=& get_x!cur.Cell_x[cur] + set_x?new:0..2.Cell_x[new]
+\end{eqnarray*}
+}
+\only<2->{ Mais geralmente:
+	\begin{eqnarray*}
+		Cell[rd,wr,x]&:=& rd!x.Cell[rd,wr,x]+wr?y.Cell[rd,wr,y]
+	\end{eqnarray*}
+}
+\only<3->{
+\begin{itemize}
+	\item $Cell[rd,wr,5]$
+\item $Cell[rdA,wrA,0] | Cell[rdB,wrB,0]$
+\end{itemize}
+}
+\only<4->{
+\begin{eqnarray*}
+Cells&:=&Cell[rdA,wrA,0] | Cell[rdB,wrB,0]\\
+Serve &:=& mult?. rdA?x:R. rdB?y:R. IterMult[0,x,y]\\
+IterMult[z,x,y]& :=& when(x>0) i.IterMult[z+y,x-1,y] \\&&
+        + when(x==0) println!z.Serve\\
+Use &:=& wrA!7.wrB!5.mult!.0
+\end{eqnarray*} 
+$(Cells| Serve | Use )\backslash\{rdA,wrA,rdB,wrB,mult\}$
+
+Qual o resultado?
+
+}
+\only<article>{\end{exem}}
+\end{frame}
+
+\begin{frame}\only<presentation>{
+\frametitle{Factorial -  Versão iterativa}
+
+\only<1->{\begin{eqnarray*}
+Fac[n,j] &:= &when (j>0) i. Fac[n*j,j-1]\\
+&&             + when (j==0) println!n. 0\\
+\end{eqnarray*}
+	}}
+\only<article>
+{\begin{exem} O exemplo do factorial em versao iterativa}
+	
+\only<2->{\begin{eqnarray*}
+	Fak&:= &rdJ?j:R. ( when (j>0) rdN?n.wrN!(n*j).wrJ!(j-1).Fak\\
+&&                + when (j==0) rdN?n.print!n.0 )\\
+Cell[v,rd,wr]&:=& rd!v.Cell[v,rd,wr] + wr?x:R.Cell[x,rd,wr]\\
+Cells& := &Cell[0,rdN,wrN] | Cell[0,rdJ,wrJ]\\
+\end{eqnarray*}
+$$(wrN!1.wrJ!5.Fak | Cells ) \backslash \{rdN,wrN,rdJ,wrJ\}$$
+}
+
+Ficheiro no Pseuco.com:
+
+\url{https://pseuco.com/\#/edit/remote/5bglrm4937vze10dvlqi}
+\only<article>
+{\end{exem}}
+
+\end{frame}
+
+\begin{frame}{O $CCS_{vp}$ pode ser embebido no CCS}
+..logo é só "syntatic sugar"...
+
+\bigskip
+
+\begin{center}
+	
+\begin{tabular}{|c|c|}\hline
+$CCS_{vp}$& $CCS$ \\ \hline
+	$a!v.P$
+&$a_v!.P$\\\hline
+$a?x.P$
+&$\sum_{v\in \mathbb{V}}a_v?.P\{v/x\}$\\\hline
+$X[u_1,\ldots,u_n]$&$X_{u_1,\ldots,u_n}$\\\hline
+\end{tabular}
+\end{center}
+
+Isto é basta usar ações e nomes indexados, podendo ser considerados conjuntos infinitos de índices ($\mathbb{V}$ ou $D$)	
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Controlo de Fluxo em $CCS_{vp}^\mathbb{Z}$}
+\begin{columns}[T]
+\begin{column}{0.47\textwidth}
+O seguinte código 
+{\small
+\begin{verbatim}
+while (a > 0) {
+ println("loop");
+ a = a-1;
+}
+println("a is zero");	
+\end{verbatim}
+}	
+pode ser escrito em CCS
+{\small
+\begin{verbatim}
+P[a] := when( a<=0)i.Q[a] 
+        + when(a>0) println!"loop". P[a-1]
+Q[a] :=println!"a is zero"
+\end{verbatim}
+}
+\end{column}
+\begin{column}{0.47\textwidth}
+$P[3]$ teria o seguinte LTS 
+
+\centering\includegraphics[width=170pt]{src/img/nam/loopc}
+\end{column}
+\end{columns}
+\end{frame}
+
+\end{document}

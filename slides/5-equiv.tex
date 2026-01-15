@@ -1,0 +1,694 @@
+\documentclass[aspectratio=169]{beamer}
+
+\input{src/macros/preamble}
+\input{src/macros/sli_aux}
+
+\newboolean{portuguese}
+\setboolean{portuguese}{true}
+%\setboolean{portuguese}{false}
+
+\newboolean{normal}
+\setboolean{normal}{true}
+
+\newcommand{\pten}[2]{\ifthenelse{\boolean{portuguese}}{#1}{#2}}
+\pten{\usepackage[portuges]{babel}}{\usepackage[british]{babel}}
+
+
+\usepackage{bussproofs}
+
+\begin{document}
+
+% \setLectureBasic{Cyber-Physical Computation}
+\setLecture[\\\emph{(slides mainly from Nelma Moreira)}]%
+    {5}{Bissimulação fraca e Congruência Observável}
+
+
+\only<presentation>{
+\begin{frame}{Bissimilaridade}
+	Seja $TS=(S,\tr,s_0)$. Uma relação $R\subseteq S\times S$ é uma \alert{bissimulação} se  sempre que $(s,t)\in R$  (ou $s\;R\;t$) e $\alpha\in Act$:
+\begin{itemize}
+\item se 	$\trans{s}{\alpha}{s'}$ então existe $t'$ tal que   $\trans{t}{\alpha}{t'}$ e $(s',t')\in R$
+\item  se $\trans{t}{\alpha}{t'}$ então existe $s'$ tal que   $\trans{s}{\alpha}{s'}$ e $(s',t')\in R$.
+\end{itemize}
+
+Dois estados $s$ e $t$ são \alert{bissimilares} $s\sim t$,   {\color{blue}se existe} uma bissimulação $R$ tal que $(s,t)\in R$.
+
+Isto é $$\sim =\bigcup_{\text{R é bissimulação}}R$$
+A relação $\sim$ chama-se \alert{bissimilaridade}
+	
+\end{frame}
+
+\begin{frame}
+	
+\begin{itemize}
+	\item relação de equivalência
+\item relação de congruência
+\item mesmo conjunto de traços
+\item seja sensível a deadlocks
+\end{itemize}
+\begin{eqnarray*}
+		P+Q&\sim& Q+P\\
+	P|Q&\sim &Q|P\\
+P+0&\sim& P\\
+P|0&\sim& P\\
+(P+Q)+R&\sim& P+(Q+R)\\
+(P|Q)|R&\sim& P|(Q|R)\\
+\alpha.(P+Q)&\not\sim &\alpha.P+\alpha.Q
+	\end{eqnarray*}
+\end{frame}
+\begin{frame}{Mas como calcular a relação $\sim$}
+Dado $TS=(S,\tr,s_0)$, 
+como o maior ponto fixo de uma função ($FR$) monótona definida num reticulado completo ($2^{S\times S},\subseteq)$), i.e., $FR(B)=B$. Sem prova: 
+	sendo $R\subseteq S\times S$
+	\begin{align*}
+		FR(R)&=\{ (s,t)\mid \trans{s}{\alpha}{s'} \implies \exists t'   \ \trans{t}{\alpha}{t'} \land (s',t')\in R \\ &\land \trans{t}{\alpha}{t'} \implies \exists s' \trans{s}{\alpha}{s'} \land (s',t')\in R \}
+	\end{align*}
+	
+$$FR(S\times S)\supseteq 	FR^2(S\times S)\supseteq \cdots $$
+
+ou ver algoritmo em Pseuco Book
+\end{frame}
+}
+
+\begin{frame}{$2-Buffer$}
+
+\only<article>{
+\begin{exerc} Consideremos os seguintes processos que correspondem a "buffers" (de capacidade $1$ e $2$).}
+\only<1->{\begin{eqnarray*}
+	Buffer &:=& put?. get!.Buffer
+\end{eqnarray*}}
+\only<2-3>{\begin{eqnarray*}
+	Buffer0 &:=& put?.Buffer1 \\
+	Buffer1 &:=& put?.Buffer2 + get!.Buffer0\\
+	Buffer2 &:=& get?.Buffer1
+\end{eqnarray*}
+Será que $Buffer0 \sim (Buffer|Buffer)$?}
+\only<article>{\end{exerc}
+}
+\only<3>{
+\begin{tabular}{lccr}
+$\bras{Buffer0}_\Gamma$&$\bras{Buffer|Buffffer}_\Gamma$
+\includegraphics[width=4cm]{src/img/nam/buffer2}&	\includegraphics[width=4cm]{src/img/nam/bufbuf}
+\end{tabular}
+}
+\only<article>{Pode-se mostrar que sim. Calcula uma bissinmulação que contenha $(Buffer0,Buffer|Buffffer)$.}
+\only<article>{\begin{exerc} Seja também}
+\only<4->{
+\begin{eqnarray*}
+	BufferL &:=& put?. pass!.BufferL\\
+	BufferR &:=& pass?. get!.BufferR
+\end{eqnarray*}
+Será que 
+$(BufferL| BufferR)\backslash\{pass!,pass?\}\sim (Buffer|Buffer)$?
+}
+
+\only<5>{
+%\begin{tabular}[{lccr}
+\includegraphics[width=3cm]{src/img/nam/bufpass}	\includegraphics[width=4cm]{src/img/nam/bufbuf}
+%\end{tabular}
+}
+
+\only<article>{Neste caso  pode-se mostrar que não é verdade.\end{exerc}}
+\end{frame}
+
+\begin{frame}{Bissimulação Fraca}
+
+\only<1>{Ignora transições por $\tau$.}
+\only<2->{
+Seja $TS=(S,\tr,s_0)$. Uma relação $R\in S\times S$ é uma \alert{bissimulação fraca} se $(s,t)\in R$  (ou $s\;R\;t$) implica para todo $\alpha\in Act$:
+\begin{itemize}
+\item se $\trans{s}{\alpha}{s'}$ então existe $t'$ tal que   $\transtau{t}{\alpha}{t'}$ e $(s',t')\in R$
+\item  se $\trans{t}{\alpha}{t'}$ então existe $s'$ tal que   $\transtau{s}{\alpha}{s'}$ e $(s',t')\in R$.
+\end{itemize}
+	}
+\only<3>{Onde
+\begin{block}{Transições fracas}
+\begin{itemize}
+	\item $\transtau{s}{\tau}{s'}$ sse $\exists n\geq 0: \transt{s}{\tau^n}{s'}$
+\item  
+$\transtau{s}{a}{s'}$ sse $\exists s'',s'''\in S: \transtau{s}{\tau}{s''}\trans{}{a}{s'''}\transtau{}{\tau}{s'}$
+\end{itemize}
+Nota que
+\begin{itemize}
+ \item $\tr\subseteq \trtau$
+\item na definição de b.f. podemos usar sempre $\trtau$.
+\item $\transtau{s}{\tau}{s}$ para todo o $s$
+\end{itemize}
+\end{block}}
+\only<4>{
+\begin{block}{Bissimilaridade fraca}
+	Dois estados $s$ e $t$ são \alert{fracamente bissimilares}, e escreve-se $s\approx t$, se existe uma bissimulação fraca  $R$ que contêm $(s,t)$, i.e., $(s,t)\in R$.
+\end{block}
+
+}
+
+\end{frame}
+\begin{frame}{Exemplo}
+\only<1->{	Mostrar que
+\begin{itemize}
+	\item $a.\tau.0\approx a.0\approx \tau.a.0$
+\item  $\tau.(a.0+\tau.a.0)\approx a.0$
+\end{itemize}
+}
+\only<2>{
+\begin{center}
+$a.\tau.0\approx a.0\approx \tau.a.0$
+
+\includegraphics[width=7cm]{src/img/nam/a0tau}	
+\end{center}
+
+A laranja a relação $\trtau$ e a amarelo a bissimulação $R$.
+}
+
+\only<3>{
+\begin{center}
+$\tau.(a.0+\tau.a.0)\approx a.0$
+
+\includegraphics[width=7cm]{src/img/nam/att}	
+\end{center}
+}
+\end{frame}
+
+\begin{frame}{Exemplo dos Buffers}
+\begin{eqnarray*}
+	Buffer &:=& put?. get?.Buffer
+\\
+	BufferL &:=& put?. pass!.BufferL\\
+	BufferR &:=& pass?. get?.BufferR
+\end{eqnarray*}
+
+$(BufferL| BufferR)\backslash\{pass!,pass?\}\approx (Buffer|Buffer)$
+
+\begin{tabular}{lccr}
+\includegraphics[width=4cm]{src/img/nam/bufpass}&	\includegraphics[width=4cm]{src/img/nam/bufbuf}
+\end{tabular}
+	\end{frame}
+\begin{frame}{Processos não  fracamente bissimilares}
+$$(a!.b!.0)\not\approx (a!.b!.0+\tau.0)$$	
+\only<1->{
+\begin{tabular}[b]{lccr}
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[st,  initial] (S0){$a!.b!.0$};
+\node[st][below of =S0] (S1){$b!.0$};
+\node[st][below  of =S1] (S2){$0$};
+\path[->](S0) edge  node {$a!$} (S1)
+	(S1) edge  node {$b!$} (S2);
+\end{tikzpicture}&&
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[st,  initial] (S0){$(a!.b!.0+ \tau.0)$};
+\node[st][below  of =S0] (S1){$b!.0$};
+\node[st][below  of =S1] (S2){$0$};
+\path[->](S0) edge  node  {$a!$} (S1)
+		 edge  [bend left] node  {$\tau$} (S2)
+		(S1) edge  node  {$b!$} (S2);
+\end{tikzpicture}
+\end{tabular}
+}
+\only<2->{
+\begin{itemize}
+	\item $A$: $\trans{a!.b!.0+\tau.0}{\tau}{0}$
+\item $D$: $\transtau{a!.b!.0}{\tau}{a!.b!.0}$\item $A$: $\trans{a!.b!.0}{a!}{b!.0}$
+\item $D$: não pode jogar com  $a!$ porque $0$ não tem transição fraca com $a!$.
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Propriedades de $\approx$}
+Temos que 
+$$\approx =\bigcup_{\text{R é bissimulação fraca}}R$$
+
+\only<1>{\begin{teor}
+	A relação $\approx$ é de equivalência.
+\end{teor}}
+\only<2>{Notar que se $R$ é uma bissimulação fraca $R^{-1}$ também é.}
+
+\only<3-4>{
+\begin{teor}
+	A relação $\approx$ é maior bissimulação fraca .
+\end{teor}
+\only<3>{Mostrar  que  $\approx$ é uma bissimulação fraca.}
+}
+\only<4->{\begin{teor}
+	A bissimilaridade fraca é estritamente mais grosseira que a bissimilaridade forte, i.e  $\sim\subsetneq \approx$ .
+\end{teor}
+}
+\only<5>{Cada bissimulação forte é uma bissimulação fraca. E vimos exemplos de processos que não bissimilares fortes mas que são bissimilares fracos.
+A bissimilaridade fraca também é chamada de \emph{equivalência observável.}
+}
+\end{frame}
+
+\begin{frame}{Será que $Spec\approx Uni$?} 
+Seja $Spec:=pub!.Spec$ e
+\begin{eqnarray*}
+	CM&:=& coin?.coffee!.CM\\
+CS&:=&pub!.coin!.coffee?.CS\\
+Uni&:=& (CM|CS)\backslash\{coin,coffee\}
+\end{eqnarray*} 
+{\small\begin{tabular}[t]{lccr}
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[st,  initial] (S0){$Uni$};
+\node[st][ below=0.4  of S0] (S1){$(CM|coin!.coffee?.CS)\backslash H $};
+\node[st][below=0.4  of S1] (S2){$(coffee!.CM|coffee?.CS)\backslash H$};
+\node[st][below=0.4  of S2] (S3){$(CM|CS)\backslash H$};
+\path[->](S0) edge  node {$pub!$} (S1)
+	(S1) edge  node {$\tau$} (S2)
+	(S2) edge  node {$\tau$} (S3)
+(S3) edge  [bend left=-90, yshift=180, swap] node {$pub!$} (S1)
+;
+\end{tikzpicture}&&
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[st,  initial] (S0){$Spec$};
+\path[->](S0) edge [loop, right] node  {$pub!$} (S0);
+\end{tikzpicture}
+\end{tabular}
+}
+	
+\end{frame}
+
+\begin{frame}{$Spec\approx Uni$}
+
+{\small\begin{tabular}[t]{lccr}
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[st,  initial] (S0){$Uni$};
+\node[st][ right  of =S0] (S1){$1$};
+\node[st][right of =S1] (S2){$2$};
+\node[st][right  of =S2] (S3){$3$};
+\path[->](S0) edge  node {$pub!$} (S1)
+	(S1) edge  node {$\tau$} (S2)
+	(S2) edge  node {$\tau$} (S3)
+(S3) edge  [bend left=-90, yshift=180, swap] node {$pub!$} (S1)
+;
+\end{tikzpicture}&&
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[st,  initial] (S0){$Spec$};
+\path[->](S0) edge [loop, right] node  {$pub!$} (S0);
+\end{tikzpicture}
+\end{tabular}
+}
+
+Jogo onde o defesa ganha. Configuração inicial $(Uni,Spec)$
+\begin{itemize}
+	\item $A$: $\trans{Spec}{pub!}{Spec}$
+\item $D$: $\transtau{Uni}{pub!}{3}$ \hspace{1cm} $(3,Spec)$
+\item $A$: $\trans{3}{pub!}{1}$
+\item $D$: $\transtau{Spec}{pub!}{Spec}$ \hspace{1cm} $(1,Spec)$
+\item $A$: $\trans{1}{\tau}{2}$
+\item $D$: $\transtau{Spec}{\tau}{Spec}$ \hspace{1cm} $(2,Spec)$
+\item $A$: $\trans{2}{\tau}{3}$
+\item $D$: $\transtau{Spec}{\tau}{Spec}$ \hspace{1cm} $(3,Spec)$   (ciclo detectado)\end{itemize}
+	
+\end{frame}
+
+\begin{frame}{Será que $Uni\approx Unibad$?}
+Seja 
+
+\begin{eqnarray*}
+	CM&:=& coin?.coffee!.CM\\
+	CMB&:=& coin?.coffee!.CMB+coin?.CMB\\	
+CS&:=&pub!.coin!.coffee?.CS\\
+Uni&:=& (CM|CS)\backslash\{coin,coffee\}\\
+UniBad&:= & (CMB|CS)\backslash \{coin,cofee\}\\
+\end{eqnarray*} 
+
+\end{frame}
+
+\begin{frame}
+
+{\small
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.2cm, initial text={}]
+\node[st,  initial] (S0){$UniBad$};
+\node[st][ below  of =S0] (S1){$(CMB|coin!.coffee?.CS)\backslash H $};
+\node[st][below of =S1] (S2){$(coffee!.CMB|coffee?.CS)\backslash H$};
+\node[st][below  of =S2] (S3){$(CMB|CS)\backslash H$};
+\node[st][right=1.1cm  of S1] (S4){$(CMB|coffee?.CS)\backslash H$};
+
+\path[->](S0) edge  node {$pub!$} (S1)
+	(S1) edge  node {$\tau$} (S2)
+	(S1) edge  node {$\tau$} (S4)
+	(S2) edge  node {$\tau$} (S3)
+(S3) edge  [bend left=-90, yshift=180, swap] node {$pub!$} (S1)
+;
+\end{tikzpicture}
+}
+
+Neste caso $Uni\not\approx UniBad$, o que é bom porque $UniBad$ entra em deadlock e $Uni$ não.
+\end{frame}
+
+
+\begin{frame}{Jogo de bissimilaridade fraca $(Uni,UniBad)$}
+
+{\small\begin{tabular}[t]{lccr}
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.3cm, initial text={}]
+\node[st,  initial] (S0){$Uni$};
+\node[st][ right  of =S0] (S1){$1$};
+\node[st][right of =S1] (S2){$2$};
+\node[st][right  of =S2] (S3){$3$};
+\path[->](S0) edge  node {$pub!$} (S1)
+	(S1) edge  node {$\tau$} (S2)
+	(S2) edge  node {$\tau$} (S3)
+(S3) edge  [bend left=-90, yshift=180, swap] node {$pub!$} (S1)
+;
+\end{tikzpicture}&
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.3cm, initial text={}]
+\node[st,  initial] (S0){$UniB$};
+\node[st][ right  of =S0] (S1){$1'$};
+\node[st][right of =S1] (S2){$2'$};
+\node[st][right  of =S2] (S3){$3'$};
+\node[st][below=0.3  of S1] (S4){$4'$};
+\path[->](S0) edge  node {$pub!$} (S1)
+	(S1) edge  node {$\tau$} (S2)
+    (S1) edge  node {$\tau$} (S4)
+	(S2) edge  node {$\tau$} (S3)
+	(S3) edge  [bend left=-50, yshift=180, swap] node {$pub!$} (S1)
+;
+\end{tikzpicture}
+\end{tabular}
+}
+\only<2->{~\\O atacante ganha. Configuração inicial $(Uni,UniBad)$}
+\splittwo{0.47}{0.47}{
+\only<2->{\begin{itemize}
+	\item $A$: $\trans{UniBad}{pub!}{1'}$
+\item $D$: $\transtau{Uni}{pub!}{3}$ \hspace{1cm} $(3,1')$
+\item $A$: $\trans{1'}{\tau}{4'}$
+\item $D$: $\transtau{3}{\tau}{3}$ \hspace{1cm} $(3,4')$
+\item $A$: $\trans{3}{pub!}{1}$
+\item $D$: não pode jogar e perde
+\end{itemize}}
+}{
+\only<3>{\small Mas neste caso temos que ver também o qual a estratégia do atacante quando o defesa na primeira jogada considera outras alternativas ($1$ ou $2$). Mostra que neste casos o atacante também consegue ganhar. }	
+}
+\end{frame}
+
+\begin{frame}{A Bissimilaridade Fraca não é uma Congruência} 
+\only<1-3>{Para todo $P,Q\in CCS$ se $P\approx Q$ e $\alpha\in Act$, $R\in CCS$ e $H\subseteq Com$,
+\begin{eqnarray*}
+	\alpha.P&\approx & \alpha.Q\\
+P|R&\approx& Q|R\\
+R|P &\approx & R|Q\\
+P\backslash H &\approx &Q\backslash H
+\end{eqnarray*}}
+\only<2-3>{	
+\alert{mas não implica que }
+\begin{eqnarray*}
+P+R&\approx& Q+R\\
+R+P&\approx& R+Q
+\end{eqnarray*}
+}
+\only<3->{Contraexemplo: $P=\tau.a!.0$, $Q=a!.0$ e 
+$R=b!.0$. 
+}
+\only<4-5>{
+\begin{itemize}
+	\item Mostrar que $P\approx
+Q$ considerando a relação 
+$\mathcal{R}=\{(P,Q),(P',Q),(P'',Q')\}$ onde $P'=a!.0$ e $P''=Q'=0$ (mas em sistemas diferentes).
+\end{itemize}
+}
+\only<5>{
+\begin{tabular}{lccr}
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[st,  initial] (S0){$\tau.a!.0$};
+\node[st][below of =S0] (S1){$P'=a!.0$};
+\node[st][below  of =S1] (S2){$P''=0$};
+\path[->](S0) edge  node {$\tau$} (S1)
+	(S1) edge  node {$a!$} (S2);
+\end{tikzpicture}&&
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[st,  initial] (S0){$a!.0$};
+\node[st][below  of =S0] (S1){$Q'=0$};
+\path[->](S0) edge  node  {$a!$} (S1);
+\end{tikzpicture}
+\end{tabular}}
+\only<6->{
+\begin{itemize}
+	\item Mostrar que $P+R\not\approx Q+R$.
+\end{itemize}
+\begin{tabular}{lccr}
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[st,  initial] (S0){$\tau.a!.0+b!.0$};
+\node[st][below=0.3 of S0] (S1){$a!.0$};
+\node[st][below=0.3  of S1] (S2){$0$};
+\path[->](S0) edge  node {$\tau$} (S1)
+			edge [bend  left=80] node {$b!$} (S2)
+	(S1) edge  node {$a!$} (S2)
+	;
+\end{tikzpicture}&&
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[st,  initial] (S0){$a!.0+b!.0$};
+\node[st][below  of =S0] (S1){$0$};
+\path[->](S0)  edge [bend left]  node  {$a!$} (S1)
+		edge [bend right, swap]  node  {$b!$} (S1);
+\end{tikzpicture}
+\end{tabular}
+}
+\only<7>{
+\begin{itemize}
+\item A: 	$\trans{\tau.a!.0+b!.0}{\tau}{a!.0}$
+\item D: $\transtau{a!.0+b!.0}{\tau}{a!.0+b!.0}$
+\item A: $\trans{a!.0+b!.0}{b!}{0}$
+\item D: não pode jogar porque não há nenhuma transição fraca de $a!.0$ por $b!$
+\end{itemize}
+
+}
+
+\only<8>{O problema está nos processos não guardados!}
+\end{frame}
+
+\begin{frame}{Impondo a congruência do $+$}
+\only<1->{\begin{block}{Congruência para a Escolha}
+Dois processos $P,Q\in CCS$ são \alert{congruentes para a escolha}, e escreve-se $P\approx^+ Q$ sse para todos os $R\in CCS$ $$P+R\approx Q+R$$.
+\end{block}}
+\only<2->{Pode-se provar que 
+\begin{itemize}
+	\item $\approx^+ \subsetneq \approx$ (tomando $R=0$)
+	\item $\approx^+$ é uma congruência e é a mais grosseira contida em  $\approx$
+\end{itemize}
+} 
+\only<3>{Embora seja esta a noção de igualdade de processos que se pretende, não é fácil de usar  por causa de \emph{para todos os $R\in CCS$}. Vamos ver uma definição que é equivalente mas mais perto das outras definições de bissimulação.}
+	\end{frame}
+\begin{frame}{Congruência Observável}
+	
+\only<1->{\begin{block}{Congruência Observável}
+Dois processos $P,Q\in CCS$ são congruentes para a observação, e escreve-se $P\simeq Q$ sse para todos $\alpha\in Act$ verifica-se que:
+\begin{itemize}
+	\item se $\trans{P}{\alpha}{P'}$ então  existe $Q'$ tal que $\transtau{Q}{\tau}{}\trans{}{\alpha}{}\transtau{}{\tau}{Q'}$ e $P'\approx Q'$.
+\item se $\trans{Q}{\alpha}{Q'}$ então  existe $P'$ tal que $\transtau{P}{\tau}{}\trans{}{\alpha}{}\transtau{}{\tau}{P'}$ e $P'\approx Q'$.
+\end{itemize} 
+\end{block}}
+\only<2->{A diferença entre $\approx$ e $\simeq$ está que os passos internos iniciais não podem ser simulados por não haver movimento (lacete de $\tau$).}
+\only<3>{
+\begin{teor}
+Para todos os $P,Q\in CCS$ $P\simeq Q$ sse $P\approx^+ Q$.	
+\end{teor}
+}
+\end{frame}
+\begin{frame}{Exemplos}
+\begin{itemize}
+	\item $\tau.a.0\not\simeq a.0$
+\item $P|\tau.Q\not\simeq \tau.(P|Q)$ 
+\end{itemize}	
+\end{frame}
+
+\begin{frame}{Igualdade de comportamento}
+\begin{itemize}[<+->]
+	\item Dois processos $P,Q\in CCS$ \alert{tem o mesmo comportamento} sempre que $P\simeq Q$.
+\item  É chamada a \alert{igualdade de comportamento}
+\item as propriedades pretendidas:
+\begin{itemize}
+\item relação de equivalência
+\item  relação de congruência
+\item ter o mesmo conjunto de traços \alert{fracos}
+\item seja sensível a deadlocks
+\end{itemize}
+\item $\sim \subsetneq\simeq\subseteq \approx$
+\item em vez de $\simeq$ usa-se $=$.
+\end{itemize}
+
+\end{frame}
+\begin{frame}{Regras algébricas de $=$ ($\tau$-Leis de Milner)}
+
+Para além das satisfeitas por $\sim$ temos
+\begin{eqnarray*}
+	\alpha.\tau.P&=&\alpha.P\\
+P+\tau.P&=&\tau.P\\
+\alpha.(P+\tau.Q)&=&\alpha.(P+\tau.Q)+\alpha.Q 
+\end{eqnarray*}	
+
+Nota: as regras algébricas permitem provar a igualdade de processos pela aplicação das regras (em especial em $CCS_0$) ou considerá-las axiomas num sistema de dedução.
+\end{frame}
+
+\begin{frame}{Representantes Minimais}
+\begin{itemize}[<+->]
+	\item Para cada LTS podemos considerar o  \alert{representante minimal} o menor LTS cujo comportamento é igual ao LTS dado.
+\item O representante minimal é único a menos de isomorfismo se for finito por estados (regular).
+\item É obtido pelo quociente induzido pela relação de equivalência ($\simeq$).
+\item Cada classe de equivalência é um estado
+\end{itemize}
+
+
+	
+\end{frame}
+\begin{frame}{Como obter o representante minimal}
+Dado um processo $P$ do CCS estados-finito:
+\begin{itemize}
+	\item Construir o LTS atíngivel de $P$.
+\item Calcular a relação $\approx$
+\item Considerar cada classe de equivalência um estado: $S=\{[s]_{\simeq}\mid s\in Reach(P)\}$
+\item Adicionar  transições entre duas classes sempre que uma transição exista entre os elementos da respectiva classe.
+\item Podemos apagar as transições que seriam adicionadas por $\trtau$ e não estavam em $\tr$.
+\item Adicionar um lacete com $\tau$ se $P$ tem uma $\tau$-transição para a sua classe $[P]_\approx$.
+\end{itemize}	
+\end{frame}
+
+\begin{frame}{Exemplo $2-Buffer$}
+\only<1>{\begin{eqnarray*}
+	Buffer &:=& put?. get?.Buffer\\
+	BufferL &:=& put?. pass!.BufferL\\
+	BufferR &:=& pass?. get?.BufferR
+\end{eqnarray*}}
+Será que 
+$(BufferL| BufferR)\backslash\{pass!,pass?\}\sim (Buffer|Buffer)$?
+
+\begin{tabular}{lccr}
+\includegraphics[width=4cm]{src/img/nam/bufpass}&	\includegraphics[width=4cm]{src/img/nam/bufbuf}\\
+\end{tabular}
+
+\only<2->{%
+\splittwo{0.47}{0.47}{Sim e o LTS mínimo equivalente é
+}{
+\includegraphics[width=4cm]{src/img/nam/Buffer2}}
+}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+Expressividade do CCS
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Algoritmo de Peterson para a Exclusão Mútua}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+		\item $P_1$, $P_2$ processos
+		\item variáveis partilhadas $b_1, b_2$ e $k$, sendo 
+		\item se $k=i$ então $P_i$ pode entrar
+		\item  $P_1$  faz $k=2$ (dá o privilégio a $P_2$)
+		\item e simétricamente para $P_2$
+\item $b_i=true$ quando $P_i$ espera
+\item  $b_i=false$ quando $P_i$ sai da zona crítica.
+			\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+Processo $P_i$\\
+		 \begin{algorithmic}
+		\While{\bf true}
+	\State {\structure{noncricital actions}}
+\State{$b_i\gets \mathbf{true}$;}
+\State{$k\gets j$;}
+\While{$b_j \land k=j$} \State{\textbf{skip};}
+\EndWhile
+	\State {\color{red}critical actions}
+\State$b_i\gets \mathbf{false};$
+		\EndWhile		
+\end{algorithmic}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[shrink=.8]{Algoritmo de Peterson em CCS} 
+\begin{eqnarray*}
+	B_{1f}&:= & b1rf!.B_{1f}+b1wf?.B_{1f}+b1wt?.B_{1t}\\
+B_{1t}&:= & b1rt!.B_{1t}+b1wf?.B_{1f}+b1wt?.B_{1t}\\
+	B_{2f}&:= & b2rf!.B_{2f}+b2wf?.B_{2f}+b2wt?.B_{2t}\\
+B_{2t}&:= & b2rt!.B_{2t}+b2wf?.B_{2f}+b2wt?.B_{2t}\\
+	K_{1}&:= & kr1!.K_{1}+kw1?.K_{1}+ kw2?.K_{2}\\
+K_{2}&:= & kr2!.K_{2}+kw1?.K_{1}+ kw2?.K_{2}\\
+	P_1&:=& b1wt!.kw2!.P_{11}\\
+P_{11}&:=& b2rf?.P_{12} + b2rt?.(kr2?.P_{11} +kr1?.P_{12})\\
+P_{12}&:=& enter1.exit1.b1wf!.P_1\\
+	P_2&:=& b2wt!.kw1!.P_{21}\\
+P_{21}&:=& b1rf?.P_{22} + b1rt?.(kr1?.P_{21} +kr2?.P_{22})\\
+P_{22}&:=& enter2.exit2.b2wf!.P_2
+\end{eqnarray*}
+	Se $k=1$ no início
+\begin{eqnarray*}
+Peterson&:=&(P_1|P_2|B_{1f}|B_{2f}|K_1)\backslash L	
+\end{eqnarray*}
+onde $L$ são todas as ações excepto as de entrada e saída.
+
+Ficheiro no Pseco.com:
+ \url{https://pseuco.com/\#/edit/remote/tkxz8fpu1t8ke56bj9uo}
+
+ 
+\end{frame}
+
+\begin{frame}{Exclusão mútua em CCS}
+Se se modelar a  entrada e a saída da zona crítica fica
+
+\begin{eqnarray*}
+	MutexSpec &:=& enter1.exit1.MutexSpec + enter2.exit2.MutexSpec 
+\end{eqnarray*}	
+
+Será que $MutexSpec\approx Peterson$?
+
+\only<2>{Não. Verifica que depois de 
+$$\transtau{Peterson}{\tau}{(P_{12}|P_{21}|B_{1t}|B_{2t}|K_1)\backslash L}$$
+o estado atingido não tem transição por $enter_2$.}
+\only<3>{Contudo pode-se provar que são equivalentes por traços fracos.}
+\end{frame}
+
+\begin{frame}
+\begin{exerc}
+	Seja  $P:= acc?.del!.P$ \pten{que corresponde a um canal em que se envia e recebe mensagens}{that corresponds to a channel that sends and receives messages}.    \pten{Seja a seguinte implementação}{Consider the implementation}
+
+\begin{tabular}[t]{lcl}
+S&:=& acc?.send!.W\\
+W &:= &ack?.S + error?.send!.W\\
+R &:=&trans?.del!.ack!.R\\
+M &:=&send?.($\tau$.E+trans!.M)\\
+E &:=& error!.M\\
+I &:= & (S$|$M$|$R)$\backslash$\{send,error,trans,ack\}
+\end{tabular}
+\begin{enumerate}
+	\item 
+  \pten{Desenha os diagramas dos processos}{Draw the diagrams of} $\bras{P}$ e $\bras{I}$.
+  \item \pten{Indica}{Decide}, \pten{justificando}{justifying}, \pten{se}{if} $I\sim P$
+\item \pten{Indica}{Say}, \pten{justificando}{justifying}, 
+\pten{se}{if}
+ $I\approx P$.
+\end{enumerate}
+\end{exerc}
+\end{frame}
+\begin{frame}%[allowframebreaks]
+\begin{exerc}
+~\\
+\splittwo{0.55}{0.35}{
+\pten{Codifica em}{Code in} CCS \pten{o seguinte protocolo $Sem$ para a exclusão mútua  de dois processos}{the following protocol for mutual exclusion of two processes} $P_1$ \pten{e}{and} $P_2$ \pten{usando um semáforo}{using a semaphore} $y$.\pten{ O código genérico para um processo }{The generic algorinthm for a process} $P_i$, \pten{com}{with} $i=1,2$ \pten{é}{is}:
+}{
+ \!\!\!$P_i$:\\[-11mm]~
+\begin{algorithmic}
+\While{\bf true}
+  \While{$y=0$}
+    \State{\textbf{skip};}
+  \EndWhile
+  \State{$y\gets 0$; $\mathbf{crit_i}$; $y\gets 1$;}
+% 	\State {$\mathbf{crit_i}$;}
+% \State{$y\gets 1$;}
+\EndWhile		
+\end{algorithmic}
+}
+
+\begin{enumerate}
+\item 
+\pten{Define processos}{Define the processes} $Y_1$ \pten{e}{and} $Y_0$ \pten{que correspondem  aos  valores}{corresponding to the values } $1$ \pten{e}{and} $0$ \pten{da variável}{of} $y$ (\pten{global}{global variable}). 
+\pten{Considera  ações de leitura e de escrita}{Consider actions of read and write} \pten{(as ações podem ser de entrada ($?$) ou de saída~($!$))}{}.
+\item \pten{Define os processos}{Define the processes}  $P_i$ \pten{para}{for} $i=1,2$, \pten{que apenas devem diferir no valor da ação critica}{, that only differ in the critical action}: $crit_1$ \pten{e}{and} $crit_2$ \pten{respectivamente}{respectively}.% (ou só  um $P[i]$ usando $CCS_{vp}^\mathbb{Z}$).
+\item \pten{Define a execução paralela de}{Define the parallel execution of} $P_1$, $P_2$ \pten{e}{and} \pten{do processo que corresponde ao valor inicial $1$ para  $y$}{the process for $y$ when it is $1$}, \pten{e}{and}  \pten{considerando observáveis apenas as acções}{considering that the only observable actions are} $crit_1$ \pten{e}{and} $crit_2$ (\pten{todas as outras devem ser restritas}{all the other must be restricted}).
+\item Verifica se o protocolo resultante é fracamente bissimilar com $MutexSpec$. % dado antes.
+\end{enumerate}
+\end{exerc}
+\end{frame}
+
+\end{document}

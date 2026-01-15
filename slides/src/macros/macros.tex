@@ -72,7 +72,8 @@
 % Misc by José
 \newcommand{\wrap}[2][]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
 \newcommand{\mwrap}[1]{\ensuremath{\begin{array}{@{}c@{}}#1\end{array}}}
-\def\trans#1{\xrightarrow{#1}}  % - a - > 
+% \def\trans#1{\xrightarrow{#1}}  % - a - > 
+\newcommand{\trans}[3]{{#1}\xrightarrow{#2}{#3}}  % - a - > 
 \def\Trans#1{\stackrel{#1}{\Longrightarrow}} % =a=> 
 \newcommand{\transp}[2][35]{\color{fg!#1}#2}
 \newcommand{\transpt}[2][.35]{\tikz{\node[inner sep=1pt,fill opacity=0.5]{#2}}}

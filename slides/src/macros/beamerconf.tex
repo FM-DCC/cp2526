@@ -6,11 +6,11 @@
 \newcounter{lectureID}
 \stepcounter{lectureID}
 \newcommand{\getLecture}{\arabic{lectureID}\xspace}
-\newcommand{\setLectureBasic}[1]{
+\newcommand{\setLectureBasic}[2][]{
   \title{
-    #1
+    #2
     }
-  \author{Jos\'{e} Proen\c{c}a}
+  \author{Jos\'{e} Proen\c{c}a#1}
   \institute{CISTER -- U.Porto, Porto, Portugal
             \hfill 
             \begin{tabular}{r@{}}
@@ -32,7 +32,7 @@
   }  
   \frame[plain]{\titlepage}
 }
-\newcommand{\setLecture}[2]{\setcounter{lectureID}{#1}\setLectureBasic{#1. #2}}
+\newcommand{\setLecture}[3][]{\setcounter{lectureID}{#2}\setLectureBasic[#1]{#2. #3}}
 
 %------ Counters for exercises ----------------------------------------------
 \newcounter{cExercise}

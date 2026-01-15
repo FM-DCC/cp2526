@@ -89,7 +89,9 @@ The goal of this course is to introduce students to the fundamental theoretic an
 
 ### Main books
 
-- ...
+- Reactive systems modelling, specification and verification; _Luca Aceto, Anna Ingólfsdóttir, Kim Guldstrand Larsen, Jiri Srba_; 2007 (Chap. 1-4 and 7)
+- Introduction to Concurrency Theory; _Roberto Gorrieri and Cristian Versari_; 2015
+- Communication and Concurrency; _Robin Milner_; Prentice Hall International Series in Computer Science, 1989.
 - [Learning Concurrent Programming in Scala](https://www.amazon.com/Learning-Concurrent-Programming-Scala-Second-dp-1786466899/dp/1786466899/ref=dp_ob_title_bk), _Aleksandar Prokopec_; ISBN: 1786466899
 
 

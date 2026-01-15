@@ -1,33 +1,9 @@
 \documentclass[aspectratio=169]{beamer}
-\usepackage{etex} % fixes new-dimension error
-\usepackage{lmodern}
-\usepackage[T1]{fontenc}
-
-\usepackage{graphicx,amsmath}
-\usepackage{stmaryrd} % cf. interleave
-\usepackage{booktabs}
-\usepackage{amscd}
-\usepackage{multicol}
-\usepackage[absolute,overlay]{textpos}
-\usepackage{alltt}
-\usepackage{proof}
-\usepackage{subcaption}
-\usepackage{tikz}
-\usepackage{tikz-cd}
-\usepackage[new]{old-arrows}
-\usepackage[all]{xy}
-\usepackage{pgfplots}
-\usepackage{textcomp}
-\usepackage{cancel}
-
-\input{src/macros/macros}
-%-------------- template --------------------------------------------------
-\input{src/macros/beamerconf}
-%----------------------------------------------------------------------------
+\input{src/macros/preamble}
 
 \begin{document}
 
-\setLecture{4}{Basic building blocks of concurrency}
+\setLecture{9}{Basic building blocks of concurrency}
 
 
 %%%%%%%%%%%%%%%%%%%%%
@@ -371,7 +347,7 @@ def getUniqueId(): Long = {
   \item (almost):
     \begin{itemize}
       \item lock-free $\Rightarrow$ use atomic variables (for atomicity)
-      \item use atomic variables $\cancel\Rightarrow$ lock-free
+      \item use atomic variables $\Rightarrow\!\!\!\!\!\!\!/~~$ lock-free
     \end{itemize}
   \pause
 \end{itemize}

@@ -1,0 +1,773 @@
+\documentclass[aspectratio=169]{beamer}
+
+\input{src/macros/preamble}
+\input{src/macros/sli_aux}
+
+\usepackage{bussproofs}
+
+\begin{document}
+
+% \setLectureBasic{Cyber-Physical Computation}
+\setLecture[\\\emph{(slides mainly from Nelma Moreira)}]%
+    {4}{CCS: Calculus of Communicating Systems (parallel)}
+
+
+\begin{frame}{Operadores do CCS}
+\begin{description}
+\item["$.\;$" Prefixo ] a execução de $\alpha.P$ começa com a execução da ação $\alpha\in Act$ e depois comporta-se como $P$	
+\item["$+\;$" Escolha ] O processo $P+Q$ comporta-se como o processo $P$ ou o processo $Q$. É a escolha não determinística
+\item[\alert{"$|\;$"  Composição Paralela} ]
+O processo $P| Q$ representa a execução concorrente de $P$ e $Q$ (que progridem independentemente no tempo). 
+\end{description}
+\end{frame}
+
+\only<presentation>{
+\begin{frame}
+\begin{exem}{Exemplos de $1-Buffer$ (de uma posição)}
+
+Considera as  equações de $\Gamma$ seguintes.
+\begin{enumerate}
+\item Calcula $\bras{Buffer}_\Gamma$.
+\begin{eqnarray*}
+	Buffer &:=& put?. get?.Buffer
+\end{eqnarray*}
+
+\item Calcula $\bras{put?.BufferM}_\Gamma$.
+\begin{eqnarray*}
+	BufferM &:=& put?. get?.BufferM + get?.put?.BufferM
+\end{eqnarray*}
+\item Calcula $\bras{Buffer0}_\Gamma$.
+\begin{eqnarray*}
+	Buffer0 &:=& put?.Buffer1 \\
+	Buffer1 &:=& get?.Buffer2 + get?.Buffer0\\
+	Buffer2 &:=& get?.Buffer1\\
+\end{eqnarray*}
+
+\end{enumerate}
+\end{exem}
+\end{frame}
+
+}
+\begin{frame}\frametitle{Composição paralela}
+	
+Vimos que a composição paralela (intercalada) de dois sistemas de transição correspondia ao seu produto.
+
+\splittwo{0.47}{0.47}{
+\only<1-2>{
+Por exemplo, tendo dois fósforos: Um acende, outro não
+
+\begin{tikzpicture}[>=stealth, shorten >=1pt, auto, node distance=1.5cm,initial text={}]
+\node[st, initial] (S0){};
+\node[st][right of =S0] (S1){};
+\node[st][right of =S1] (S2){};
+\path[->](S0) edge  node {\color{red} strike}(S1)
+	  (S1) edge   node { \color{red} $light$ }(S2);
+\end{tikzpicture}
+
+
+\begin{tikzpicture}[>=stealth, shorten >=1pt, auto, node 
+distance=1.5cm,initial text={}]
+\node[st, initial] (S0){};
+\node[st][right of =S0] (S1){};
+\node[st][right of =S1] (S2){};
+\path[->](S0) edge  node {\color{red} strike}(S1)
+	  (S1) edge   node { \color{red} $\tau$ }(S2);
+\end{tikzpicture}
+
+}
+\only<3->{Podiamos então ter o seguinte termo do $CCS_0$:
+\begin{align*}
+	strike.light.strike.\tau.0+strike.strike.light.\tau.0 +\\
+	strike.\tau.strike.light.0+strike.strike.\tau.light.0 \\
+	\end{align*}}
+\only<4>{Mas vamos considerar um operador próprio que permite mais flexibilidade e termos mais concisos. No caso anterior seria:
+$$strike.light.0| strike.\tau.0$$
+}
+
+}{
+\only<2->{ O produto seria então:
+
+\begin{tikzpicture}[>=stealth, shorten >=2pt, auto, node distance=1.5cm, initial text={}]
+\node[st,  initial] (S0){};
+\node[st][ right of =S0] (S1){};
+\node[st][right of =S1] (S2){};
+\node[st][below  of =S0] (S3){};
+\node[st][right  of =S3] (S4){};
+\node[st][right  of =S4] (S5){};
+\node[st][below  of =S3] (S6){};
+\node[st][right  of =S6] (S7){};
+\node[st][right  of =S7] (S8){};
+
+
+\path[->](S0) edge node { \color{red} $strike$} (S1)
+edge  node [swap] { \color{red} $strike$} (S3)
+
+	(S1) edge  node { \color{red} $light$} (S2)
+	  edge  node  { \color{red} $strike$} (S4)
+		(S2) edge  node { \color{red} $strike$}(S5)
+	(S3) edge  node { \color{red} $strike$}(S4)
+	    edge  node { \color{red} $\tau$}(S6)
+	 (S4)    edge  node { \color{red} $light$} (S5)
+	  edge  node { \color{red} $\tau$}(S7)
+	  (S5) edge  node { \color{red} $\tau$}(S8)
+	  (S6) edge  node { \color{red} $strike$} (S7)
+	  (S7) edge  node { \color{red} $light$} (S8)
+	    ;
+\end{tikzpicture}
+}	
+}
+
+\end{frame}
+
+
+\begin{frame}{Paralelismo}
+
+\only<1->{ Mais dois fósforos:  $strike.(light.0 |\tau.0)$}
+
+\only<2->{\begin{center}
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=2.5cm, initial text={}]
+\node[st,  initial] (S0){$strike.(light.0 |\tau.0)$};
+\node[st][ below  left of =S0] (S1){$light.0 |\tau.0$};
+\node[st][right of =S1] (S2){$0|\tau.0$};
+\node[st][below left  of =S1] (S3){$light.0|0$};
+\node[st][right  of =S3] (S4){$0|0$};
+
+\path[->](S0) edge [swap] node {$strike$} (S1)
+	(S1) edge  node {$light$} (S2)
+		edge  node {$\tau$} (S3)
+	(S2) edge  node {$\tau$}(S4)
+	(S3) edge  node {$light$}(S4);
+\end{tikzpicture}\end{center}}
+\only<3>{Supomos sempre que todas as ações são instântaneas.}
+\end{frame}
+
+\begin{frame}{Regras de inferência $Par$}
+\begin{prooftree}
+	\LeftLabel{ParE} \AxiomC{$\trans{P}{\alpha}{P'}$}
+\UnaryInfC{$\trans{P|Q}{\alpha}{P'|Q}$}
+\end{prooftree}
+\begin{prooftree}
+	\LeftLabel{ParD} \AxiomC{$\trans{Q}{\alpha}{Q'}$}
+\UnaryInfC{$\trans{P|Q}{\alpha}{P|Q'}$}
+\end{prooftree}
+\only<article>{\begin{exerc}
+Usando as regras $Par$ e as anteriormente dadas calcula o LTS $\bras{strike.(light.0 |\tau.0)}$. 	
+\end{exerc}}
+
+\end{frame}
+
+\begin{frame}{Sincronia em $CCS$}
+
+Para que dois sistemas possam comunicar temos de implementar algum tipo de sincronia, neste caso de \emph{handshaking}: dois processos comunicam com um par de ações que partilham o mesmo "nome". 
+\only<2->{Seja
+\begin{itemize}
+	\item O conjunto de ações observáveis $Com$ é dividido em dois
+\item $Com = A^! \cup A^?$
+\item $A^!$ conjunto de ações de saída  (\emph{output}) (\alert{envio})
+\item  $A^?$ conjunto de ações de entrada (\emph{input}) (\alert{recebidas})
+\item Ações com o mesmo nome formam um par e  são complementares:
+\item um processo envia $a^!$ e e outro recebe $a^?$
+\item O complemento de $a\in  A^! \cup A^?$ designa-se  por $\overline{a}$: se $a\in A^!$ então $\overline{a}\in A^?$ e vice-versa.
+\item Para a ação interna $\tau$, temos $\tau=\overline{\tau}$.
+\item $\forall \alpha \in Act, \overline{\overline{\alpha}}=\alpha$.
+\end{itemize}}
+	
+\end{frame}
+
+\begin{frame}{Regra de inferência de Sincronia}
+\only<1-3>{	\begin{prooftree}
+	\AxiomC{$\trans{P}{a}{P'}$} \AxiomC{$\trans{Q}{\overline{a}}{Q'}$}
+\BinaryInfC{$\trans{P|Q}{\cdots}{P'|Q'}$}
+\end{prooftree}}
+\only<2-3>{A sincronização não é observável por processos externos. \\}
+
+\only<3>{A ação interna $\tau$ representa a sincronização para  o exterior.}
+\only<4>{	\begin{prooftree}
+	\AxiomC{$\trans{P}{a}{P'}$} \AxiomC{$\trans{Q}{\overline{a}}{Q'}$}
+\LeftLabel{Sync}\BinaryInfC{$\trans{P|Q}{\tau}{P'|Q'}$}
+\end{prooftree}
+
+
+{\flushbottom\hrule
+\begin{columns}
+\begin{column}{0.5\textwidth}	
+\begin{prooftree}
+	\LeftLabel{ParE} \AxiomC{$\trans{P}{\alpha}{P'}$}
+\UnaryInfC{$\trans{P|Q}{\alpha}{P'|Q}$}
+\end{prooftree}
+\end{column}
+\begin{column}	{0.5\textwidth}	
+\begin{prooftree}
+	\LeftLabel{ParD} \AxiomC{$\trans{Q}{\alpha}{Q'}$}
+\UnaryInfC{$\trans{P|Q}{\alpha}{P|Q'}$}
+\end{prooftree}
+\end{column}
+\end{columns}
+}}
+\end{frame}
+
+\begin{frame}{Exemplo}
+$$(a!.0|a?.0)$$
+
+	\only<2->{\begin{center}
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=2.5cm, initial text={}]
+\node[st,  initial] (S0){$a!.0|a?.0$};
+\node[st][ below  left of =S0] (S1){$0|a?.0$};
+\node[st][below right of =S0] (S2){$a!.0|0$};
+\node[st][below right   of =S1] (S3){$0|0$};
+\path[->](S0) edge [swap] node {$a!$} (S1)
+	 edge  node {$a?$} (S2)
+		edge  node {$\tau$} (S3)
+	(S2) edge  node {$a!$} (S3)
+	(S1) edge  node {$a?$} (S3);
+\end{tikzpicture}\end{center}}
+
+\only<2>{A regra Sync não exclui a utilização de ParD e ParE.}
+\end{frame}
+
+\begin{frame}
+	{Exemplo}
+	Seja o seguinte modelo de uma máquina de café e um utilizador:
+
+        \begin{align*}
+          User&:= coin!.coffee?.morning!.0\\
+          Machine&:=coin?.coffee!. Machine
+          \end{align*}
+          
+\splittwo{0.47}{0.47}{
+Desenha o LTS de $\bras{(User|Machine)}_\Gamma$ usando as regras de inferência. 
+}{
+ \only<1>{
+ \centerline{\includegraphics[width=100pt]{src/img/nam/Coffeemachine1}}}
+\only<article>{ Nota que são geradas muitas transições que não correspondem ao significado desejado. O operador seguinte permite obrigar a sincronizar certas ações.}
+}
+\end{frame}
+
+\begin{frame}{Operador de Restrição}
+\begin{itemize}%[<+->]
+	\item Proibe  que  pares de ações  observáveis ($a$ e $\overline{a}$) sejam usadas individualmente.
+\item Força a sincronia (a aplicação da regra Sync)
+\item $P\backslash H$ onde $P$ é um processo e $H$ um conjunto de ações de comunicação que serão proibidas (por vezes em vez de $a!,a?$ apenas se escreve $a$ em $H$).
+\item As ações internas $\tau$ não podem estar em $H$
+\end{itemize}	
+\begin{prooftree}
+	\AxiomC{$\trans{P}{\alpha}{P'}$}
+\AxiomC{$\alpha \notin H$}
+\LeftLabel{Res} 
+\BinaryInfC{$\trans{P\backslash H}{\alpha}{P'\backslash H}$}
+\end{prooftree}
+
+\end{frame}
+
+\begin{frame}{Exemplo de Restrição}
+
+$$	\trans{((a!.0|a!.0 )|a?.0)\backslash\{a!,a?\}}{\tau}{((a!.0|0 )|0)\backslash\{a!,a?\}}$$
+
+$$	\trans{((a!.0|a!.0 )|a?.0)\backslash\{a!,a?\}}{\tau}{((0|a!.0 )|0)\backslash\{a!,a?\}}$$
+%
+{\flushbottom\hrule
+{\small\begin{columns}
+\begin{column}{0.25\textwidth}	
+\begin{prooftree}
+	\LeftLabel{ParE} \AxiomC{$\trans{P}{\alpha}{P'}$}
+\UnaryInfC{$\trans{P|Q}{\alpha}{P'|Q}$}
+\end{prooftree}
+\end{column}
+\begin{column}	{0.25\textwidth}	
+\begin{prooftree}
+	\LeftLabel{ParD} \AxiomC{$\trans{Q}{\alpha}{Q'}$}
+\UnaryInfC{$\trans{P|Q}{\alpha}{P|Q'}$}
+\end{prooftree}
+\end{column}
+\begin{column}	{0.25\textwidth}	
+\begin{prooftree}
+	\AxiomC{$\trans{P}{a}{P'}$} \AxiomC{$\trans{Q}{\overline{a}}{Q'}$}
+\BinaryInfC{$\trans{P|Q}{\cdots}{P'|Q'}$}
+\end{prooftree}
+\end{column}
+\begin{column}	{0.25\textwidth}	
+	\begin{prooftree}
+	\AxiomC{$\trans{P}{\alpha}{P'}$}
+\AxiomC{$\alpha \notin H$}
+\LeftLabel{Res} 
+\BinaryInfC{$\trans{P\backslash H}{\alpha}{P'\backslash H}$}
+\end{prooftree}
+\end{column}
+
+\end{columns}
+}}
+\end{frame}
+
+\begin{frame}
+{Exemplo}
+No exemplo anterior calcula  o LTS 	$\bras{(User|Machine)\backslash \{coin,coffeee\}}_\Gamma$ e testa no Pseuco.com.
+
+\only<1>{\centerline{\includegraphics[width=100pt]{src/img/nam/Coffeemachine2}}}
+Indica o termo que etiqueta cada estado.
+
+\end{frame}
+
+\begin{frame}{No PseuCo.com}
+
+Considera as seguintes equações
+\begin{eqnarray*}
+Match &:= &strike. MatchOnFire\\
+MatchOnFire &:=& light!. MatchOnFire + extinguish!.0\\
+TwoFireCracker &:= &light?. (bang!. 0 | bang!. 0)\\
+\end{eqnarray*}
+Constrói o LTS a expressão abaixo e testa no Pseuco.com.
+
+$$(Match | TwoFireCracker) \backslash \{light\} $$
+	
+\end{frame}
+
+\begin{frame}[shrink=.7]
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[st,  initial] (S0){$(M|TFC)\backslash\{\ell\}$};
+\node[st][ below  of =S0] (S1){$(MOF|TFC)\backslash \{\ell\}$};
+\node[st][below  of =S1] (S2){$(MOF|b!.0|b!.0)\backslash \{\ell\}$};
+\node[st][left = 0.5cm  of S2] (S4){
+$(0| TOC)\backslash \{\ell\}$
+};
+\node[state, inner sep=1pt, minimum size=5pt][ below  = of S2] (S3){$(MOF|0|b!.0 )\backslash \{\ell\}$};
+
+\node[state, inner sep=1pt, minimum size=5pt][right  = 0.3cm of S3] (S5){$(MOF|b!.0|0 )\backslash \{\ell\}$};
+
+\node[state, inner sep=1pt, minimum size=5pt][left  = 0.3cm of S3] (S6){$(0|b!.0|b!.0 )\backslash \{\ell\}$};
+\node[state][below =of S6] (S7){...};
+\node[state][below =of S3] (S8){...};
+\node[state][left =of S8] (S10){...};
+\node[state][below =of S5] (S9){...};
+\node[state][left =of S9] (S11){...};
+\path[->](S0) edge  node {$strike$} (S1)
+	(S1) edge [swap] node {$\tau$} (S2)
+	(S2) edge  node {$b!$} (S3)
+(S2) edge  node {$b!$} (S5)
+(S2) edge  node {$ext$} (S6)
+(S1) edge  node {$ext$} (S4)
+;
+\path[->] (S6) edge node {$b!$} (S7)
+(S3) edge node {$b!$} (S8)
+(S5) edge node {$b!$} (S9)
+(S3) edge node {$ext$} (S10)
+(S5) edge node {$ext$} (S11);
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}{CCS (quase) completo}
+Seja $Com = A^! \cup A^? $ conjunto de ações de comunicação,  $Act=Com\cup\{\tau\}$ um conjunto de ações, e $Var$ um conjunto de nomes (variáveis). As expressões do $CCS$ são
+\begin{eqnarray*}
+P&::=& 0 \;\mid\; X \;\mid \;P+P\;  \mid \;\alpha.P\;\mid\; P | P \;\mid\; P\backslash H 
+\end{eqnarray*}
+onde $\alpha \in Act$, $X\in Var$ e $H \subseteq Com$. Supomos um conjunto $\Gamma$  de equações $X:=P$.
+	
+\end{frame}
+
+\begin{frame}{Semântica do CCS }
+
+A semântica das expressões do $CCS$ é então $$\bras{\_}: (Var \to CCS)\fun CCS \fun  LTS_{CCS}$$ tal que $$\bras{P}_\Gamma=(CCS,\tr_\Gamma,P)$$ com 
+$$LTS_{CCS}=\{(CCS,T,s)\mid T\subseteq CCS\times Act \times CCS, \land s\in CCS\}$$ onde $\tr_\Gamma$ a mais pequena relação que satisfaz as regras de inferência.
+
+{\flushbottom\hrule
+{\tiny\begin{columns}
+\begin{column}{0.15\textwidth}	
+\begin{prooftree}
+	\LeftLabel{Pref} \AxiomC{}
+\UnaryInfC{$\trans{\alpha.P}{\alpha}{P}$}
+\end{prooftree}
+\begin{prooftree}
+	\LeftLabel{ParE} \AxiomC{$\trans{P}{\alpha}{P'}$}
+\UnaryInfC{$\trans{P|Q}{\alpha}{P'|Q}$}
+\end{prooftree}
+\end{column}
+\begin{column}	{0.15\textwidth}	
+\begin{prooftree}
+	\LeftLabel{EscD} \AxiomC{$\trans{Q}{\alpha}{Q'}$}
+\UnaryInfC{$\trans{P+Q}{\alpha}{Q'}$}
+\end{prooftree}
+\begin{prooftree}
+	\LeftLabel{EscE} \AxiomC{$\trans{P}{\alpha}{P'}$}
+\UnaryInfC{$\trans{P+Q}{\alpha}{P'}$}
+\end{prooftree}
+\end{column}
+\begin{column}{0.25\textwidth}	
+\begin{prooftree}
+\LeftLabel{Sync}	\AxiomC{$\trans{P}{a}{P'}$} \AxiomC{$\trans{Q}{\overline{a}}{Q'}$}
+\BinaryInfC{$\trans{P|Q}{\tau}{P'|Q'}$}
+\end{prooftree}
+\begin{prooftree}
+	\LeftLabel{ParD} \AxiomC{$\trans{Q}{\alpha}{Q'}$}
+\UnaryInfC{$\trans{P|Q}{\alpha}{P|Q'}$}
+\end{prooftree}
+\end{column}
+\begin{column}	{0.25\textwidth}	
+\begin{prooftree}
+	\AxiomC{$\trans{P}{\alpha}{P'}$}
+\AxiomC{$\alpha \notin H$}
+\LeftLabel{Res} 
+\BinaryInfC{$\trans{P\backslash H}{\alpha}{P'\backslash H}$}
+\end{prooftree}
+\begin{prooftree}
+	\LeftLabel{Rec} \AxiomC{$\trans{P}{\alpha}{P'}$}
+\AxiomC{$\Gamma(X)=P$}
+\BinaryInfC{$\trans{X}{\alpha}{P'}$}
+\end{prooftree}
+\end{column}
+
+\end{columns}
+}}
+
+\end{frame}
+
+\begin{frame}{Mais regras de prioridade}
+	\begin{itemize}[<+->]
+	\item $P|Q|R$ é $(P|Q)|R$
+\item  $\alpha.P | Q$ é $(\alpha.P) | Q$
+\item $P + R | Q$ é $(P+R) | Q$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Expressividade do CCS}
+\begin{itemize}[<+->]
+	\item $CCS_0$ só pode produzir sistemas de transição finitos acíclicos 
+\item $CCS_0^\omega$ com $\Gamma$ finito só pode produzir sistemas de transição estado-finitos (a menos de isomorfismo)
+\item $CCS$ pode produzir sistemas e transição infinitos e com ramificação infinita
+\item Ex: $X:=a.0|X$ tem ramificação infinita (\alert{Verifica!})
+\item com mais uma operação - renomeação $P[f]$ tem a potência duma Máquina de Turing.
+\end{itemize}
+\end{frame}
+%\only<article>{
+\begin{frame}{Operador de renomeação}
+\begin{itemize}[<+->]
+	\item Já vimos uma máquina de café em CCS
+\item $CM:= coin?.coffee!.CM$
+\item Mas agora se quisermos um chocolate? 
+\item Seria igual apenas mudando a accão de envio.
+\item $ChM:= coin?.choco!.ChM$
+\item e o mesmo para outros produtos.
+\item Então podemos ter
+\item $VM:= coin?.item!.VM$
+\item e definir
+\begin{eqnarray*}
+	CM&:=& VM[coffee/item]\\
+	ChM&:=& VM[choc/item]\\
+	\ldots	
+\end{eqnarray*}
+\end{itemize}	
+\end{frame}
+
+\begin{frame}{Operador de renomeação}
+Seja $f:Act\to Act$ uma função de renomeação tal que \begin{eqnarray*}
+	f(\tau)&:=&\tau,\\
+f(\overline{a})&:=&\overline{f(a)}\;\; \forall a\in Com.
+\end{eqnarray*}
+	A função $f$ pode representar-se da forma $[b_1/a_1, \ldots b_n/a_n]$ se $f(a_i)=b_i$.
+
+Então, sendo $P$ um processo $P[f]$ é também um processo em que cada ação $a$ é substituida por $f(a)$ (assim como os complementos).
+\begin{eqnarray*}
+(a.B+b.B)[a/b,b/a]&=& (b.B+a.B)\\
+(a.0+\overline{a}.A)[a/b]&=&(a.0+\overline{a}.A)
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}{Regra de inferência para $P[f]$}
+	\begin{prooftree}
+	\AxiomC{$\trans{P}{\alpha}{P'}$}
+\LeftLabel{Rel} 
+\UnaryInfC{$\trans{P[f]}{f(\alpha)}{P'[f]}$}
+\end{prooftree}
+
+\pause
+\begin{exem}
+	Seja $A:= a.b.B$, calcular	
+$$\bras{(A|b.a.B)+(b.A)[a/b]}_\Gamma $$
+\end{exem}
+
+\end{frame}
+%}
+
+\begin{frame}{Operadores Estáticos e Dinâmicos}
+\begin{itemize}[<+->]
+	\item \alert{Operadores dinâmicos}: $\cdot$ e $+$
+\item Desaparecem após se efectuar uma transição
+\only<3>{\begin{prooftree}
+	\LeftLabel{Pref} \AxiomC{}
+\UnaryInfC{$\trans{\alpha.P}{\alpha}{P}$}
+\end{prooftree}
+\begin{prooftree}
+	\LeftLabel{EscD} \AxiomC{$\trans{Q}{\alpha}{Q'}$}
+\UnaryInfC{$\trans{P+Q}{\alpha}{Q'}$}
+\end{prooftree}}
+
+\item  \alert{Operadores estáticos}: $|$ e $\backslash$ (também $[f]$)
+\item Não desaparecem após ser efectuada uma transição
+\only<5>{
+\begin{prooftree}
+\LeftLabel{Sync}	\AxiomC{$\trans{P}{a}{P'}$} \AxiomC{$\trans{Q}{\overline{a}}{Q'}$}
+\BinaryInfC{$\trans{P|Q}{\tau}{P'|Q'}$}
+\end{prooftree}
+\begin{prooftree}
+	\LeftLabel{ParD} \AxiomC{$\trans{Q}{\alpha}{Q'}$}
+\UnaryInfC{$\trans{P|Q}{\alpha}{P|Q'}$}
+\end{prooftree}
+\begin{prooftree}
+	\AxiomC{$\trans{P}{\alpha}{P'}$}
+\AxiomC{$\alpha \notin H$}
+\LeftLabel{Res} 
+\BinaryInfC{$\trans{P\backslash H}{\alpha}{P'\backslash H}$}
+\end{prooftree}}
+
+\end{itemize}
+	
+\end{frame}
+\begin{frame}{CCS Regular}
+Não é permitida recursão sobre operadores estáticos.
+
+\begin{eqnarray*}
+P&::=& 0 \;\mid\; X \;\mid \;P+P\;  \mid \;\alpha.P\;\mid\;  R\\
+R&::=& 0 \;\mid\; \;R+R\;  \mid \;\alpha.R\;\mid\;  R | R \;\mid\; R\backslash H 
+\end{eqnarray*}	
+\pause
+\begin{propos}
+Se $\Gamma$ é uma função parcial cujo contradomínio só tem expressões regulares então o $Reach(\bras{P}_\Gamma)$  é   finito por estados para todo $P\in CCS$ (i.e. o LTS atingível é finito por estados).	
+\end{propos}
+\pause Este é o cálculo que se usa  mais na prática.
+\end{frame}
+
+\begin{frame}{Buffer Paralelos }
+\begin{itemize}[<+->]
+	\item 
+
+	Calcular $\bras{Buffer | Buffer}_\Gamma$.
+para \begin{eqnarray*}
+	Buffer &:=& put?. get?.Buffer
+\end{eqnarray*}
+\item 
+\includegraphics[width=4cm]{src/img/nam/putget.png}	
+
+
+\begin{eqnarray*}
+	BufferL &:=& put?. pass!.BufferL\\
+	BufferR &:=& pass?. get?.BufferR\\
+\end{eqnarray*}
+Calcular $\bras{(BufferL| BufferR)\backslash\{pass!,pass?\}}$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Exemplo de um Protocolo  com Ack (Pseuco)}
+\only<1->{\begin{center}\includegraphics[width=4.5cm]{src/img/nam/SendRec1}\end{center}
+}	
+\only<2->{
+{\small\begin{eqnarray*}
+Sender &:= &put? . send! . Sending\\
+Sending& :=& receiveAck? . Sender\\
+Receiver &:= &receive? . get? . sendAck! . Receiver\\
+	Medium& :=& send? . receive! . Medium\\
+AckMedium &:=& sendAck? . receiveAck! . AckMedium\\
+DupMedium &:= &Medium | AckMedium\\
+ProtocolG &:=& (Sender \mid Receiver \mid DupMedium) \backslash \\
+&&\{send, receive, sendAck, receiveAck\}
+\end{eqnarray*}}}
+\end{frame}
+
+\begin{frame}{Exemplo de um Protocolo  com Ack (Pseuco, Holger H.)}
+	\begin{center}
+\includegraphics[width=10cm]{src/img/nam/protocolo1}
+\end{center}
+\end{frame}
+
+\begin{frame}{Exemplo de um Protocolo  com erro no meio --Pseuco}
+\begin{eqnarray*}
+Sender &:= &put? . send! . Sending\\
+Sending& :=& receiveAck? . Sender +receiveNAck?.send!.Sending\\
+Receiver &:= &receive? . get? . sendAck! . Receiver +\\
+&&gargled?.sendNAck!.Receiver\\
+	Medium& :=& send? . (receive! . Medium +i.garbled!.Medium)\\
+AckMedium &:=& sendAck? . receiveAck! . AckMedium+\\
+&&sendNAck?.receivedNAck!.AckMedium\\
+DupMedium &:= &Medium | AckMedium\\
+Protocol &:=& (Sender \mid Receiver \mid DupMedium) \backslash \\
+&&\{send, receive, sendAck, receiveAck,\\
+&&receiveNAck,sendNAck,garbled\}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}{Comportamento Externo}
+Para um observador externo os processos $Buffer$, $Protocol$ e $ProtocolG$ têm o mesmo comportamento (mas LTSs diferentes, claro!).
+
+
+\begin{center}
+\includegraphics[width=5cm]{src/img/nam/putget.png}	
+\end{center}
+\end{frame}
+
+\begin{frame}{CCS em PSeuco -ver exemplos}
+\begin{center}
+[MISSING]
+% \includegraphics[width=12cm]{src/img/nam/CCSemPseco.png}	
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Exclusão Mútua}	
+\begin{itemize}
+	\item \alert{Secção Crítica}: porção de código que só pode ser executado por um processo num dado instante
+\item Supõe-se que a execução da secção crítica por um só processo termina.
+\item \alert{MUTEX}  o problema consiste em ter
+\begin{enumerate}
+	\item  um algoritmo de entrada $acquire\_mutex()$
+\item um algoritmo de saída $release\_mutex()$
+\end{enumerate}
+\item Enquadrando a secção crítica garantem
+\begin{description}
+	\item[Exclusão mútua:] que o código da zona crítica é executado no máximo por um processo em cada instante.
+\item[\emph{Starvation-freedom}:] cada processo que invoca $acquire\_mutex()$ termina, permitindo assim que os processos que querem entrar na zona crítica o possam fazer.
+\end{description}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Exclusão mútua em CCS}
+Se se modelar a  entrada e a saída da zona crítica fica (para dois processos).
+
+\begin{eqnarray*}
+	MutexSpec &:=& enter1.exit1.MutexSpec + enter2.exit2.MutexSpec 
+\end{eqnarray*}	
+\end{frame}
+
+
+
+\begin{frame}{Algoritmo de Peterson para a Exclusão Mútua}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+		\item $P_1$, $P_2$ processos
+		\item variáveis partilhadas $b_1, b_2$ e $k$, sendo 
+		\item se $k=i$ então $P_i$ pode entrar
+		\item  $P_1$  faz $k=2$ (dá o privilégio a $P_2$)
+		\item e simétricamente para $P_2$
+\item $b_i=true$ quando $P_i$ espera
+\item  $b_i=false$ quando $P_i$ sai da zona crítica.
+			\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+Processo $P_i$\\
+		 \begin{algorithmic}
+		\While{\bf true}
+	\State {\color{green}noncricital actions}
+\State{$b_i\gets \mathbf{true}$;}
+\State{$k\gets j$;}
+\While{$b_j \land k=j$} \State{\textbf{skip};}
+\EndWhile
+	\State {\color{red}critical actions}
+\State$b_i\gets \mathbf{false};$
+		\EndWhile		
+\end{algorithmic}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}{Algoritmo de Peterson em CCS}
+
+O CCS não tem variáveis, mas estas  são processos que comunicam a outros processos que necessitam de ler ou escrever os seus valores.  Isto é 
+\begin{itemize}
+	\item As variáveis  são \alert{processos} cujos estados são os seus possíveis valores
+\item Para $b_1$ temos estado $B_{1t}$ se o seu valor for $\bf true$ e  o estado $B_{1f}$ se o seu valor for \textbf{false}.
+\item  Outros processos podem ler ou escrever o valor de variáveis comunicando com o respectivo processo o valor pretendido 
+\item Para um processo ler $\bf true$ em $b_1$ sincroniza com esse processo por uma ação (canal) $b1rt$
+\item Para um processo escrever $\bf false$ em $b_1$ sincroniza com esse processo por uma ação (canal) $b1wf$
+\item Análogamente se define o comportamento de $k$ que pode tomar os valores $1$ e $2$.
+\end{itemize}
+	
+\end{frame}
+\begin{frame}{Processos para as variáveis}
+\only<1->{\begin{eqnarray*}
+	B_{1f}&:= & b1rf!.B_{1f}+b1wf?.B_{1f}+b1wt?.B_{1t}\\
+B_{1t}&:= & b1rt!.B_{1t}+b1wf?.B_{1f}+b1wt?.B_{1t}\\
+\end{eqnarray*}
+	}
+\only<2->{\begin{eqnarray*}
+	B_{2f}&:= & b2rf!.B_{2f}+b2wf?.B_{2f}+b2wt?.B_{2t}\\
+B_{2t}&:= & b2rt!.B_{2t}+b2wf?.B_{2f}+b2wt?.B_{2t}\\
+\end{eqnarray*}
+	}
+\only<3->{\begin{eqnarray*}
+	K_{1}&:= & kr1!.K_{1}+kw1?.K_{1}+ kw2?.K_{2}\\
+K_{2}&:= & kr2!.K_{2}+kw1?.K_{1}+ kw2?.K_{2}\\
+\end{eqnarray*}
+	}
+
+\end{frame}
+
+\begin{frame}{Processos para $P_1$ e $P_2$}
+\begin{itemize}
+		\item apenas modelar a entrada e saída da zona crítica
+		\item  fazer a iniciallização das variáveis $b_i$ e $k$
+\item supomos que não podem terminar na zona crítica ou ficar lá para sempre
+\item para representar o ciclo \textbf{while} para $P_1$ temos um estado $P_{11}$ tal que
+\begin{itemize}
+\item ler os valores de $b_2$ e $k$
+\item esperar se $b_2=\mathbf{true}\land k=2$
+\item mudar de estado, $P_{12}$ 
+\item em $P_{12}$ entrar e sair da zona critica
+\item mas como avaliar $b_j\land k=j$? 
+\item avaliamos da esquerda para  a direita: se  $b_j$ é \textbf{true} então avaliamos  se $k=j$; a  segunda não é avaliada se a primeira for falsa.
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Processos para $P_1$ e $P_2$ em CCS}
+\only<1->{
+\begin{eqnarray*}
+	P_1&:=& b1wt!.kw2!.P_{11}\\
+P_{11}&:=& b2rf?.P_{12} + b2rt?.(kr2?.P_{11} +kr1?.P_{12})\\
+P_{12}&:=& enter1.exit1.b1wf!.P_1
+\end{eqnarray*}
+}
+\only<2->{
+\begin{eqnarray*}
+	P_2&:=& b2wt!.kw1!.P_{21}\\
+P_{21}&:=& b1rf?.P_{22} + b1rt?.(kr1?.P_{21} +kr2?.P_{22})\\
+P_{22}&:=& enter2.exit2.b2wf!.P_2
+\end{eqnarray*}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Algoritmo de Peterson em CCS} 
+
+	Se $k=1$ no inicio
+\begin{eqnarray*}
+Peterson&:=&(P_1|P_2|B_{1f}|B_{2f}|K_1)\backslash L	
+\end{eqnarray*}
+onde $L$ são todas as ações excepto as de entrada e saída na zona critica.
+
+Ficheiro no Pseuco.com:
+ \url{https://pseuco.com/\#/edit/remote/tkxz8fpu1t8ke56bj9uo}
+
+ Será que $MutexSpec$ e $Peterson$ são equivalentes? Mas para que equivalência? Interessa-nos o comportamento observável...
+\end{frame}
+
+\begin{frame}
+	\frametitle{Teste da exclusão mútua}
+	Contudo podemos mostrar que no algoritmo de Peterson um processo não entra na zona critica se o outro lá está. Para tal usamos um monitor, i.e., outro processo que executando em paralelo irá detectar se há um erro:
+	\begin{align*}
+		MutualTest &:= enter1!.MutualTest1 + enter2!.MutualTest2\\
+MutualTest1&:= exit1!.MutalTest + enter2!.bad!.0\\
+MutualTest2&:= exit2!.MutalTest + enter2!.bad!.0
+\end{align*}
+
+Executando 
+$$(Peterson|MutualTest)\backslash \{enter1,enter2,exit1,exit2\}$$
+ver se a ação $bad!$ pode ser executada. Pode-se mostrar que não.
+ Ficheiro no Pseuco.com: 
+\url{tex}
+
+\end{frame}
+
+
+
+\end{document}

@@ -20,9 +20,9 @@
 \usepackage{cancel}
 
 % Cyrillic characters -- \foreignlanguage{russian}{слово} OR \begin{otherlanguage*}{russian}... 
-\usepackage[T2A,T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[russian,english]{babel}
+% \usepackage[T2A,T1]{fontenc}
+% \usepackage[utf8]{inputenc}
+% \usepackage[russian,english]{babel}
 
 
 \input{src/macros/macros}
@@ -278,12 +278,12 @@ object ActorsCreate2 extends App {
   hiActor ! "yo"
   // ... Unexpected 'yo'
   Thread.sleep(1000)
-  hiActor ! "$\textsf{\textcolor{green!60!black}{\foreignlanguage{russian}{привет}}}$" 
+  hiActor ! "$\textsf{\textcolor{green!60!black}{privet}}$" 
   // ... Message (...) was not delivered.
   Thread.sleep(1000)
   ourSystem.terminate()
 }
-\end{lstlisting}
+\end{lstlisting} % \foreignlanguage{russian}{привет}}
 \end{column}
 \end{columns}
 \end{frame}
@@ -299,13 +299,13 @@ object ActorsCreate2 extends App {
   // ... [akka://OurSystem/user/greeter] Unexpected 'yo'
 
   Thread.sleep(1000)
-  hiActor ! "$\textsf{\textcolor{green!60!black}{\foreignlanguage{russian}{привет}}}$" 
+  hiActor ! "$\textsf{\textcolor{green!60!black}{privet}}$" 
   // ... [akka://OurSystem/user/greeter] Message [...] to Actor[akka://OurSystem/user/greeter#-726408098] was not delivered.
 
   Thread.sleep(1000)
   ourSystem.terminate()
 }
-\end{lstlisting}
+\end{lstlisting} % \foreignlanguage{russian}{привет}}
 \end{frame}
 
 
