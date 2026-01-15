@@ -18,13 +18,13 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Concurrent Programming 24/25 (CC3037 @ DCC-FCUP)
+title: Concurrent Programming 25/26 (CC3037 @ DCC-FCUP)
 # email: jose@proenca.org
 description: >- # this means to ignore newlines until "baseurl:"
-  Material for the course on Concurrent Programming 2024/2025, from DCC, FCUP, University of Porto
+  Material for the course on Concurrent Programming 2025/2026, from DCC, FCUP, University of Porto
 baseurl: "/" # the subpath of your site, e.g. /blog
 # baseurl: "/fmup-lab" # the subpath of your site, e.g. /blog
-url: "https://fm-dcc.github.io/cp2425" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://fm-dcc.github.io/cp2526" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllrb
 # github_username:  jekyll
 
