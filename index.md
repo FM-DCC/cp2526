@@ -17,7 +17,7 @@ The goal of this course is to introduce students to the fundamental theoretic an
 
 # Lectures
 
-- ...
+- __19 Feb 26__: [T] Introduction to the course ([1-intro.pdf](slides/1-intro.pdf)). Transition systems ([2-trans-sys.pdf](slides/2-trans-sys.pdf)).  
 
 <!-- - __27 Mar 25__: [T] Introduction to the second module ([1-intro.pdf](slides/1-intro.pdf)). Overview of Scala ([2-scala.pdf](slides/2-scala.pdf)).  
 [P] Exercises on Scala ([ex-scala.pdf](exercises/ex-scala.pdf)).
@@ -43,7 +43,13 @@ The goal of this course is to introduce students to the fundamental theoretic an
 # Literature and Material
 
 ### Slides
-1. ...
+1. [Introduction to the course](slides/1-intro.pdf)
+2. [Labelled transition systems](slides/2-trans-sys.pdf)
+3. [Sequential CCS](slides/3-seq-ccs.pdf)
+4. [Full CCS (with concurrency)](slides/4-ccs-par.pdf)
+5. [Equivalences](slides/5-equiv.pdf)
+6. [CCS with data](slides/6-ccs-data.pdf)
+7. ...
 
 <!--
 1. [Introduction to the second module](slides/1-intro.pdf)
@@ -54,7 +60,10 @@ The goal of this course is to introduce students to the fundamental theoretic an
  -->
 
 ### Exercises
-1. ...
+1. [Exercises on labelled transition systems](exercises/p1/exerc01.pdf)
+2. [Exercises on sequential CCS](exercises/p1/exerc02.pdf)
+3. [Exercises on full CCS (with concurrency)](exercises/p1/exerc03.pdf)
+4. ...
 
 <!--
 1. [Exercises on Scala](exercises/ex-scala.pdf)
