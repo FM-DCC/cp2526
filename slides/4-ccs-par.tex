@@ -329,16 +329,16 @@ $$(Match | TwoFireCracker) \backslash \{light\} $$
 \node[st][left = 0.5cm  of S2] (S4){
 $(0| TOC)\backslash \{\ell\}$
 };
-\node[state, inner sep=1pt, minimum size=5pt][ below  = of S2] (S3){$(MOF|0|b!.0 )\backslash \{\ell\}$};
+\node[st, inner sep=4pt, minimum size=5pt][ below  = of S2] (S3){$(MOF|0|b!.0 )\backslash \{\ell\}$};
 
-\node[state, inner sep=1pt, minimum size=5pt][right  = 0.3cm of S3] (S5){$(MOF|b!.0|0 )\backslash \{\ell\}$};
+\node[st, inner sep=4pt, minimum size=5pt][right  = 0.3cm of S3] (S5){$(MOF|b!.0|0 )\backslash \{\ell\}$};
 
-\node[state, inner sep=1pt, minimum size=5pt][left  = 0.3cm of S3] (S6){$(0|b!.0|b!.0 )\backslash \{\ell\}$};
-\node[state][below =of S6] (S7){...};
-\node[state][below =of S3] (S8){...};
-\node[state][left =of S8] (S10){...};
-\node[state][below =of S5] (S9){...};
-\node[state][left =of S9] (S11){...};
+\node[st, inner sep=4pt, minimum size=5pt][left  = 0.3cm of S3] (S6){$(0|b!.0|b!.0 )\backslash \{\ell\}$};
+\node[st][below =of S6] (S7){...};
+\node[st][below =of S3] (S8){...};
+\node[st][left =of S8] (S10){...};
+\node[st][below =of S5] (S9){...};
+\node[st][left =of S9] (S11){...};
 \path[->](S0) edge  node {$strike$} (S1)
 	(S1) edge [swap] node {$\tau$} (S2)
 	(S2) edge  node {$b!$} (S3)
