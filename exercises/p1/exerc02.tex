@@ -1,0 +1,139 @@
+\documentclass[11pt]{exam}
+\usepackage{enumerate}
+\usepackage[utf8]{inputenc}
+\usepackage{alltt}
+\usepackage{xspace}
+\usepackage{longtable}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{xcolor}
+\usepackage{enumerate}
+\usepackage{graphicx}
+%\usepackage{moreverb}
+%\usepackage{ifthen}
+\usepackage{url}
+\usepackage{tikz} 
+\usepackage{bussproofs}
+
+%\usetikzlibrary{snakes}
+\usetikzlibrary{decorations}
+\usetikzlibrary{shapes,shapes.geometric,arrows,fit,calc,positioning,automata,decorations.pathmorphing}
+\tikzset{state/.style={draw,ellipse}}
+
+\usepackage{algorithmicx}
+\usepackage[noend]{algpseudocode}
+\usepackage[Algoritmo]{algorithm}
+
+
+%\usepackage{hyperref}
+\input sli_aux
+\setcounter{aula}{2}
+%lang
+%\setdoclang{en}{british}
+%\setdoclang{pt}{portuguese}
+
+\newboolean{portuguese}
+\setboolean{portuguese}{true}
+\setboolean{portuguese}{false}
+
+\newboolean{normal}
+\setboolean{normal}{true}
+
+\newcommand{\pten}[2]{\ifthenelse{\boolean{portuguese}}{#1}{#2}}
+\pten{\usepackage[portuges]{babel}}{\usepackage[british]{babel}}
+
+%\pten{\uselanguage{portuguese}}{\uselanguage{british}}
+
+\begin{document}
+	\begin{center} 
+{\bf {\large \pten{Programação Concorrente}{Concurrent Programming} - Exercícios \theaula} \\
+\medskip
+\medskip
+CCS \pten{sequencial}{sequential}: $CCS_0^\omega$}
+\end{center}
+
+\begin{questions}
+\question \pten{Resolver os exercícios}{Solve the exercises of}
+$CCS_0$ \pten{em}{in} \url{https://pseuco.com/#/exercises} (PseuCo.com)
+\question \pten{Sendo}{Let} $Act=\{a,b,c\}$, \pten{calcula usando o sistema de inferência}{compute using the inference system}:
+\begin{parts}
+\part $\bras{a.b.0+0}$
+\part $\bras{a.(b.0+0)}$
+\part $\bras{a.b.c.0+	b.(0+a.0)}$
+\end{parts}
+
+\question  \pten{Considera a definição CCS da máquina de café}{Consider the following definition of a coffee machine}
+$$CM:= \text{coin.coffee}.CM$$
+\begin{parts}
+\part \label{ex:cma} \pten{Calcula}{Compute} $\Gamma$ \pten{e}{and} $\bras{CM}_	\Gamma$ \pten{e}{and} \pten{implementa  no}{implement if in} pseuco.com
+\part \pten{Escreve um processo  que funcione como}{Write a process that behaves as} $CM$ \pten{mas pode \emph{roubar a moeda}}{can steal the coin}, i.e., \pten{não dar o café}{does not give coffee}.
+\part \pten{Escreve um processo  que funcione como}{Write a process that behaves as} $CM$ \pten{mas  pode dar chá ou café pelo mesmo preço}{but can give coffee or tea}.\pten{Considera os casos em que a bebida que sai é aleatória ou que o comprador indica se quer café ou chá}{Consider two cases: the beverage is randomlly choosen or there is a way to ask the buyer if he wants coffee or tea}.
+\part \pten{Escreve um processo  que funcione como}{Write a process that behaves as} $CM$ \pten{mas pode dar chá  por $0.5$ euros}{but can give tea for $0.5$ euros} \pten{e}{and} \pten{café  por}{ coffee for} $1$ euro.
+\part \pten{Para as últimas alíneas repete a primeira alínea}{Repeat} (\ref{ex:cma}) \pten{}{for the last questions}.
+\end{parts}
+
+\question \pten{Seja}{Let}
+\begin{eqnarray*}
+\Gamma&=&\{(P,a.P_1), (P_1,b.P+ c.P),
+(Q,a.Q_1)\\
+&&(Q_1,b.Q_2+c.Q),(Q_2,a.Q_3),(Q_3,b.Q+c.Q_2)\}
+\end{eqnarray*} 
+\pten{Escreve as equações correspondentes a }{Write the equações defined by} $\Gamma$.
+	\pten{Usando o sistema de inferência}{Using the inference system} $\tr_\Gamma$, \pten{calcula}{compute}  $\bras{P}_\Gamma$ e  $\bras{Q}_\Gamma$. \pten{Desenha os respectivos diagramas}{Draw the diagrams}. \pten{Implementa em}{Implement in} pseuco.com.
+
+\question \label{ex:sem} \pten{Para cada uma das expressões abaixo e conjunto de equações indica  o conjunto}{For each expression and set of equations, indicate the set} $\Gamma$ \pten{e}{and}  \pten{a semântica da expressão}{the semantics of each expression} \pten{usando}{using} \pten{o sistema de inferência}{} $\tr_\Gamma$.
+\begin{parts}
+\part $\bras{A}_\Gamma$ \pten{sendo}{being} $A := a.(b.0+b.c.A)$ 
+\part   $\bras{B}_\Gamma$ \pten{sendo}{being} $A:= a.A+\tau.b.A$  \pten{e}{and}  $B=a.A+b.A$
+\part $\bras{C}_\Gamma$ \pten{sendo}{being}
+ \begin{eqnarray*}
+C&:= &c.C +D\\	
+ D&:=& 0+c.C
+%A&:= & b.0+A\\
+%B&:=& b.B+a.A\\
+\end{eqnarray*} 
+\part  $\bras{C_0}_\Gamma$ \pten{sendo}{being} \begin{eqnarray*}
+C_0&:= &inc. C_1\\	
+ C_n&:=& inc.C_{n+1}+dec.C_{n-1}, \text{ para } n\geq 1\\
+\end{eqnarray*}
+\part $\bras{X}_\Gamma$ \pten{e}{and}  $\Gamma=\{(X,X+0)\}$
+\end{parts}
+
+\question \pten{Indica}{Say}   \pten{se}{if} $A$ \pten{e}{and} $B$ \pten{são ou não guardadas}{are guarded or unguarded}:
+	$A:=a.A+B$ \pten{e}{and} $B:=b.B+A$.
+\question \pten{Indica}{Say}   \pten{quais as variáveis guardadas nos sistemas seguintes}{which variables are guarded in the following equations}:
+$C:= c.C +D$, 	
+ $D:= 0+c.C$
+$A:=  b.0+A$
+e $B:= b.B+a.A$.
+
+\question \pten{Resolve os exercícios do}{Solve the exercicies in}  PseuCo Book (\url{https://book.pseuco.com/}) \pten{referentes ao CCS sequencial sem e com recursão}{for sequential $CCS$ without and with recursion.}
+\end{questions}
+%\newpage
+\begin{center}
+\pten{Regras de inferência do}{Inference Rules} $CCS_0^\omega$	
+\end{center}
+
+\hrule
+	\begin{prooftree}
+	\LeftLabel{\pten{Prefixo}{prefix}} \AxiomC{}
+\UnaryInfC{$\trans{\alpha.P}{\alpha}{P}$}
+\end{prooftree}
+
+\begin{prooftree}
+	\LeftLabel{\pten{EscolhaE}{choiceL}} \AxiomC{$\trans{P}{\alpha}{P'}$}
+\UnaryInfC{$\trans{P+Q}{\alpha}{P'}$}
+\end{prooftree}
+\begin{prooftree}
+	\LeftLabel{\pten{EscolhaD}{choiceR}} \AxiomC{$\trans{Q}{\alpha}{Q'}$}
+\UnaryInfC{$\trans{P+Q}{\alpha}{Q'}$}
+\end{prooftree}
+\begin{prooftree}
+	\LeftLabel{Rec} \AxiomC{$\trans{P}{\alpha}{P'}$}
+\AxiomC{$\Gamma(X)=P$}
+\BinaryInfC{$\trans{X}{\alpha}{P'}$}
+\end{prooftree}
+
+\end{document}

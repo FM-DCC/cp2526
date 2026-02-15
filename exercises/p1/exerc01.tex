@@ -1,0 +1,112 @@
+\documentclass[11pt]{exam}
+%\usepackage[portuges]{babel}
+\usepackage{enumerate}
+\usepackage[utf8]{inputenc}
+\usepackage{rotating}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{ifthen}
+\input sli_aux
+\setcounter{aula}{1}
+
+%lang
+%\setdoclang{en}{british}
+%\setdoclang{pt}{portuguese}
+
+\newboolean{portuguese}
+\setboolean{portuguese}{true}
+\setboolean{portuguese}{false}
+
+\newboolean{normal}
+\setboolean{normal}{true}
+
+\newcommand{\pten}[2]{\ifthenelse{\boolean{portuguese}}{#1}{#2}}
+\pten{\usepackage[portuges]{babel}}{\usepackage[british]{babel}}
+
+%\pten{\uselanguage{portuguese}}{\uselanguage{british}}
+
+\begin{document}
+	\begin{center} 
+{\bf {\large \pten{Programação Concorrente}{Concurrent Programming} - Exercícios \theaula} \\
+\medskip
+\pten{Sistemas de Transições}{Labeled Transition Systems} }
+\end{center}
+\begin{questions}
+\question  \pten{Quais os possíveis valores de $x$ após a execução do seguinte programa?}{What are the values of $x$ after the execution of the program?} \pten{Quantas execuções diferentes existem?}{How many diferent executions there are?}
+
+$x\gets 10; ((x\gets 2x; x\gets x-1; x \gets x+2)\;|| x\gets x-5)$
+\question \pten{Considera o seguinte}{Consider the following} LTS
+%\begin{center}
+
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=2cm,initial text={}]
+\node[state, initial, inner sep=1pt, minimum size=5pt] (S0){$s_0$};
+\node[state,  inner sep=1pt, minimum size=5pt][right of =S0] (S1){$s_1$};
+\node[state,  inner sep=1pt, minimum size=5pt][below  of =S0] (S3){$s_3$};
+\node[state,  inner sep=1pt, minimum size=5pt ] [ below  of=S1](S2){$s_2$};
+\path[->](S0) edge node  {a}(S1)
+			 (S1) edge [swap] node { a }(S2)
+	(S3)	edge node {a} (S0)
+(S2)	edge node {a} (S3);
+\end{tikzpicture}
+%	\end{center}
+\begin{parts}
+\part \pten{Define o LTS como um triplo}{Define the LTS as a triple} $(S,\tr,s_0)$ \pten{e determina}{ and determine} $Act$.
+\part \pten{Desenha o fecho reflexivo da relação binária}{Draw the reflexive closure of the binary relation} $\trans{}{a}{}$.
+\part \pten{Desenha o fecho simétrico da relação binária}{Draw the symmetric closure of the binary relation} $\trans{}{a}{}$.
+\part  \pten{Desenha o fecho transitivo  da relação binária}{Draw the transitive closure of the binary relation} $\trans{}{a}{}$.
+\end{parts}
+
+\question \pten{Seja o}{Let the} LTS
+
+% \begin{center}
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=2cm,initial text={}]
+\node[state, initial, inner sep=1pt, minimum size=5pt] (S0){s};
+\node[state,  inner sep=1pt, minimum size=5pt][below  of =S0] (S1){$s_1$};
+\node[state,  inner sep=1pt, minimum size=5pt ] [ right  of=S1](S2){$s_2$};
+\path[->](S0) edge [bend left] node  {a}(S1)
+			 (S1) edge [bend left,swap] node { b }(S0)
+(S2)	edge node {d} (S1)
+	edge [loop] node {c}();
+\end{tikzpicture}
+%	\end{center}
+\begin{parts}
+\part  \pten{Define o LTS como um triplo}{Define the LTS as a triple} $(S,\tr,s)$ \pten{e o conjunto}{and the set} $Act$.
+
+\part \pten{Calcula}{Compute} $Post(s_1)$ \pten{e}{and} $Act(s_2)$	
+
+\part
+\pten{Determina os estados atingíveis}{Determine} $Reach(s_2)$.
+\end{parts}
+\question \pten{Sendo}{Let} $Post^0(s)=\{s\}$ \pten{e}{and}   $Post^{n+1}(s)=Post(Post^{n}(s))$, \pten{mostra que}{show that} $$Reach(s)=\bigcup_{n} Post^n(s).$$
+\question \pten{Sendo}{Let} $\trs\subseteq S\times Act^\star \times S$ \pten{o fecho reflexivo e transitivo de}{be the reflexive and transitive closure of} $\tr$,  \pten{mostra que }{show that } $
+\transs{s}{\omega}{s'}$ \pten{se e só se}{iff} $s'\in Reach(s)$, \pten{onde}{where} $\omega=\alpha_1\cdots \alpha_n$ \pten{para alguns}{for some} $\alpha_i\in Act$. \pten{Sugestão}{Hint}: \pten{Por indução em }{By induction on} $n$.
+ \question \pten{Para cada uma das seguintes máquinas de bebidas constrói um sistema de transições que modele o comportamento indicado}{For each of the following machines build a LTS that models its behaviour}.
+ 
+\begin{parts}
+\part \pten{uma máquina que dado uma moeda produz um café expresso}{A machine that given a coin produce coffee}
+\part \pten{uma máquina 	que dada uma moeda ou produz um café expresso ou um chá}{A machine that given a coin produce coffee or tea}
+
+\part \pten{uma máquina 	que dada uma moeda se pode carregar num botão que permite escolher se se quer um  café ou um chá}{A machine that given a coin one can push a button that allows to choose between coffee or tea}
+
+\part \pten{uma máquina como no caso anterior, mas que ao fim de fornecer duas bebidas pára}{A machine  as in the previous case but that after producing two beverages stops.}
+
+\part \pten{uma máquina que dado uma moeda produz uma café expresso mas que pode também não dar café e voltar à posição inicial.}{A machine that given a coin produce coffee but may also not give coffee and return to the initial state}
+\end{parts}
+\question \pten{Resolver os exercícios LTS em }{Solve the problems of LTSs in } \href{https://pseuco.com/#/exercises}{PseuCo.com}.% ou \href{https://lmf.di.uminho.pt/ccs-caos/}{CCS-Caos}.
+
+\question
+\pten{Dois}{Two} LTS $TS=(S,\tr,s_0)$ \pten{e}{and} $TS'=(S',\tr',s_0')$ \pten{são isomorfos}{are isomorphic}, $TS\sim TS'$,  \pten{se existe uma bijeção }{it there exists a bijection} $f$, $$f: Reach(TS) \fun Reach(TS')$$
+\pten{com}{with}
+\begin{itemize}
+	\item $f(s_0)=s_0'$
+\item \pten{para todos os}{for all} $s_1,s_2\in Reach(TS)$ \pten{e para toda}{and for all} $\alpha \in Act$ 
+\begin{eqnarray*}
+	\trans{s_1}{\alpha}{s_2}& \pten{sse}{iff} &	\trans{f(s_1)}{\alpha}{'f(s_2)}
+\end{eqnarray*}
+\end{itemize}
+\begin{parts}
+\part \pten{Mostrar que o isomorfismo de LTSs é uma relação de equivalência.	}{Show that the LTS isomorphism is a equivalence relation}
+\part \pten{Mostrar que um LTS que é finitamente ramificado e tem um número finito de estados é isomorfo a um LTS finito por estados.}{Show that a LTS that is finitely branching and that has a finite number of states  is isomorphic to a finite-state LTS.}
+\end{parts}
+\end{questions}
+\end{document}

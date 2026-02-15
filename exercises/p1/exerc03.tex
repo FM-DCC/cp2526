@@ -1,0 +1,144 @@
+\documentclass[11pt]{exam}
+\usepackage{enumerate}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{alltt}
+\usepackage{xspace}
+\usepackage{longtable}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{xcolor}
+\usepackage{enumerate}
+\usepackage{graphicx}
+%\usepackage{moreverb}
+%\usepackage{ifthen}
+\usepackage{url}
+\usepackage{tikz} 
+\usepackage{bussproofs}
+
+%\usetikzlibrary{snakes}
+\usetikzlibrary{decorations}
+\usetikzlibrary{shapes,shapes.geometric,arrows,fit,calc,positioning,automata,decorations.pathmorphing}
+\tikzset{state/.style={draw,ellipse}}
+
+\usepackage{algorithmicx}
+\usepackage[noend]{algpseudocode}
+\usepackage[Algoritmo]{algorithm}
+
+
+\input sli_aux
+\newboolean{portuguese}
+\setboolean{portuguese}{true}
+\setboolean{portuguese}{false}
+
+\newboolean{normal}
+\setboolean{normal}{true}
+
+\newcommand{\pten}[2]{\ifthenelse{\boolean{portuguese}}{#1}{#2}}
+\pten{\usepackage[portuges]{babel}}{\usepackage[british]{babel}}
+
+%\pten{\uselanguage{portuguese}}{\uselanguage{british}}
+
+\setcounter{aula}{3}
+
+\begin{document}
+	\begin{center} 
+{\bf {\large \pten{Programação Concorrente}{Concurrent Programming} - Exercícios \theaula} \\
+\medskip
+
+CCS  }
+\end{center}
+%\pten{Nota: perguntas com (**) não facultativas}{Questions with (**) are optional}.
+\begin{questions}
+\question \pten{Indica quais das seguintes expressões são expressões do CCS sintaticamente correctas}{Which of the following expressions of CCS are correct?}.
+\begin{parts}
+\part $(a.0+\overline{a}.A)\backslash \{a,b\}$
+\part 	 $(a.0+\overline{a}.A)\backslash \{a,\tau\}$
+%\part  (**) $a.B+ [a/b]$
+\part $\tau.\tau . B+ 0$
+%\part (**) $(a.B+b.B)[a/b,b/a]$
+%\part (**) $(a.B+b.B)[a/\tau,b/a]$
+\part $(a.b.B+\overline{a}.0) | B$
+\part $(a.b.B+\overline{a}.0) . B$
+\end{parts}
+\question \pten{Sendo}{Let} $A:= b.a.B$, \pten{usando as regras de inferência mostra a existência das seguintes transições}{using  the inference rules show that the following transitions exist}:
+\begin{itemize}
+\item  $\trans{(A|\overline{b}.0)\backslash\{b\}}{\tau}{ (a.B|0)\backslash \{b\}}$	
+%\item (**)$\trans{(A|\overline{b}.a.B)+(\overline{b}.A)[a/b]}{\overline{b}}{ (A|a.B)}$	
+%\item (**)$\trans{(A|\overline{b}.a.B)+(\overline{b}.A)[a/b]}{\overline{a}}{ (A[a/b]}$	
+\end{itemize}
+	
+\question \pten{Resolver os exercícios}{Solve the}
+$CCS$ \pten{em}{ exercises in} \href{https://pseuco.com/#/exercises}{PseuCo.com}
+
+\question
+\pten{Considera as seguintes definições uma investigador numa universidade que toma café se publica artigos científicos}{Consider the following definitions of a researcher that takes coffee and publishes articles}.
+
+\begin{eqnarray*}
+	CM&:=& coin?.coffee!.CM\\
+CS&:=&pub!.coin!.coffee?.CS\\
+Uni&:=& (CM|CS)\backslash\{coin,coffee\}
+\end{eqnarray*} 
+\pten{Usa as regras de inferência do CCS para obter um fragmento atíngível  de}{Use the CSS inference rules to obtain the reachable fragment of} $\bras{Uni}_\Gamma$. \pten{Testa no}{Test in} pseuco.com.
+\pten{Comparar com}{Compare with } $Spec:=pub!.Spec$.
+
+\question \pten{Sendo}{Let} $A:=(a.A)\backslash\{b\}$ \pten{mostra que}{show that} $\bras{A}_\Gamma$ \pten{é infinito}{infinite} \pten{(mesmo o fragmento atingível)}{(even the reachable fragment)}.
+\question 
+\pten{Considera as seguintes definições que pretendem resolver o problema da exclusão mútua com um semáforo (unário)}{The  following definitions try to solve the mutual exclusion with a semaphore}.
+\begin{parts}
+\part \begin{eqnarray*}
+	Mutex_1&:=& (User|Sem)\backslash \{p,v\}\\
+User&:=&\overline{p}.enter.exit.\overline{v}.User\\
+Sem&:=& p.v.Sem
+\end{eqnarray*} 
+\pten{Usa as regras de inferência do CCS para obter um fragmento atíngível  de}{Use the CCS inference rules to obtain the reachable fragment of} $\bras{Mutex_1}_\Gamma$. \pten{Testa no}{Test in} pseuco.com.
+\part \pten{Seja}{Let}
+
+\begin{eqnarray*}
+	Mutex_2&:=& ((User|Sem)|User)\backslash \{p,v\}
+\end{eqnarray*} 
+\pten{Usa as regras de inferência do CCS para obter um fragmento atíngível  de}{Use the CCS inference rules to obtain the reachable fragment of} $\bras{Mutex_2}_\Gamma$. \pten{Testa no}{Test in} pseuco.com.
+\pten{Havia alteração se}{There will be changes if one uses} $User := \overline{p}.enter.\overline{v}.exit.User$ ?
+\part \pten{Seja}{Let}
+\begin{eqnarray*}
+	FMutex&:=& ((User|Sem)|FUser)\backslash \{p,v\}\\
+	FUser &:=& \overline{p}.enter.(exit.\overline{v}.FUser +exit.\overline{v}.0)
+\end{eqnarray*} 
+
+\pten{Usa as regras de inferência do CCS para obter um fragmento atíngível  de}{Use the CCS inference rules to obtain the reachable fragment of} $\bras{FMutex}_\Gamma$. \pten{Testa no}{Test in} pseuco.com.
+\pten{Achas que}{Do you think that} $Mutex_2$ \pten{e}{and} $FMutex$ \pten{têm o mesmo comportamento}{has the same behaviour}?
+\end{parts}
+
+\question 
+Modela uma  passagem de nível com 3 componentes: o comboio, a cancela e um controlador (como sugerido na figura). Considera que:
+
+\begin{itemize}
+\item As acções do comboio  caracterizam a sua localização em relação à passagem: aproxima-se ($approach$), entra ($in$) e sai ($exit$).
+\item A cancela pode estar baixada  ($down$) ou levantada ($up$).
+  \item O comboio e a cancela não comunicam directamente, apenas o controlador comunica com eles. O controlador deve garantir que quando o  comboio entra a cancela está em baixo.
+  \end{itemize}
+  \begin{center}
+%\includegraphics[width=200pt]{train.png}
+[TRAIN]
+\end{center}\begin{parts}
+  \part Descreve em CCS  cada componente: comboio, cancela e controlador.
+\part Escreve o processo do sistema que corresponda à execução paralela das várias componentes, indicando as acções em que devem sincronizar. 
+  \part 
+  \pten{Usa as regras de inferência do CCS (indicando em cada passo a regra usada) para obter um LTS para esse processo}{Use the CSS inference rules (mentioning the name of the rule used in each step) to obtain the reachable fragment of that process}.  \end{parts}
+\question \pten{Considera os seguintes conjuntos de equações  que definem dois contador}{Consider}:
+\begin{eqnarray*}
+C_0&:= &inc. C_1\\	
+ C_n&:=& inc.C_{n+1}+dec.C_{n-1}, \text{ para } n\geq 1\\
+\end{eqnarray*}
+e $SC:= inc.(SC|dec.0)$.
+\begin{parts}
+\part  \pten{Determinina o fragmento acessível  (e inicial) do LTS}{Determine the inicial fragment}  $\bras{C_0}_\Gamma$. \pten{Argumenta que o LTS não pode ser finito por estados}{Argue that the LTS cannot be state-finite}.
+\part \pten{Determinina o fragmento acessível do LTS (e inicial) $\bras{SC}_\Gamma$}%
+				   {Determine the accessible fragment of LTS (and initial) $\bras{SC}_\Gamma$}
+\part \pten{Determinita se os dois LTS são isomorfos. Haverá alguma semelhança entre eles?}%
+					 {Determine if the two LTS are isomorphic. Is there any similarity between them?}
+\end{parts}
+\end{questions}
+\end{document}
