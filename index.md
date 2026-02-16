@@ -48,10 +48,10 @@ The goal of this course is to introduce students to the fundamental theoretic an
 3. [Sequential CCS](slides/3-seq-ccs.pdf)
 4. [Full CCS (with concurrency)](slides/4-ccs-par.pdf)
 5. [Equivalences](slides/5-equiv.pdf)
-6. [CCS with data](slides/6-ccs-data.pdf)
-7. ...
+6. ...
 
 <!--
+6. [CCS with data](slides/6-ccs-data.pdf)
 1. [Introduction to the second module](slides/1-intro.pdf)
 2. [Scala primer](slides/2-scala.pdf)
 3. [Java Memory Model](slides/3-javamemory.pdf)
