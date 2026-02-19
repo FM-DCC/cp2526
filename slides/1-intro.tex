@@ -6,7 +6,7 @@
 \begin{document}
 
 % \setLectureBasic{Cyber-Physical Computation}
-\setLecture[\\\emph{(slides mainly from Nelma Moreira)}]%
+\setLecture[\\ \emph{(slides mainly from Nelma Moreira)}]%
     {1}{Concurrent programming}
 
 \section{Concurrent Programming - Part I}
@@ -420,7 +420,7 @@ $Q:$
 
 \pause Pode acontecer que se leia em $x$ o valor de $y$.
 
-\pause \alert{Solução}: Não permitir que estas operações executem em simultaneo $\Imp$ \alert{Exclusão Mútua}  
+\pause \!\!\!\alert{Solução}: Não permitir que estas operações executem em simultaneo $\Imp$ \alert{Exclusão Mútua}  
 \end{center}
 \end{frame}
 
@@ -487,7 +487,7 @@ $$ (\#c\geq 0)\land    (\#p\geq \#c)\land  (\#p\leq \#c+k)$$
 
 \item \alert{Bypass limitado}: Suponhamos $n$ processos em competição e suponhamos que um  ganha. Existe $f(n)$ tal que cada processo que invoca $acquire\_mutex$ perde no máximo $f(n)$ vezes para os outros.
 \end{itemize}
-\centerline  \emph{Bypass} limitado $\Imp$ \emph{Starvation-freedom}(=\emph{Bypass} finito) $\Imp$ \emph{Deadlock-freedom}
+\centerline  \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\emph{Bypass} limitado $\Imp$ \emph{Starvation-freedom}(=\emph{Bypass} finito) $\Imp$ \emph{Deadlock-freedom}
 \end{description}
 \end{frame}
 
@@ -554,8 +554,8 @@ $$ (\#c\geq 0)\land    (\#p\geq \#c)\land  (\#p\leq \#c+k)$$
 \begin{tikzpicture}[>=stealth, shorten >=1pt, auto, node distance=3cm,initial text={}]
 \node[state,  inner sep=1pt, minimum size=5pt] (S0){};
 \node[state,  inner sep=1pt, minimum size=5pt][right of =S0] (S1){};
-\path[->](S0) edge [bend left] node {\color{blue} a}(S1)
-         (S1) edge  [bend left] node { \color{blue}b}(S0);
+\path[->](S0) edge [bend left] node {\color{blue} m}(S1)
+         (S1) edge  [bend left] node { \color{blue}c}(S0);
 \end{tikzpicture}
 
 Usar só letras para simplificar
