@@ -8,8 +8,8 @@ The goal of this course is to introduce students to the fundamental theoretic an
  - __The 1st part__ of the course is more fundamental using an algebra for processes.
  - __This 2nd part__ of the course will focus on the programming aspect, using the Scala language to study several concurrency patterns and libraries in Java Virtual Machines.
 - Other links:
-   - [Moodle](https://moodle2425.up.pt/course/view.php?id=????): management of the presence of students and other links;
-   - [Sigarra@FCUP](https://sigarra.up.pt/fcup/pt/ucurr_geral.ficha_uc_view?pv_ocorrencia_id=????): the official plan of this course.
+   - [Moodle](https://moodle2526.up.pt/course/view.php?id=5713): management of the presence of students and other links;
+   - [Sigarra@FCUP](https://sigarra.up.pt/fcup/pt/ucurr_geral.ficha_uc_view?pv_ocorrencia_id=570334): the official plan of this course.
 
 
  <!-- - __Summaries__ and __assignments__ are placed in the associated [Moodle website](https://moodle2324.up.pt/course/view.php?id=1748). -->
