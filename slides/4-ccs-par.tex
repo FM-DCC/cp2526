@@ -52,7 +52,7 @@ Considera as  equações de $\Gamma$ seguintes.
 	
 Vimos que a composição paralela (intercalada) de dois sistemas de transição correspondia ao seu produto.
 
-\splittwo{0.47}{0.47}{
+\splittwo{0.50}{0.37}{
 \only<1-2>{
 Por exemplo, tendo dois fósforos: Um acende, outro não
 
@@ -80,7 +80,7 @@ distance=1.5cm,initial text={}]
 	strike.light.strike.\tau.0+strike.strike.light.\tau.0 +\\
 	strike.\tau.strike.light.0+strike.strike.\tau.light.0 \\
 	\end{align*}}
-\only<4>{Mas vamos considerar um operador próprio que permite mais flexibilidade e termos mais concisos. No caso anterior seria:
+\only<4>{~\\[-10mm]Mas vamos considerar um operador próprio que permite mais flexibilidade e termos mais concisos. No caso anterior seria:
 $$strike.light.0| strike.\tau.0$$
 }
 
@@ -127,9 +127,9 @@ edge  node [swap] { \color{red} $strike$} (S3)
 \only<2->{\begin{center}
 \begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=2.5cm, initial text={}]
 \node[st,  initial] (S0){$strike.(light.0 |\tau.0)$};
-\node[st][ below  left of =S0] (S1){$light.0 |\tau.0$};
+\node[st][ below=1 of S0] (S1){$light.0 |\tau.0$};
 \node[st][right of =S1] (S2){$0|\tau.0$};
-\node[st][below left  of =S1] (S3){$light.0|0$};
+\node[st][below=1 of S1] (S3){$light.0|0$};
 \node[st][right  of =S3] (S4){$0|0$};
 
 \path[->](S0) edge [swap] node {$strike$} (S1)
@@ -300,14 +300,14 @@ $$	\trans{((a!.0|a!.0 )|a?.0)\backslash\{a!,a?\}}{\tau}{((0|a!.0 )|0)\backslash\
 
 \begin{frame}
 {Exemplo}
-No exemplo anterior calcula  o LTS 	$\bras{(User|Machine)\backslash \{coin,coffeee\}}_\Gamma$ e testa no Pseuco.com.
+No exemplo anterior calcula  o LTS 	$\bras{(User|Machine)\backslash \{coin,coffeee\}}_\Gamma$ e testa no \href{https://pseuco.com/\#/files}{Pseuco.com} ou no \href{https://lmf.di.uminho.pt/ccs-caos}{ccs-caos}.
 
 \only<1>{\centerline{\includegraphics[width=100pt]{src/img/nam/Coffeemachine2}}}
 Indica o termo que etiqueta cada estado.
 
 \end{frame}
 
-\begin{frame}{No PseuCo.com}
+\begin{frame}{No PseuCo.com / ccs-caos}
 
 Considera as seguintes equações
 \begin{eqnarray*}
@@ -315,7 +315,7 @@ Match &:= &strike. MatchOnFire\\
 MatchOnFire &:=& light!. MatchOnFire + extinguish!.0\\
 TwoFireCracker &:= &light?. (bang!. 0 | bang!. 0)\\
 \end{eqnarray*}
-Constrói o LTS a expressão abaixo e testa no Pseuco.com.
+Constrói o LTS a expressão abaixo e testa no \href{https://pseuco.com/\#/files}{Pseuco.com} ou no \href{https://lmf.di.uminho.pt/ccs-caos}{ccs-caos}.
 
 $$(Match | TwoFireCracker) \backslash \{light\} $$
 	
@@ -535,31 +535,31 @@ Se $\Gamma$ é uma função parcial cujo contradomínio só tem expressões regu
 \pause Este é o cálculo que se usa  mais na prática.
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%
 \begin{frame}{Buffer Paralelos }
-\begin{itemize}[<+->]
-	\item 
-
+\splittwo{0.4}{0.5}{
 	Calcular $\bras{Buffer | Buffer}_\Gamma$.
-para \begin{eqnarray*}
+para
+\begin{eqnarray*}
 	Buffer &:=& put?. get?.Buffer
 \end{eqnarray*}
-\item 
-\includegraphics[width=4cm]{src/img/nam/putget.png}	
-
-
+\pause
+\includegraphics[width=4cm]{src/img/nam/putget.png}
+\pause
+}{
 \begin{eqnarray*}
 	BufferL &:=& put?. pass!.BufferL\\
 	BufferR &:=& pass?. get?.BufferR\\
 \end{eqnarray*}
 Calcular $\bras{(BufferL| BufferR)\backslash\{pass!,pass?\}}$
-\end{itemize}
-
+}
 \end{frame}
 
-
+%%%%%%%%%%%%%%%
 \begin{frame}{Exemplo de um Protocolo  com Ack (Pseuco)}
+\splittwo{0.35}{0.6}{
 \only<1->{\begin{center}\includegraphics[width=4.5cm]{src/img/nam/SendRec1}\end{center}
-}	
+}}{
 \only<2->{
 {\small\begin{eqnarray*}
 Sender &:= &put? . send! . Sending\\
@@ -571,6 +571,7 @@ DupMedium &:= &Medium | AckMedium\\
 ProtocolG &:=& (Sender \mid Receiver \mid DupMedium) \backslash \\
 &&\{send, receive, sendAck, receiveAck\}
 \end{eqnarray*}}}
+}
 \end{frame}
 
 \begin{frame}{Exemplo de um Protocolo  com Ack (Pseuco, Holger H.)}
@@ -579,7 +580,8 @@ ProtocolG &:=& (Sender \mid Receiver \mid DupMedium) \backslash \\
 \end{center}
 \end{frame}
 
-\begin{frame}{Exemplo de um Protocolo  com erro no meio --Pseuco}
+\begin{frame}{Exemplo de um Protocolo  com erro no meio -- Pseuco}
+~\\[-10mm]
 \begin{eqnarray*}
 Sender &:= &put? . send! . Sending\\
 Sending& :=& receiveAck? . Sender +receiveNAck?.send!.Sending\\
@@ -603,13 +605,13 @@ Para um observador externo os processos $Buffer$, $Protocol$ e $ProtocolG$ têm 
 \end{center}
 \end{frame}
 
-\begin{frame}{CCS em PSeuco -ver exemplos}
-\begin{center}
-[MISSING]
-% \includegraphics[width=12cm]{src/img/nam/CCSemPseco.png}	
-\end{center}
+% \begin{frame}{CCS em PSeuco -- ver exemplos}
+% \begin{center}
+% [MISSING]
+% % \includegraphics[width=12cm]{src/img/nam/CCSemPseco.png}	
+% \end{center}
 
-\end{frame}
+% \end{frame}
 
 \begin{frame}
 \frametitle{Exclusão Mútua}	
@@ -657,12 +659,12 @@ Se se modelar a  entrada e a saída da zona crítica fica (para dois processos).
 Processo $P_i$\\
 		 \begin{algorithmic}
 		\While{\bf true}
-	\State {\color{green}noncricital actions}
+	\State \structure{noncricital actions}
 \State{$b_i\gets \mathbf{true}$;}
 \State{$k\gets j$;}
 \While{$b_j \land k=j$} \State{\textbf{skip};}
 \EndWhile
-	\State {\color{red}critical actions}
+	\State \alert{critical actions}
 \State$b_i\gets \mathbf{false};$
 		\EndWhile		
 \end{algorithmic}
@@ -748,6 +750,10 @@ onde $L$ são todas as ações excepto as de entrada e saída na zona critica.
 Ficheiro no Pseuco.com:
  \url{https://pseuco.com/\#/edit/remote/tkxz8fpu1t8ke56bj9uo}
 
+Ficheiro no ccs-caos:
+ \url{https://lmf.di.uminho.pt/ccs-caos/?Peterson}
+
+
  Será que $MutexSpec$ e $Peterson$ são equivalentes? Mas para que equivalência? Interessa-nos o comportamento observável...
 \end{frame}
 
@@ -763,8 +769,8 @@ MutualTest2&:= exit2!.MutalTest + enter2!.bad!.0
 Executando 
 $$(Peterson|MutualTest)\backslash \{enter1,enter2,exit1,exit2\}$$
 ver se a ação $bad!$ pode ser executada. Pode-se mostrar que não.
- Ficheiro no Pseuco.com: 
-\url{tex}
+%  Ficheiro no Pseuco.com: 
+% \url{tex}
 
 \end{frame}
 

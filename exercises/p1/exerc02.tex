@@ -1,4 +1,5 @@
 \documentclass[11pt]{exam}
+\usepackage{hyperref}
 \usepackage{enumerate}
 \usepackage[utf8]{inputenc}
 \usepackage{alltt}
@@ -67,8 +68,8 @@ $CCS_0$ \pten{em}{in} \url{https://pseuco.com/#/exercises} (PseuCo.com)
 \question  \pten{Considera a definição CCS da máquina de café}{Consider the following definition of a coffee machine}
 $$CM:= \text{coin.coffee}.CM$$
 \begin{parts}
-\part \label{ex:cma} \pten{Calcula}{Compute} $\Gamma$ \pten{e}{and} $\bras{CM}_	\Gamma$ \pten{e}{and} \pten{implementa  no}{implement it in} pseuco.com
-\part \pten{Escreve um processo  que funcione como}{Write a process that behaves as} $CM$ \pten{mas pode \emph{roubar a moeda}}{can steal the coin}, i.e., \pten{não dar o café}{does not give coffee}.
+\part \label{ex:cma} \pten{Calcula}{Compute} $\Gamma$ \pten{e}{and} $\bras{CM}_	\Gamma$ \pten{e}{and} \pten{implementa  no}{implement it in} \href{https://pseuco.com/#/new/ccs}{pseuco.com}.
+\part \pten{Escreve um processo  que funcione como}{Write a process that behaves as} $CM$ \pten{mas pode \emph{roubar a moeda}}{but that can also steal the coin}, i.e., \pten{não dar o café}{may not give coffee after coin}.
 \part \pten{Escreve um processo  que funcione como}{Write a process that behaves as} $CM$ \pten{mas  pode dar chá ou café pelo mesmo preço}{but can give coffee or tea}.\pten{Considera os casos em que a bebida que sai é aleatória ou que o comprador indica se quer café ou chá}{Consider two cases: the beverage is randomlly choosen or there is a way to ask the buyer if he wants coffee or tea}.
 \part \pten{Escreve um processo  que funcione como}{Write a process that behaves as} $CM$ \pten{mas pode dar chá  por $0.5$ euros}{but can give tea for $0.5$ euros} \pten{e}{and} \pten{café  por}{ coffee for} $1$ euro.
 \part \pten{Para as últimas alíneas repete a primeira alínea}{Repeat} (\ref{ex:cma}) \pten{}{for the last questions}.
