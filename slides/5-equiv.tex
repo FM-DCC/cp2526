@@ -74,6 +74,7 @@ ou ver algoritmo em Pseuco Book
 
 \only<article>{
 \begin{exerc} Consideremos os seguintes processos que correspondem a "buffers" (de capacidade $1$ e $2$).}
+\splittwo{0.6}{0.35}{
 \only<1->{\begin{eqnarray*}
 	Buffer &:=& put?. get!.Buffer
 \end{eqnarray*}}
@@ -85,12 +86,6 @@ ou ver algoritmo em Pseuco Book
 Será que $Buffer0 \sim (Buffer|Buffer)$?}
 \only<article>{\end{exerc}
 }
-\only<3>{
-\begin{tabular}{lccr}
-$\bras{Buffer0}_\Gamma$&$\bras{Buffer|Buffffer}_\Gamma$
-\includegraphics[width=4cm]{src/img/nam/buffer2}&	\includegraphics[width=4cm]{src/img/nam/bufbuf}
-\end{tabular}
-}
 \only<article>{Pode-se mostrar que sim. Calcula uma bissinmulação que contenha $(Buffer0,Buffer|Buffffer)$.}
 \only<article>{\begin{exerc} Seja também}
 \only<4->{
@@ -101,13 +96,22 @@ $\bras{Buffer0}_\Gamma$&$\bras{Buffer|Buffffer}_\Gamma$
 Será que 
 $(BufferL| BufferR)\backslash\{pass!,pass?\}\sim (Buffer|Buffer)$?
 }
-
+}{
+\only<3>{
+% \begin{tabular}{lccr}
+% $\bras{Buffer0}_\Gamma$&$\bras{Buffer|Buffffer}_\Gamma$
+% \includegraphics[width=4cm]{src/img/nam/buffer2}&	\includegraphics[width=4cm]{src/img/nam/bufbuf}
+% \end{tabular}
+\includegraphics[width=4cm]{src/img/nam/buffer2}\\
+\includegraphics[width=4cm]{src/img/nam/bufbuf}
+}
 \only<5>{
 %\begin{tabular}[{lccr}
-\includegraphics[width=3cm]{src/img/nam/bufpass}	\includegraphics[width=4cm]{src/img/nam/bufbuf}
+\includegraphics[width=3cm]{src/img/nam/bufpass}\\
+\includegraphics[width=4cm]{src/img/nam/bufbuf}
 %\end{tabular}
 }
-
+}
 \only<article>{Neste caso  pode-se mostrar que não é verdade.\end{exerc}}
 \end{frame}
 
@@ -121,17 +125,16 @@ Seja $TS=(S,\tr,s_0)$. Uma relação $R\in S\times S$ é uma \alert{bissimulaç�
 \item  se $\trans{t}{\alpha}{t'}$ então existe $s'$ tal que   $\transtau{s}{\alpha}{s'}$ e $(s',t')\in R$.
 \end{itemize}
 	}
-\only<3>{Onde
+\only<3>{%Onde
 \begin{block}{Transições fracas}
 \begin{itemize}
-	\item $\transtau{s}{\tau}{s'}$ sse $\exists n\geq 0: \transt{s}{\tau^n}{s'}$
-\item  
-$\transtau{s}{a}{s'}$ sse $\exists s'',s'''\in S: \transtau{s}{\tau}{s''}\trans{}{a}{s'''}\transtau{}{\tau}{s'}$
+	\item $\transtau{s}{\tau}{s'}$ sse $\exists n\geq 0: \transt{s}{\tau^n}{s'}$\\[-7mm]~
+	\item $\transtau{s}{a}{s'}$ sse $\exists s'',s'''\in S: \transtau{s}{\tau}{s''}\trans{}{a}{s'''}\transtau{}{\tau}{s'}$
 \end{itemize}
 Nota que
 \begin{itemize}
- \item $\tr\subseteq \trtau$
-\item na definição de b.f. podemos usar sempre $\trtau$.
+ \item $\tr\subseteq \trtau$\\[-7mm]~
+\item na definição de b.f. podemos usar sempre $\trtau$.\\[-7mm]~
 \item $\transtau{s}{\tau}{s}$ para todo o $s$
 \end{itemize}
 \end{block}}
@@ -144,16 +147,17 @@ Nota que
 
 \end{frame}
 \begin{frame}{Exemplo}
+\splittwo{0.35}{0.55}{
 \only<1->{	Mostrar que
 \begin{itemize}
 	\item $a.\tau.0\approx a.0\approx \tau.a.0$
 \item  $\tau.(a.0+\tau.a.0)\approx a.0$
 \end{itemize}
 }
+}{
 \only<2>{
 \begin{center}
 $a.\tau.0\approx a.0\approx \tau.a.0$
-
 \includegraphics[width=7cm]{src/img/nam/a0tau}	
 \end{center}
 
@@ -167,9 +171,11 @@ $\tau.(a.0+\tau.a.0)\approx a.0$
 \includegraphics[width=7cm]{src/img/nam/att}	
 \end{center}
 }
+}
 \end{frame}
 
 \begin{frame}{Exemplo dos Buffers}
+\splittwo{0.6}{0.3}{
 \begin{eqnarray*}
 	Buffer &:=& put?. get?.Buffer
 \\
@@ -178,11 +184,15 @@ $\tau.(a.0+\tau.a.0)\approx a.0$
 \end{eqnarray*}
 
 $(BufferL| BufferR)\backslash\{pass!,pass?\}\approx (Buffer|Buffer)$
+}{
+% \begin{tabular}{lccr}
+\includegraphics[width=4cm]{src/img/nam/bufpass}\\
+\includegraphics[width=4cm]{src/img/nam/bufbuf}
+% \end{tabular}
+}
+\end{frame}
 
-\begin{tabular}{lccr}
-\includegraphics[width=4cm]{src/img/nam/bufpass}&	\includegraphics[width=4cm]{src/img/nam/bufbuf}
-\end{tabular}
-	\end{frame}
+
 \begin{frame}{Processos não  fracamente bissimilares}
 $$(a!.b!.0)\not\approx (a!.b!.0+\tau.0)$$	
 \only<1->{
