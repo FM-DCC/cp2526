@@ -100,7 +100,7 @@ Sem&:=& p.v.Sem
 	Mutex_2&:=& ((User|Sem)|User)\backslash \{p,v\}
 \end{eqnarray*} 
 \pten{Usa as regras de inferência do CCS para obter um fragmento atíngível  de}{Use the CCS inference rules to obtain the reachable fragment of} $\bras{Mutex_2}_\Gamma$. \pten{Testa no}{Test in} pseuco.com.
-\pten{Havia alteração se}{There will be changes if one uses} $User := \overline{p}.enter.\overline{v}.exit.User$ ?
+\pten{Havia alteração se}{Would it be different if one uses} $User := \overline{p}.enter.\overline{v}.exit.User$ ?
 \part \pten{Seja}{Let}
 \begin{eqnarray*}
 	FMutex&:=& ((User|Sem)|FUser)\backslash \{p,v\}\\
@@ -139,7 +139,7 @@ indicating the actions in which they must synchronize.}
 \question \pten{Considera os seguintes conjuntos de equações  que definem dois contador}{Consider}:
 \begin{eqnarray*}
 C_0&:= &inc. C_1\\	
- C_n&:=& inc.C_{n+1}+dec.C_{n-1}, \text{ para } n\geq 1\\
+ C_n&:=& inc.C_{n+1}+dec.C_{n-1}, \text{ \pten{para}{for} } n\geq 1\\
 \end{eqnarray*}
 e $SC:= inc.(SC|dec.0)$.
 \begin{parts}
