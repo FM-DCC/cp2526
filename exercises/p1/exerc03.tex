@@ -113,20 +113,27 @@ Sem&:=& p.v.Sem
 
 \question 
 \pten{Modela uma  passagem de nível com 3 componentes: o comboio, a cancela e um controlador (como sugerido na figura). Considera que:}%
-{Model a }
+{Model a level crossing with three components: the train, the barrier, and a controller. Consider that:}
 
 
 \begin{itemize}
-\item As acções do comboio  caracterizam a sua localização em relação à passagem: aproxima-se ($approach$), entra ($in$) e sai ($exit$).
-\item A cancela pode estar baixada  ($down$) ou levantada ($up$).
-  \item O comboio e a cancela não comunicam directamente, apenas o controlador comunica com eles. O controlador deve garantir que quando o  comboio entra a cancela está em baixo.
+\item \pten{As acções do comboio  caracterizam a sua localização em relação à passagem: aproxima-se ($approach$), entra ($in$) e sai ($exit$).}{
+		The train's actions characterize its location in relation to the crossing:  it approaches
+(approach), enters (in), and exits (exit).}
+\item \pten{A cancela pode estar baixada  ($down$) ou levantada ($up$).}{
+	The barrier can be down or up.}
+  \item \pten{O comboio e a cancela não comunicam directamente, apenas o controlador comunica com eles. O controlador deve garantir que quando o  comboio entra a cancela está em baixo.}{
+  The train and the barrier do not communicate directly; only the controller communicates with
+them. The controller must ensure that when the train enters, the barrier is down.}
   \end{itemize}
   % \begin{center}
 %\includegraphics[width=200pt]{train.png}
 % [TRAIN]
-% \end{center}\begin{parts}
-  \part Descreve em CCS  cada componente: comboio, cancela e controlador.
-\part Escreve o processo do sistema que corresponda à execução paralela das várias componentes, indicando as acções em que devem sincronizar. 
+% \end{center}
+\begin{parts}
+  \part \pten{Descreve em CCS  cada componente: comboio, cancela e controlador.}{Describe each component in CCS: train, barrier, and controller.}
+\part \pten{Escreve o processo do sistema que corresponda à execução paralela das várias componentes, indicando as acções em que devem sincronizar.}{Write the system process that corresponds to the parallel execution of the various components,
+indicating the actions in which they must synchronize.}
   \part 
   \pten{Usa as regras de inferência do CCS (indicando em cada passo a regra usada) para obter um LTS para esse processo}{Use the CSS inference rules (mentioning the name of the rule used in each step) to obtain the reachable fragment of that process}.  \end{parts}
 \question \pten{Considera os seguintes conjuntos de equações  que definem dois contador}{Consider}:
