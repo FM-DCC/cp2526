@@ -77,14 +77,14 @@ $CCS$ \pten{em}{ exercises in} \href{https://pseuco.com/#/exercises}{PseuCo.com}
 \pten{Considera as seguintes definições uma investigador numa universidade que toma café se publica artigos científicos}{Consider the following definitions of a researcher that takes coffee and publishes articles}.
 
 \begin{eqnarray*}
-	CM&:=& coin?.coffee!.CM\\
-CS&:=&pub!.coin!.coffee?.CS\\
-Uni&:=& (CM|CS)\backslash\{coin,coffee\}
+	CM&:=& coin?.\mathit{coffee}!.CM\\
+CS&:=&pub!.coin!.\mathit{coffee}?.CS\\
+Uni&:=& (CM|CS)\backslash\{coin,\mathit{coffee}\}
 \end{eqnarray*} 
 \pten{Usa as regras de inferência do CCS para obter um fragmento atíngível  de}{Use the CSS inference rules to obtain the reachable fragment of} $\bras{Uni}_\Gamma$. \pten{Testa no}{Test in} pseuco.com.
 \pten{Comparar com}{Compare with } $Spec:=pub!.Spec$.
 
-\question \pten{Sendo}{Let} $A:=(a.A)\backslash\{b\}$ \pten{mostra que}{show that} $\bras{A}_\Gamma$ \pten{é infinito}{infinite} \pten{(mesmo o fragmento atingível)}{(even the reachable fragment)}.
+\question \pten{Sendo}{Let} $A:=(a.A)\backslash\{b\}$ \pten{mostra que o fragmento atingível}{show that the reachable fragment of} $\bras{A}_\Gamma$ \pten{é infinito}{is infinite}.
 \question 
 \pten{Considera as seguintes definições que pretendem resolver o problema da exclusão mútua com um semáforo (unário)}{The  following definitions try to solve the mutual exclusion with a semaphore}.
 \begin{parts}
@@ -95,7 +95,7 @@ Sem&:=& p.v.Sem
 \end{eqnarray*} 
 \pten{Usa as regras de inferência do CCS para obter um fragmento atíngível  de}{Use the CCS inference rules to obtain the reachable fragment of} $\bras{Mutex_1}_\Gamma$. \pten{Testa no}{Test in} pseuco.com.
 \part \pten{Seja}{Let}
-
+%
 \begin{eqnarray*}
 	Mutex_2&:=& ((User|Sem)|User)\backslash \{p,v\}
 \end{eqnarray*} 
@@ -112,17 +112,19 @@ Sem&:=& p.v.Sem
 \end{parts}
 
 \question 
-Modela uma  passagem de nível com 3 componentes: o comboio, a cancela e um controlador (como sugerido na figura). Considera que:
+\pten{Modela uma  passagem de nível com 3 componentes: o comboio, a cancela e um controlador (como sugerido na figura). Considera que:}%
+{Model a }
+
 
 \begin{itemize}
 \item As acções do comboio  caracterizam a sua localização em relação à passagem: aproxima-se ($approach$), entra ($in$) e sai ($exit$).
 \item A cancela pode estar baixada  ($down$) ou levantada ($up$).
   \item O comboio e a cancela não comunicam directamente, apenas o controlador comunica com eles. O controlador deve garantir que quando o  comboio entra a cancela está em baixo.
   \end{itemize}
-  \begin{center}
+  % \begin{center}
 %\includegraphics[width=200pt]{train.png}
-[TRAIN]
-\end{center}\begin{parts}
+% [TRAIN]
+% \end{center}\begin{parts}
   \part Descreve em CCS  cada componente: comboio, cancela e controlador.
 \part Escreve o processo do sistema que corresponda à execução paralela das várias componentes, indicando as acções em que devem sincronizar. 
   \part 
