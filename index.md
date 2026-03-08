@@ -85,10 +85,10 @@ The goal of this course is to introduce students to the fundamental theoretic an
  -->
 
 ### Examples of exams and tests
-1. ...
+- [2023-2024 - Test for the 1st module (at _época recurso_)](exercises/cp-testP1-rec24.pdf)
+- [2023-2024 - Test for the 2nd module (at _época normal_)](exercises/cp-testP2-normal24.pdf)
 
 <!--
-- [2023-2024 - Test for the second module (at _época normal_)](https://fm-dcc.github.io/pc2324/exercises/cp-test-normal24.pdf)
 - [2018-2019 - Test for the first module (authentication needed - during the semester)](https://www.dcc.fc.up.pt/~nam/Teaching/progcon2324/ligacoes/index.html)
  -->
 
