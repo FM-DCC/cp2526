@@ -22,7 +22,7 @@ The goal of this course is to introduce students to the fundamental theoretic an
 - __26 Feb 26__: [T] Sequential CCS ([3-seq-ccs.pdf](slides/3-seq-ccs.pdf)).  
 - __27 Feb 26__: [P] Exercises on sequential CCS ([exerc02.pdf](exercises/p1/exerc02.pdf))
 - __5 Mar 26__: [T] Paralel composition. Input and output actions. Synchronization. ([4-ccs-par.pdf](slides/4-ccs-par.pdf)).  
-- __6 Mar 26__: [P] Exercises on paralel composition and synchronization. ([exerc03.pdf](exercises/p1/exerc03.pdf))
+- __6 Mar 26__: [P] Exercises on parallel composition and synchronization. ([exerc03.pdf](exercises/p1/exerc03.pdf))
 
 <!-- - __27 Mar 25__: [T] Introduction to the second module ([1-intro.pdf](slides/1-intro.pdf)). Overview of Scala ([2-scala.pdf](slides/2-scala.pdf)).  
 [P] Exercises on Scala ([ex-scala.pdf](exercises/ex-scala.pdf)).
@@ -53,7 +53,7 @@ The goal of this course is to introduce students to the fundamental theoretic an
 3. [Sequential CCS](slides/3-seq-ccs.pdf)
 4. [Full CCS (with concurrency)](slides/4-ccs-par.pdf)
 5. [Equivalences](slides/5-equiv.pdf)
-6. ...
+6. [CCS with data](slides/6-ccs-data.pdf)
 
 <!--
 6. [CCS with data](slides/6-ccs-data.pdf)
@@ -68,7 +68,8 @@ The goal of this course is to introduce students to the fundamental theoretic an
 1. [Exercises on labelled transition systems](exercises/p1/exerc01.pdf)
 2. [Exercises on sequential CCS](exercises/p1/exerc02.pdf)
 3. [Exercises on full CCS (with concurrency)](exercises/p1/exerc03.pdf)
-4. ...
+4. [Exercises on observational equivalences](exercises/p1/exerc04.pdf)
+5. ...
 
 <!--
 1. [Exercises on Scala](exercises/ex-scala.pdf)
