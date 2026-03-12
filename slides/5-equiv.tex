@@ -542,11 +542,11 @@ Nota: as regras algébricas permitem provar a igualdade de processos pela aplica
 Dado um processo $P$ do CCS estados-finito:
 \begin{itemize}
 	\item Construir o LTS atíngivel de $P$.
-\item Calcular a relação $\approx$
+\item Calcular a relação $\simeq$
 \item Considerar cada classe de equivalência um estado: $S=\{[s]_{\simeq}\mid s\in Reach(P)\}$
 \item Adicionar  transições entre duas classes sempre que uma transição exista entre os elementos da respectiva classe.
 \item Podemos apagar as transições que seriam adicionadas por $\trtau$ e não estavam em $\tr$.
-\item Adicionar um lacete com $\tau$ se $P$ tem uma $\tau$-transição para a sua classe $[P]_\approx$.
+\item Adicionar um lacete com $\tau$ se $P$ tem uma $\tau$-transição para a sua classe $[P]_\simeq$.
 \end{itemize}	
 \end{frame}
 
