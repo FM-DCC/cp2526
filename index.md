@@ -23,6 +23,7 @@ The goal of this course is to introduce students to the fundamental theoretic an
 - __27 Feb 26__: [P] Exercises on sequential CCS ([exerc02.pdf](exercises/p1/exerc02.pdf))
 - __5 Mar 26__: [T] Paralel composition. Input and output actions. Synchronization. ([4-ccs-par.pdf](slides/4-ccs-par.pdf)).  
 - __6 Mar 26__: [P] Exercises on parallel composition and synchronization. ([exerc03.pdf](exercises/p1/exerc03.pdf))
+- __12 Mar 26__: [T] Bisimilarity and weak bisimilarity. ([5-equiv.pdf, slides 1-15](slides/5-equiv.pdf))
 
 <!-- - __27 Mar 25__: [T] Introduction to the second module ([1-intro.pdf](slides/1-intro.pdf)). Overview of Scala ([2-scala.pdf](slides/2-scala.pdf)).  
 [P] Exercises on Scala ([ex-scala.pdf](exercises/ex-scala.pdf)).
