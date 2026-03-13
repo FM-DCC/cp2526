@@ -24,6 +24,7 @@ The goal of this course is to introduce students to the fundamental theoretic an
 - __5 Mar 26__: [T] Paralel composition. Input and output actions. Synchronization. ([4-ccs-par.pdf](slides/4-ccs-par.pdf)).  
 - __6 Mar 26__: [P] Exercises on parallel composition and synchronization. ([exerc03.pdf](exercises/p1/exerc03.pdf))
 - __12 Mar 26__: [T] Bisimilarity and weak bisimilarity. ([5-equiv.pdf, slides 1-15](slides/5-equiv.pdf))
+- __13 Mar 26__: [P]Exercises on observational equivalences (exerc04.pdf)[(exercises/p1/exerc04.pdf) and [exerc04_sol.pdf](exercises/p1/exerc04_sol.pdf)
 
 <!-- - __27 Mar 25__: [T] Introduction to the second module ([1-intro.pdf](slides/1-intro.pdf)). Overview of Scala ([2-scala.pdf](slides/2-scala.pdf)).  
 [P] Exercises on Scala ([ex-scala.pdf](exercises/ex-scala.pdf)).
@@ -169,6 +170,10 @@ Students must attend at least 75% of the practical classes to be admitted to the
 Distributed evaluation will include both modelling (EM) and program implementation (EI). The final grade (FG) is obtained by weighting the distributed assessment scores and final exam (FE) as follows:
 
  - __FG__ = 3 * EM + 3 * EI + 14 * FE.
+
+# Exam dates
+
+ - **First test (covering module 1)**: 10 April, 14h-16h, room FC6.142
 
 
 # Lecturers
