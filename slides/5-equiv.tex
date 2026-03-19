@@ -557,7 +557,7 @@ Dado um processo $P$ do CCS estados-finito:
 	BufferR &:=& pass?. get?.BufferR
 \end{eqnarray*}}
 Será que 
-$(BufferL| BufferR)\backslash\{pass!,pass?\}\sim (Buffer|Buffer)$?
+$(BufferL| BufferR)\backslash\{pass!,pass?\}\approx (Buffer|Buffer)$?
 
 \begin{tabular}{lccr}
 \includegraphics[width=4cm]{src/img/nam/bufpass}&	\includegraphics[width=4cm]{src/img/nam/bufbuf}\\
@@ -582,12 +582,12 @@ Expressividade do CCS
 \begin{column}{0.5\textwidth}
 \begin{itemize}
 		\item $P_1$, $P_2$ processos
-		\item variáveis partilhadas $b_1, b_2$ e $k$, sendo 
-		\item se $k=i$ então $P_i$ pode entrar
-		\item  $P_1$  faz $k=2$ (dá o privilégio a $P_2$)
+		\item variáveis partilhadas $\alert{b_1}, \alert{b_2}$ e $\alert{k}$, sendo 
+		\item se $\alert{k}=i$ então $P_i$ pode entrar
+		\item  $P_1$  faz $\alert{k}=2$ (dá o privilégio a $P_2$)
 		\item e simétricamente para $P_2$
-\item $b_i=true$ quando $P_i$ espera
-\item  $b_i=false$ quando $P_i$ sai da zona crítica.
+\item $\alert{b_i}=true$ quando $P_i$ espera
+\item  $\alert{b_i}=false$ quando $P_i$ sai da zona crítica.
 			\end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -595,42 +595,52 @@ Processo $P_i$\\
 		 \begin{algorithmic}
 		\While{\bf true}
 	\State {\structure{noncricital actions}}
-\State{$b_i\gets \mathbf{true}$;}
-\State{$k\gets j$;}
-\While{$b_j \land k=j$} \State{\textbf{skip};}
+\State{$\alert{b_i}\gets \mathbf{true}$;}
+\State{$\alert{k}\gets j$;}
+\While{$\alert{b_j} \land \alert{k}=j$} \State{\textbf{skip};}
 \EndWhile
 	\State {\color{red}critical actions}
-\State$b_i\gets \mathbf{false};$
+\State$\alert{b_i}\gets \mathbf{false};$
 		\EndWhile		
 \end{algorithmic}
 \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}[shrink=.8]{Algoritmo de Peterson em CCS} 
+\begin{frame}[shrink=.8]{Algoritmo de Peterson em CCS}
+\splittwo{0.6}{0.4}{
+~\\[-12mm]
 \begin{eqnarray*}
-	B_{1f}&:= & b1rf!.B_{1f}+b1wf?.B_{1f}+b1wt?.B_{1t}\\
-B_{1t}&:= & b1rt!.B_{1t}+b1wf?.B_{1f}+b1wt?.B_{1t}\\
-	B_{2f}&:= & b2rf!.B_{2f}+b2wf?.B_{2f}+b2wt?.B_{2t}\\
-B_{2t}&:= & b2rt!.B_{2t}+b2wf?.B_{2f}+b2wt?.B_{2t}\\
-	K_{1}&:= & kr1!.K_{1}+kw1?.K_{1}+ kw2?.K_{2}\\
-K_{2}&:= & kr2!.K_{2}+kw1?.K_{1}+ kw2?.K_{2}\\
-	P_1&:=& b1wt!.kw2!.P_{11}\\
-P_{11}&:=& b2rf?.P_{12} + b2rt?.(kr2?.P_{11} +kr1?.P_{12})\\
-P_{12}&:=& enter1.exit1.b1wf!.P_1\\
-	P_2&:=& b2wt!.kw1!.P_{21}\\
-P_{21}&:=& b1rf?.P_{22} + b1rt?.(kr1?.P_{21} +kr2?.P_{22})\\
+	B_{1f}&:= & b1rf!.B_{1f}+b1wf?.B_{1f}+b1wt?.B_{1t}\\[-1pt]
+B_{1t}&:= & b1rt!.B_{1t}+b1wf?.B_{1f}+b1wt?.B_{1t}\\[-1pt]
+	B_{2f}&:= & b2rf!.B_{2f}+b2wf?.B_{2f}+b2wt?.B_{2t}\\[-1pt]
+B_{2t}&:= & b2rt!.B_{2t}+b2wf?.B_{2f}+b2wt?.B_{2t}\\[-1pt]
+	K_{1}&:= & kr1!.K_{1}+kw1?.K_{1}+ kw2?.K_{2}\\[-1pt]
+K_{2}&:= & kr2!.K_{2}+kw1?.K_{1}+ kw2?.K_{2}\\[-1pt]
+	P_1&:=& b1wt!.kw2!.P_{11}\\[-1pt]
+P_{11}&:=& b2rf?.P_{12} + b2rt?.(kr2?.P_{11} +kr1?.P_{12})\\[-1pt]
+P_{12}&:=& enter1.exit1.b1wf!.P_1\\[-1pt]
+	P_2&:=& b2wt!.kw1!.P_{21}\\[-1pt]
+P_{21}&:=& b1rf?.P_{22} + b1rt?.(kr1?.P_{21} +kr2?.P_{22})\\[-1pt]
 P_{22}&:=& enter2.exit2.b2wf!.P_2
 \end{eqnarray*}
+}{
 	Se $k=1$ no início
 \begin{eqnarray*}
-Peterson&:=&(P_1|P_2|B_{1f}|B_{2f}|K_1)\backslash L	
+&&Peterson :=\\&&~~ (P_1|P_2|B_{1f}|B_{2f}|K_1)\backslash L	
 \end{eqnarray*}
 onde $L$ são todas as ações excepto as de entrada e saída.
+
+\bigskip
 
 Ficheiro no Pseco.com:
  \url{https://pseuco.com/\#/edit/remote/tkxz8fpu1t8ke56bj9uo}
 
+\bigskip
+
+Ficheiro no CCS-CAOS:
+ \url{https://lmf.di.uminho.pt/ccs-caos/?Peterson}
+}
  
 \end{frame}
 
