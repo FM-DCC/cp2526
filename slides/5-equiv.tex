@@ -531,24 +531,38 @@ Nota: as regras algébricas permitem provar a igualdade de processos pela aplica
 \begin{itemize}[<+->]
 	\item Para cada LTS podemos considerar o  \alert{representante minimal} o menor LTS cujo comportamento é igual ao LTS dado.
 \item O representante minimal é único a menos de isomorfismo se for finito por estados (regular).
-\item É obtido pelo quociente induzido pela relação de equivalência ($\simeq$).
+\item É obtido pelo quociente induzido pela relação de equivalência ($\approx$).
 \item Cada classe de equivalência é um estado
 \end{itemize}
 
 
 	
+% \end{frame}
+% \begin{frame}{Como obter o representante minimal}
+% Dado um processo $P$ do CCS estados-finito:
+% \begin{itemize}
+% 	\item Construir o LTS atíngivel de $P$.
+% \item Calcular a relação $\simeq$
+% \item Considerar cada classe de equivalência um estado: $S=\{[s]_{\simeq}\mid s\in Reach(P)\}$
+% \item Adicionar  transições entre duas classes sempre que uma transição exista entre os elementos da respectiva classe.
+% \item Podemos apagar as transições que seriam adicionadas por $\trtau$ e não estavam em $\tr$.
+% \item Adicionar um lacete com $\tau$ se $P$ tem uma $\tau$-transição para a sua classe $[P]_\simeq$.
+% \end{itemize}	
+% \end{frame}
+
 \end{frame}
 \begin{frame}{Como obter o representante minimal}
 Dado um processo $P$ do CCS estados-finito:
 \begin{itemize}
 	\item Construir o LTS atíngivel de $P$.
-\item Calcular a relação $\simeq$
-\item Considerar cada classe de equivalência um estado: $S=\{[s]_{\simeq}\mid s\in Reach(P)\}$
+\item Calcular a relação $\approx$
+\item Considerar cada classe de equivalência um estado: $S=\{[s]_{\approx}\mid s\in Reach(P)\}$
 \item Adicionar  transições entre duas classes sempre que uma transição exista entre os elementos da respectiva classe.
 \item Podemos apagar as transições que seriam adicionadas por $\trtau$ e não estavam em $\tr$.
-\item Adicionar um lacete com $\tau$ se $P$ tem uma $\tau$-transição para a sua classe $[P]_\simeq$.
+\item Adicionar um lacete com $\tau$ se $P$ tem uma $\tau$-transição para a sua classe $[P]_\approx$ (apenas para o estado inicial!).
 \end{itemize}	
 \end{frame}
+
 
 \begin{frame}{Exemplo $2-Buffer$}
 \only<1>{\begin{eqnarray*}
@@ -611,12 +625,12 @@ Processo $P_i$\\
 \splittwo{0.6}{0.4}{
 ~\\[-12mm]
 \begin{eqnarray*}
-	B_{1f}&:= & b1rf!.B_{1f}+b1wf?.B_{1f}+b1wt?.B_{1t}\\[-1pt]
-B_{1t}&:= & b1rt!.B_{1t}+b1wf?.B_{1f}+b1wt?.B_{1t}\\[-1pt]
-	B_{2f}&:= & b2rf!.B_{2f}+b2wf?.B_{2f}+b2wt?.B_{2t}\\[-1pt]
-B_{2t}&:= & b2rt!.B_{2t}+b2wf?.B_{2f}+b2wt?.B_{2t}\\[-1pt]
-	K_{1}&:= & kr1!.K_{1}+kw1?.K_{1}+ kw2?.K_{2}\\[-1pt]
-K_{2}&:= & kr2!.K_{2}+kw1?.K_{1}+ kw2?.K_{2}\\[-1pt]
+	\alert{B_{1f}}&:= & b1rf!.\alert{B_{1f}}+b1wf?.\alert{B_{1f}}+b1wt?.\alert{B_{1t}}\\[-1pt]
+\alert{B_{1t}}&:= & b1rt!.\alert{B_{1t}}+b1wf?.\alert{B_{1f}}+b1wt?.\alert{B_{1t}}\\[-1pt]
+	\alert{B_{2f}}&:= & b2rf!.\alert{B_{2f}}+b2wf?.\alert{B_{2f}}+b2wt?.\alert{B_{2t}}\\[-1pt]
+\alert{B_{2t}}&:= & b2rt!.\alert{B_{2t}}+b2wf?.\alert{B_{2f}}+b2wt?.\alert{B_{2t}}\\[-1pt]
+	\alert{K_{1}}&:= & kr1!.\alert{K_{1}}+kw1?.\alert{K_{1}}+ kw2?.\alert{K_{2}}\\[-1pt]
+\alert{K_{2}}&:= & kr2!.\alert{K_{2}}+kw1?.\alert{K_{1}}+ kw2?.\alert{K_{2}}\\[-1pt]
 	P_1&:=& b1wt!.kw2!.P_{11}\\[-1pt]
 P_{11}&:=& b2rf?.P_{12} + b2rt?.(kr2?.P_{11} +kr1?.P_{12})\\[-1pt]
 P_{12}&:=& enter1.exit1.b1wf!.P_1\\[-1pt]
@@ -627,7 +641,7 @@ P_{22}&:=& enter2.exit2.b2wf!.P_2
 }{
 	Se $k=1$ no início
 \begin{eqnarray*}
-&&Peterson :=\\&&~~ (P_1|P_2|B_{1f}|B_{2f}|K_1)\backslash L	
+&&Peterson :=\\&&~~ (P_1|P_2|\alert{B_{1f}}|\alert{B_{2f}}|\alert{K_1})\backslash L	
 \end{eqnarray*}
 onde $L$ são todas as ações excepto as de entrada e saída.
 
@@ -660,7 +674,7 @@ o estado atingido não tem transição por $enter_2$.}
 \end{frame}
 
 \begin{frame}
-\begin{exerc}
+\doExercise{send + ack}{
 	Seja  $P:= acc?.del!.P$ \pten{que corresponde a um canal em que se envia e recebe mensagens}{that corresponds to a channel that sends and receives messages}.    \pten{Seja a seguinte implementação}{Consider the implementation}
 
 \begin{tabular}[t]{lcl}
@@ -679,12 +693,12 @@ I &:= & (S$|$M$|$R)$\backslash$\{send,error,trans,ack\}
 \pten{se}{if}
  $I\approx P$.
 \end{enumerate}
-\end{exerc}
+}
 \end{frame}
 \begin{frame}%[allowframebreaks]
-\begin{exerc}
-~\\
-\splittwo{0.55}{0.35}{
+\doExercise{Mutex}{
+~\\[-4mm]
+\splittwo{0.53}{0.33}{
 \pten{Codifica em}{Code in} CCS \pten{o seguinte protocolo $Sem$ para a exclusão mútua  de dois processos}{the following protocol for mutual exclusion of two processes} $P_1$ \pten{e}{and} $P_2$ \pten{usando um semáforo}{using a semaphore} $y$.\pten{ O código genérico para um processo }{The generic algorinthm for a process} $P_i$, \pten{com}{with} $i=1,2$ \pten{é}{is}:
 }{
  \!\!\!$P_i$:\\[-11mm]~
@@ -708,7 +722,7 @@ I &:= & (S$|$M$|$R)$\backslash$\{send,error,trans,ack\}
 \item \pten{Define a execução paralela de}{Define the parallel execution of} $P_1$, $P_2$ \pten{e}{and} \pten{do processo que corresponde ao valor inicial $1$ para  $y$}{the process for $y$ when it is $1$}, \pten{e}{and}  \pten{considerando observáveis apenas as acções}{considering that the only observable actions are} $crit_1$ \pten{e}{and} $crit_2$ (\pten{todas as outras devem ser restritas}{all the other must be restricted}).
 \item Verifica se o protocolo resultante é fracamente bissimilar com $MutexSpec$. % dado antes.
 \end{enumerate}
-\end{exerc}
+}
 \end{frame}
 
 \end{document}
