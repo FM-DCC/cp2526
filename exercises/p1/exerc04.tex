@@ -73,9 +73,9 @@ a!.P&\sim_{tr}&a!.Q\\
 a!.P+ a!.P&\sim_{tr}&a!.Q+a!.Q\\
 \end{eqnarray*}
 \pten{e o mesmo para}{and also for} $\sim_{iso}$?
-% \begin{solution}
-% \pten{Sim para ambas as relações.}{Yes for both relations.}
-% \end{solution}
+\begin{solution}
+\pten{Sim para ambas as relações.}{Yes for both relations.}
+\end{solution}
 
 \question\pten{ Mostra que}{Show}
 $(b!.0+c!.0)\sim_{iso} (c!.0+b!.0)$ \pten{ mas}{but}
@@ -102,22 +102,24 @@ CTM'&:= &\mathit{coin?.coffee!.CTM'+coin?.tea!.CTM'}\\
 \pten{Mostra as seguintes propriedades da relação de bissimilaridade $\sim$ }{Show that} 
 \begin{parts}
 \part 	$\sim$ \pten{é uma relação de equivalência}{is an equivalence relation}.
-% \begin{solution}
-% Para mostrar que é reflexiva basta mostrar que a identidade $Id=\{(P,P)\mid P\in \}$ é uma bissimulação: Se $(P,P)\in Id$ e existe $\alpha\in Act$ tal que $\trans{P}{\alpha}{P'}$ então também 
-% 	$\trans{P}{\alpha}{P'}$ e $(P',P')\in Id$. Então $Id\subseteq \sim$ , logo $\sim$ é reflexiva.
-% Para a simetria, se $s_1\sim s_2$ então existe uma bissimulação $R$ tal que $(s_1,s_2)\in R$. Seja  $R^{-1}=\{(s',s)\mid (s,s')\in R\}$.  Então $(s_2,s_1)\in R^{-1}$ e $R^{-1}$ é uma bissimulação: se $\trans{s_2}{\alpha}{s_2'}$ sei que existe  $\trans{s_1}{\alpha}{s_1'}$ com $(s_1',s_2')\in R$, logo $(s_2',s_1')\in R^{-1}$. O mesmo se 
-%  $\trans{s_1}{\alpha}{s_1'}$. Para a transitividade seja $s_1\sim s_2$  e $s_2\sim s_3$. Temos que mostrar que $s_2\sim s_3$  Sabemos que existem duas bissimulações $R$ e $R'$ tal que $(s_1,s_2)\in R$ e $(s_2,s_3)\in R'$. Seja $$S=\{(s_1',s_3')\mid (s_1',s_2')\in R \land  (s_2',s_3')\in R'\}.$$
-% Temos que $(s_1,s_3)\in S$ e $S$ é uma bissimulação: se $(s,t)\in S$
-% então existe $w$ tal que $(s,w)\in R$ e $(w,t)\in R'$. Seja
-%  $\trans{s}{\alpha}{s'}$, então existe  
-%  $\trans{w}{\alpha}{w'}$ tal que $(s',w')\in R$ e  $\trans{t}{\alpha}{t'}$, tal que $(w',t')\in R'$. Logo $(s',t')\in S$ como queriamos. O mesmo acontece se tivermos/começarmos com $\trans{t}{\alpha}{t'}$. 
-% \end{solution}
+\begin{solution}
+Para mostrar que é reflexiva basta mostrar que a identidade $Id=\{(P,P)\mid P\in \}$ é uma bissimulação: Se $(P,P)\in Id$ e existe $\alpha\in Act$ tal que $\trans{P}{\alpha}{P'}$ então também 
+	$\trans{P}{\alpha}{P'}$ e $(P',P')\in Id$. Então $Id\subseteq \sim$ , logo $\sim$ é reflexiva.
+Para a simetria, se $s_1\sim s_2$ então existe uma bissimulação $R$ tal que $(s_1,s_2)\in R$. Seja  $R^{-1}=\{(s',s)\mid (s,s')\in R\}$.  Então $(s_2,s_1)\in R^{-1}$ e $R^{-1}$ é uma bissimulação: se $\trans{s_2}{\alpha}{s_2'}$ sei que existe  $\trans{s_1}{\alpha}{s_1'}$ com $(s_1',s_2')\in R$, logo $(s_2',s_1')\in R^{-1}$. O mesmo se 
+ $\trans{s_1}{\alpha}{s_1'}$. Para a transitividade seja $s_1\sim s_2$  e $s_2\sim s_3$. Temos que mostrar que $s_2\sim s_3$  Sabemos que existem duas bissimulações $R$ e $R'$ tal que $(s_1,s_2)\in R$ e $(s_2,s_3)\in R'$. Seja $$S=\{(s_1',s_3')\mid (s_1',s_2')\in R \land  (s_2',s_3')\in R'\}.$$
+Temos que $(s_1,s_3)\in S$ e $S$ é uma bissimulação: se $(s,t)\in S$
+então existe $w$ tal que $(s,w)\in R$ e $(w,t)\in R'$. Seja
+ $\trans{s}{\alpha}{s'}$, então existe  
+ $\trans{w}{\alpha}{w'}$ tal que $(s',w')\in R$ e  $\trans{t}{\alpha}{t'}$, tal que $(w',t')\in R'$. Logo $(s',t')\in S$ como queriamos. O mesmo acontece se tivermos/começarmos com $\trans{t}{\alpha}{t'}$. 
+\end{solution}
+
+
+
 
 \part  $\sim$ \pten{é maior bissimulação}{is the largest bisimulation}.
-% \begin{solution}
-% Por definição $\sim$ é a reunião de todas as bissimulações. Temos de mostrar que essa reunião é uma bissimulação. Pela simetria basta mostrar uma das condições. Seja $(s,t)\in \bigcup\{ R	\mid R \text{ bissimulação}\}$ e  $\trans{s}{\alpha}{s'}$. Então existe uma bissimulação $R_1$ tal que $(s,t)\in R_1$ e um $t'$ tal que $\trans{t}{\alpha}{t'}$ e $(s',t')\in R_1\subseteq  \bigcup\{ R	\mid R \text{ bissimulação}\}$. Logo $\{ R	\mid R \text{ bissimulação}\}$ é uma bissimulação.
-
-% \end{solution}
+\begin{solution}
+Por definição $\sim$ é a reunião de todas as bissimulações. Temos de mostrar que essa reunião é uma bissimulação. Pela simetria basta mostrar uma das condições. Seja $(s,t)\in \bigcup\{ R	\mid R \text{ bissimulação}\}$ e  $\trans{s}{\alpha}{s'}$. Então existe uma bissimulação $R_1$ tal que $(s,t)\in R_1$ e um $t'$ tal que $\trans{t}{\alpha}{t'}$ e $(s',t')\in R_1\subseteq  \bigcup\{ R	\mid R \text{ bissimulação}\}$. Logo $\{ R	\mid R \text{ bissimulação}\}$ é uma bissimulação.
+\end{solution}
 
 \part 	$s \sim t $ \pten{se e só se para cada}{iff for each} $\alpha\in Act$
 \begin{itemize}
@@ -146,52 +148,51 @@ Q_3&:=&a.Q_1+b.Q_2
 \end{eqnarray*}
 \pten{Mostra que}{Show that} $P\sim Q$ \pten{encontrando uma bissimulação que  contenha}{presenting a bisimulation that contains} $(P,Q)$. \pten{Desenha os sistemas de transição correspondentes}{Draw their LTSs} \pten{e testa no}{and test in} pseuCo.com.
 
-% \begin{solution}
-% 	Temos os seguintes LTSs para $P$ e $Q$, respectivamente.
+\begin{solution}
+	Temos os seguintes LTSs para $P$ e $Q$, respectivamente.
 
-% \begin{tabular}{lcc}
-% \begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
-% \node[state,  inner sep=1pt, minimum size=5pt,  initial] (S0){$P$};
-% \node[state,  inner sep=1pt, minimum size=5pt][below of =S0] (S1){$P_2$};
-% \node[state,  inner sep=1pt, minimum size=5pt][right of =S0] (S2){$P_1$};
-% \path[->](S0) edge  [bend left] node {$a$} (S2)
-% (S0) edge [bend left] node {$b$} (S1)
-% 	(S1) edge  [bend left] node {$c$} (S0)
-% 	 (S2) edge [bend left] node {$c$} (S0);
-% \end{tikzpicture}&&
-% \begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
-% \node[state,  inner sep=1pt, minimum size=5pt,  initial] (S0){$Q$};
-% \node[state,  inner sep=1pt, minimum size=5pt][below left of =S0] (S1){$Q_1$};
-% \node[state,  inner sep=1pt, minimum size=5pt][below right of =S0] (S2){$Q_2$};
-% \node[state,  inner sep=1pt, minimum size=5pt][below right of =S1] (S3){$Q_3$};
+\begin{tabular}{lcc}
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[state,  inner sep=1pt, minimum size=5pt,  initial] (S0){$P$};
+\node[state,  inner sep=1pt, minimum size=5pt][below of =S0] (S1){$P_2$};
+\node[state,  inner sep=1pt, minimum size=5pt][right of =S0] (S2){$P_1$};
+\path[->](S0) edge  [bend left] node {$a$} (S2)
+(S0) edge [bend left] node {$b$} (S1)
+	(S1) edge  [bend left] node {$c$} (S0)
+	 (S2) edge [bend left] node {$c$} (S0);
+\end{tikzpicture}&&
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[state,  inner sep=1pt, minimum size=5pt,  initial] (S0){$Q$};
+\node[state,  inner sep=1pt, minimum size=5pt][below left of =S0] (S1){$Q_1$};
+\node[state,  inner sep=1pt, minimum size=5pt][below right of =S0] (S2){$Q_2$};
+\node[state,  inner sep=1pt, minimum size=5pt][below right of =S1] (S3){$Q_3$};
 
-% \path[->](S0) edge [swap] node  {$a$} (S1)
-% 		edge  node  {$b$} (S2)
-% (S1) edge [bend left] node  {$c$} (S3)
-% (S3) edge [bend left] node  {$a$} (S1)
-% 	edge [bend left,swap ] node  {$b$} (S2)
-% (S2) edge [bend left]node  {$c$} (S3)
-% ;
-% \end{tikzpicture}
-% \end{tabular}
-% Para que $P\sim Q$ tem de existir uma bissimulação (forte) $R$ que contenha o par $(P,Q)$
-% A seguinte tabela mostra a construção duma bissimulação $R$. Para cada par apenas é necessário considerar as ações do primeiro elemento do par dado os LTSs serem determinísticos. As marcas $(x)$ indicam que chegamos a um par que já está em $R$ (na primeira coluna).
+\path[->](S0) edge [swap] node  {$a$} (S1)
+		edge  node  {$b$} (S2)
+(S1) edge [bend left] node  {$c$} (S3)
+(S3) edge [bend left] node  {$a$} (S1)
+	edge [bend left,swap ] node  {$b$} (S2)
+(S2) edge [bend left]node  {$c$} (S3)
+;
+\end{tikzpicture}
+\end{tabular}
+Para que $P\sim Q$ tem de existir uma bissimulação (forte) $R$ que contenha o par $(P,Q)$
+A seguinte tabela mostra a construção duma bissimulação $R$. Para cada par apenas é necessário considerar as ações do primeiro elemento do par dado os LTSs serem determinísticos. As marcas $(x)$ indicam que chegamos a um par que já está em $R$ (na primeira coluna).
 
-% \begin{tabular}{l|l}
-% $R$& Acções\\\hline
-% $(P,Q)$& $\trans{P}{a}{P_1}$ e $	\trans{Q}{a}{Q_1}$\\
-% & $\trans{P}{b}{P_2}$ e  $	\trans{Q}{b}{Q_2}$\\\hline
-% $(P_1,Q_1)$& $\trans{P_1}{c}{P}$  e $\trans{Q_1}{c}{Q_2}$\\\hline
-% $(P_2,Q_2)$& $\trans{P_2}{c}{P}$  e $\trans{Q_2}{c}{Q_3}$ \\\hline
-% $(P,Q_2)$&$\trans{P}{a}{P_1}$ e $	\trans{Q}{a}{Q_1}$ (x)\\
-% & $\trans{P}{b}{P_2}$ e $	\trans{Q}{b}{Q_2}$ (x)\\\hline
-% $(P,Q_3)$&$\trans{P}{a}{P_1}$ e $	\trans{_3}{a}{Q_1}$ (x)\\
-% &$\trans{P}{b}{P_2}$ e $	\trans{Q_3}{a}{Q_2}$ (x)\\
-% \end{tabular}
+\begin{tabular}{l|l}
+$R$& Acções\\\hline
+$(P,Q)$& $\trans{P}{a}{P_1}$ e $	\trans{Q}{a}{Q_1}$\\
+& $\trans{P}{b}{P_2}$ e  $	\trans{Q}{b}{Q_2}$\\\hline
+$(P_1,Q_1)$& $\trans{P_1}{c}{P}$  e $\trans{Q_1}{c}{Q_2}$\\\hline
+$(P_2,Q_2)$& $\trans{P_2}{c}{P}$  e $\trans{Q_2}{c}{Q_3}$ \\\hline
+$(P,Q_2)$&$\trans{P}{a}{P_1}$ e $	\trans{Q}{a}{Q_1}$ (x)\\
+& $\trans{P}{b}{P_2}$ e $	\trans{Q}{b}{Q_2}$ (x)\\\hline
+$(P,Q_3)$&$\trans{P}{a}{P_1}$ e $	\trans{_3}{a}{Q_1}$ (x)\\
+&$\trans{P}{b}{P_2}$ e $	\trans{Q_3}{a}{Q_2}$ (x)\\
+\end{tabular}
 
-% Temos que a bissimulação $R=\{P,Q),(P_1,Q_1),(P_2,Q_2),(P,Q_2),(P,Q_3)\}$.
-
-% \end{solution}
+Temos que a bissimulação $R=\{P,Q),(P_1,Q_1),(P_2,Q_2),(P,Q_2),(P,Q_3)\}$.
+\end{solution}
 
 \question \pten{Considera os processos}{Let} $P$ \pten{ e }{ and} $Q$ \pten{definidos por}{be defined by}
 \begin{eqnarray*}
@@ -226,40 +227,40 @@ Q&:=&a.b.0+a.c.0
 \end{eqnarray*}
 \pten{Mostra que}{Show that} $P$ \pten{ e }{ and} $Q$ \pten{não são fortemente bissimilares}{are not strongly bisimilar}.
 
-% \begin{solution} Temos os seguintes LTSs
+\begin{solution} Temos os seguintes LTSs
 
-% {\small\begin{tabular}[b]{lccr}
-% \begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
-% \node[state,  inner sep=1pt, minimum size=5pt,  initial] (S0){$P$};
-% \node[state,  inner sep=1pt, minimum size=5pt][below of =S0] (S1){$(b.0+c.0)$};
-% \node[state,  inner sep=1pt, minimum size=5pt][below  of =S1] (S2){$0$};
-% \path[->](S0) edge  node {$a$} (S1)
-% 	(S1) edge  [bend left] node {$b$} (S2)
-% 	 edge  [bend right, swap] node {$c$} (S2);
-% \end{tikzpicture}&&
-% \begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
-% \node[state,  inner sep=1pt, minimum size=5pt,  initial] (S0){$Q$};
-% \node[state,  inner sep=1pt, minimum size=5pt][below left of =S0] (S1){$b.0$};
-% \node[state,  inner sep=1pt, minimum size=5pt][below right of =S0] (S2){$c.0$};
-% \node[state,  inner sep=1pt, minimum size=5pt][below right of =S1] (S3){$0$};
+{\small\begin{tabular}[b]{lccr}
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[state,  inner sep=1pt, minimum size=5pt,  initial] (S0){$P$};
+\node[state,  inner sep=1pt, minimum size=5pt][below of =S0] (S1){$(b.0+c.0)$};
+\node[state,  inner sep=1pt, minimum size=5pt][below  of =S1] (S2){$0$};
+\path[->](S0) edge  node {$a$} (S1)
+	(S1) edge  [bend left] node {$b$} (S2)
+	 edge  [bend right, swap] node {$c$} (S2);
+\end{tikzpicture}&&
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[state,  inner sep=1pt, minimum size=5pt,  initial] (S0){$Q$};
+\node[state,  inner sep=1pt, minimum size=5pt][below left of =S0] (S1){$b.0$};
+\node[state,  inner sep=1pt, minimum size=5pt][below right of =S0] (S2){$c.0$};
+\node[state,  inner sep=1pt, minimum size=5pt][below right of =S1] (S3){$0$};
 
-% \path[->](S0) edge [swap] node  {$a$} (S1)
-% 		edge  node  {$a$} (S2)
-% (S1) edge [swap] node  {$b$} (S3)
-% (S2) edgenode  {$c$} (S3)
-% ;
-% \end{tikzpicture}
-% \end{tabular}
-% }	
-% e os seguinte jogo de bissimulação forte enter um atacante (A), que quer mostrar que $P$ e $Q$ não são bissimilares e um defesa ($D$) que pretende mostrar que são (obtendo um bissimulação) (ver definição):
-% \begin{itemize}
-% 	\item $A$: $\trans{P}{a}{(b.0+c.0)}$
-% \item $D$: $\trans{Q}{a}{b.0}$
-% \item $A$: $\trans{b.0+c.0}{c}{0}$
-% \item $D$ não pode jogar, logo , perde e concluímos que  $P\not\sim Q$ .
-% \end{itemize}
+\path[->](S0) edge [swap] node  {$a$} (S1)
+		edge  node  {$a$} (S2)
+(S1) edge [swap] node  {$b$} (S3)
+(S2) edgenode  {$c$} (S3)
+;
+\end{tikzpicture}
+\end{tabular}
+}	
+e os seguinte jogo de bissimulação forte enter um atacante (A), que quer mostrar que $P$ e $Q$ não são bissimilares e um defesa ($D$) que pretende mostrar que são (obtendo um bissimulação) (ver definição):
+\begin{itemize}
+	\item $A$: $\trans{P}{a}{(b.0+c.0)}$
+\item $D$: $\trans{Q}{a}{b.0}$
+\item $A$: $\trans{b.0+c.0}{c}{0}$
+\item $D$ não pode jogar, logo , perde e concluímos que  $P\not\sim Q$ .
+\end{itemize}
 
-% \end{solution}
+\end{solution}
 
 \question \pten{Mostrar que}{ Show that}
 \begin{eqnarray*}
@@ -267,9 +268,9 @@ Q&:=&a.b.0+a.c.0
 P+0&\sim& P\\
 (P+Q)+R&\sim& P+(Q+R)\\
 	\end{eqnarray*}
-% \begin{solution}
-% Ver Teorema 7.5 das aulas téoricas.	E também ~\cite{aceto07:_react_system}.
-% \end{solution}
+\begin{solution}
+Ver Teorema 7.5 das aulas téoricas.	E também ~\cite{aceto07:_react_system}.
+\end{solution}
 
 \question \pten{Mostrar que para qualquer}{Show that for all} $P,Q,R\in CCS$,
 \begin{eqnarray*}
@@ -295,47 +296,50 @@ C_0&:= &inc. C_1\\
 \begin{parts}
 \part\pten{Desenha fragmentso iniciais de}{Draw initial fragments of} 	$\bras{C}_\Gamma$ \pten{e}{and} $\bras{C_0}_\Gamma$.
 
-% \begin{solution}
-% \pten{Um fragmento inicial de}{A initial fragment of} $\bras{C}_\Gamma$:
+\begin{solution}
+\pten{Um fragmento inicial de}{A initial fragment of} $\bras{C}_\Gamma$:
 
-% \begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=2cm, initial text={}]
-% \node[state,  inner sep=1pt, minimum size=5pt,  initial] (S0){$C$};
-% \node[state,  inner sep=1pt, minimum size=5pt][below of =S0] (S1){$C|dec.0$};
-% \node[state,  inner sep=1pt, minimum size=5pt, xshift=50pt][below right  of =S1] (S2){$C|0$};
-% \node[state,  inner sep=1pt, minimum size=5pt,xshift=-50pt][below left   of =S1] (S3){$(C|dec.0)|dec.0$};
-% \node[state,  inner sep=1pt, minimum size=5pt][below  of =S2] (S4){$(C|dec.0)|0$};
-% \node[state,  inner sep=1pt, minimum size=5pt,xshift=-50pt][below left   of =S3] (S5){$((C|dec.0)|dec.0)|dec.0$};
-% \node[state,  inner sep=1pt, minimum size=5pt, xshift=80pt][right   of =S5] (S6){$(C|0)|dec.0$};
-% \node[inner sep=1pt, minimum size=5pt][below  of =S6] (S7){};
-% \node[inner sep=1pt, minimum size=5pt][below  of =S5] (S8){};
-% \node[inner sep=1pt, minimum size=5pt][below  of =S4] (S9){};
-% \path[->](S0) edge  node {$inc$} (S1)
-% 	(S1) edge  node {$dec$} (S2)
-% 	 edge [swap]  node {$inc$} (S3)
-% 	(S3) edge [swap]  node {$inc$} (S5)
-% 	edge  node [swap] {$dec$} (S6)
-% 	edge  node {$dec$} (S4)
-% 	 (S2)  edge [swap]  node {$inc$} (S4);
-% \path[-] (S6) edge node {} (S7)
-% (S5) edge node {} (S8)
-% (S4) edge node {} (S9);
-% \end{tikzpicture}	
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=2cm, initial text={}]
+\node[state,  inner sep=1pt, minimum size=5pt,  initial] (S0){$C$};
+\node[state,  inner sep=1pt, minimum size=5pt][below of =S0] (S1){$C|dec.0$};
+\node[state,  inner sep=1pt, minimum size=5pt, xshift=50pt][below right  of =S1] (S2){$C|0$};
+\node[state,  inner sep=1pt, minimum size=5pt,xshift=-50pt][below left   of =S1] (S3){$(C|dec.0)|dec.0$};
+\node[state,  inner sep=1pt, minimum size=5pt][below  of =S2] (S4){$(C|dec.0)|0$};
+\node[state,  inner sep=1pt, minimum size=5pt,xshift=-50pt][below left   of =S3] (S5){$((C|dec.0)|dec.0)|dec.0$};
+\node[state,  inner sep=1pt, minimum size=5pt, xshift=80pt][right   of =S5] (S6){$(C|0)|dec.0$};
+\node[inner sep=1pt, minimum size=5pt][below  of =S6] (S7){};
+\node[inner sep=1pt, minimum size=5pt][below  of =S5] (S8){};
+\node[inner sep=1pt, minimum size=5pt][below  of =S4] (S9){};
+\path[->](S0) edge  node {$inc$} (S1)
+	(S1) edge  node {$dec$} (S2)
+	 edge [swap]  node {$inc$} (S3)
+	(S3) edge [swap]  node {$inc$} (S5)
+	edge  node [swap] {$dec$} (S6)
+	edge  node {$dec$} (S4)
+	 (S2)  edge [swap]  node {$inc$} (S4);
+\path[-] (S6) edge node {} (S7)
+(S5) edge node {} (S8)
+(S4) edge node {} (S9);
+\end{tikzpicture}	
 
-% \pten{Um fragmento inicial de}{A initial fragment of} $\bras{C_0}_\Gamma$:
-% \begin{center}
-% \begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
-% \node[state,  inner sep=1pt, minimum size=5pt,  initial] (S0){$C_0$};
-% \node[state,  inner sep=1pt, minimum size=5pt][below of =S0] (S1){$C_1$};
-% \node[state,  inner sep=1pt, minimum size=5pt][below  of =S1] (S2){$C_2$};
-% \node[inner sep=1pt, minimum size=5pt][below  of =S2] (S3){};
-% \path[->](S0) edge [bend right, swap] node {$inc$} (S1)
-% 	 	(S1) edge  [bend right , swap] node {$inc$} (S2)
-% 	     edge  [bend right , swap] node {$dec$} (S0)
-% (S2)	 edge  [bend right, swap] node {$dec$} (S1)
-% 		edge  [bend right , swap] node {$inc$} (S3);
-% \end{tikzpicture}
-% \end{center}
-% \end{solution}
+\pten{Um fragmento inicial de}{A initial fragment of} $\bras{C_0}_\Gamma$:
+\begin{center}
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[state,  inner sep=1pt, minimum size=5pt,  initial] (S0){$C_0$};
+\node[state,  inner sep=1pt, minimum size=5pt][below of =S0] (S1){$C_1$};
+\node[state,  inner sep=1pt, minimum size=5pt][below  of =S1] (S2){$C_2$};
+\node[inner sep=1pt, minimum size=5pt][below  of =S2] (S3){};
+\path[->](S0) edge [bend right, swap] node {$inc$} (S1)
+	 	(S1) edge  [bend right , swap] node {$inc$} (S2)
+	     edge  [bend right , swap] node {$dec$} (S0)
+(S2)	 edge  [bend right, swap] node {$dec$} (S1)
+		edge  [bend right , swap] node {$inc$} (S3);
+\end{tikzpicture}
+\end{center}
+\end{solution}
+%
+%
+%
 \part
  \pten{Mostra que a seguinte relação é uma bissimulação}{Show that the following relation is a bisimulation}.
 \begin{eqnarray*}
