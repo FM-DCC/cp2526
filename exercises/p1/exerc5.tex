@@ -1,0 +1,229 @@
+\documentclass[11pt]{exam}
+%\usepackage[portuges]{babel}
+\usepackage{enumerate}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+\usepackage{alltt}
+\usepackage{xspace}
+\usepackage{longtable}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{xcolor}
+\usepackage{enumerate}
+\usepackage{graphicx}
+%\usepackage{moreverb}
+%\usepackage{ifthen}
+\usepackage{url}
+\usepackage{tikz} 
+\usepackage{bussproofs}
+
+
+\input sli_aux
+\newboolean{portuguese}
+\setboolean{portuguese}{true}
+\setboolean{portuguese}{false}
+
+\newboolean{normal}
+\setboolean{normal}{true}
+
+\newcommand{\pten}[2]{\ifthenelse{\boolean{portuguese}}{#1}{#2}}
+\pten{\usepackage[portuges]{babel}}{\usepackage[british]{babel}}
+
+\setcounter{aula}{5}
+
+\begin{document}
+\begin{center} 
+{\bf {\large \pten{Programação Concorrente}{Concurrent Programming} - \pten{Exercícios}{Exercises} \theaula} }\\
+
+\medskip
+\pten{ Bissimilaridade Fraca e Congruência Observável (ou Equivalência Observável)  }{Weak bisimilarity and observable congruence}
+\end{center}
+
+\begin{questions}
+	\question \pten{Sendo}{Let}
+\begin{eqnarray*}
+	Buffer &:=& put?. get?.Buffer\\
+	BufferL &:=& put?. pass!.BufferL\\
+	BufferR &:=& pass?. get?.BufferR
+\end{eqnarray*}
+\pten{Mostra que}{Show} 
+$(BufferL| BufferR)\backslash\{pass!,pass?\}\approx (Buffer|Buffer)$.
+\question\pten{ Sendo a bissimilaridade fraca}{Given the weak bisimilarity} $\approx$ \pten{dado por}{} 
+$$\approx =\bigcup_{\textrm{R \pten{é bissimulação fraca}{weak bisimulation}}}R$$
+\pten{Mostra que}{Show that}
+\begin{parts}
+\part \pten{A relação}{}	 $\approx$ \pten{é de equivalência}{is an equivalence}.
+\part \pten{A relação}{}	 $\approx$ \pten{é maior bissimulação fraca}{is the largest weak bisimulation}.
+\part \pten{A bissimilaridade fraca é estritamente mais grosseira que a bissimilaridade forte}{The weak bisimilarity is coarsest than the strong bisimilarity}, i.e.,  $\sim\subsetneq \approx$.
+\end{parts}
+
+\question
+\pten{Seja}{Let} 
+\begin{eqnarray*}
+	CMB&:=& coin?.coffee!.CMB+coin?.CMB\\	
+CS&:=&pub!.coin!.coffee?.CS\\
+UniBad&:= & (CMB|CS)\backslash \{coin,cofee\}\\
+\end{eqnarray*} 
+\pten{Será que}{Is true that} $Spec\approx Unibad$ \pten{onde}{where} $Spec:=pub!.Spec$?
+\question \pten{Mostra que para qualquer}{Show that for any} $P,Q\in CCS$ \pten{e}{and} $\alpha\in Act$ \pten{as seguintes equivalências verificam-se (As chamas leis $\tau$ de Milner)}{the following equivalences hold}:
+\begin{eqnarray*}
+\alpha.\tau. P &\approx& \alpha.P\\
+	P+ \tau. P &\approx& \tau.P\\
+\alpha.(P+\tau.Q) &\approx& \alpha.(P+\tau.Q)  + \alpha.Q\\
+\end{eqnarray*}
+
+\pten{Nota: constrói bissimulações fracas apropriadadas}{}.
+
+\question \pten{Considera o seguinte sistema de transições}{Considere the following LTS} \pten{e}{and} \pten{mostra que}{show that} $s\not\approx t$ 
+\pten{mostrando que um jogo de bissimilaridade fraca onde o atacante tem uma estratégia universal ganhadora, isto é, ganha para todas as possíveis escolhas do defesa}{using a weak bisimulation game}.
+
+\begin{tabular}{lccr}
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[state,  inner sep=1pt, minimum size=5pt,  initial] (S0){$s$};
+\node[state,  inner sep=1pt, minimum size=5pt][below of =S0] (S1){$s_1$};
+\node[state,  inner sep=1pt, minimum size=5pt][below  of =S1] (S2){$s_2$};
+\node[state,  inner sep=1pt, minimum size=5pt][below right of =S1] (S3){$s_3$};
+
+\path[->](S0) edge  node {$a$} (S1)
+	(S1) edge  node {$a$} (S2)
+	(S1) edge  node {$b$} (S3);
+\end{tikzpicture}&&
+\begin{tikzpicture}[>=stealth, shorten >=2.5pt, auto, node distance=1.5cm, initial text={}]
+\node[state,  inner sep=1pt, minimum size=5pt,  initial] (S0){$t$};
+\node[state,  inner sep=1pt, minimum size=5pt][below  of =S0] (S1){$t_1$};
+\node[state,  inner sep=1pt, minimum size=5pt][below left of =S1] (S2){$t_2$};
+\node[state,  inner sep=1pt, minimum size=5pt][below right of =S1] (S3){$t_3$};
+\node[state,  inner sep=1pt, minimum size=5pt][below of =S3] (S5){$t_5$};
+\node[state,  inner sep=1pt, minimum size=5pt][below  of =S2] (S4){$t_4$};
+\path[->](S0) edge  node  {$\tau$} (S1)
+(S1) edge  node  {$a$} (S2)
+(S1) edge  node  {$a$} (S3)
+(S2) edge  node  {$a$} (S4)
+(S3) edge  node  {$\tau$} (S2)
+(S3) edge  node  {$b$} (S5)
+;
+\end{tikzpicture}
+\end{tabular}
+
+\question \pten{Considera o seguinte protocolo}{Consider the following protocol} $Protocol:= acc?.del!.Protocol$ \pten{que corresponde a um canal em que se envia e recebe mensagens (como um buffer duma posição)}{that corresponds to a comunication channel}. \pten{Seja a seguinte implementação}{Given the implemnetation}
+\begin{eqnarray*}
+	Send&:=& acc?.Sending\\
+Sending&:=& send!. Wait\\
+Wait &:= &ack?.Send + error?.Sending\\
+Rec &:=& trans?.Del\\
+Del &:=& del!.Ack\\
+Ack &:=& ack!.Rec\\
+Med &:= &send?.Med1\\
+Med1 &:=& \tau.Err+trans!.Med\\
+Err &:=& error!.Med
+\end{eqnarray*}
+\pten{Mostra que}{show that} $(Send|Med|Rec)\backslash\{send, error,trans,ack\}\approx Protocol$.
+\pten{Verifica no}{Check with} Pseuco.Com.
+\question \pten{Mostra que}{Show that} $a.0+0\not\approx a.0+\tau.0$ \pten{e}{and} \pten{concluí que}{conclude that} $\approx$ \pten{não é uma congruência em }{is not a congruence in} $CCS$.
+\question \pten{Sendo}{Let} $\simeq$ \pten{a congruência observável, mostra que}{be the observable congruence; show that:}
+\begin{itemize}
+	\item $\tau.a\not\simeq a$
+\item $P|\tau.Q\not\simeq \tau.(P|Q)$ 
+\end{itemize}	
+\question 
+\pten{A seguir apresentam-se vários algoritmos }{Consider the following algorithms} $\mathit{MUTEX}$ \pten{para a exclusão mútua}{for mutual exclusivity}. \pten{Para cada um deles}{For each one}:
+\begin{parts}
+\part \pten{Implementa o algoritmo directamente em CCS explicando sucintamente os processos usados e qual o processo que corresponde ao algoritmo (que deverá ter o nome correspondente)}{Write it in CCS}. \pten{Assinala a zona crítica com as ações}{Use} $enter_i$ \pten{e}{and} $exits_i$ \pten{ para}{for} $i=1,2$ \pten{}{to indicate the critical region}.
+	\part \pten{Fornece um ficheiro correspondente para o pseuco.com e testa para verificar (traços aleatórios) que realmente a exclusão mútua ocorre (ou não). Qual o problema caso não ocorra?}{Check if the mutual exclusion seems to be working by randomly navigating through pseuco.com.}
+\part\pten{ Implementa-os também em}{Implement them also in} CCS-CAOS.
+\part 
+\pten{Supõe que se modela a  entrada e a saída da zona crítica por}{Consider now:}
+\begin{eqnarray*}
+	\mathit{MutexSpec} &:=& \mathit{enter1.exit1.MutexSpec + enter2.exit2.MutexSpec} 
+\end{eqnarray*}	
+\pten{Será verdade que}{Is true that}  $\mathit{MUTEX}\approx \mathit{MutexSpec}$?
+%\part (***) Implementa o algoritmo na linguagem Pseuco (e/ou CAAL)  e testa também a exclusão mútua usando  traços aleatórios.
+
+\end{parts}
+\begin{enumerate}[i)]
+\item \pten{Modelar o algoritmo de Peterson com dois processos para a exclusão mútua em CCS}{Peterson algorithm}.
+
+\pten{Para o processo}{For process} $P_i$, $j,i=1,2$ \pten{e}{and} $i\not=j$.
+
+		 \begin{algorithmic}
+		\While{\bf true}
+	\State {\color{green}noncricital actions}
+\State{$b_i\gets \mathbf{true}$;}
+\State{$k\gets j$;}
+\While{$b_j \land k=j$} \State{\textbf{skip};}
+\EndWhile
+	\State {\color{red}critical actions}
+\State$b_i\gets \mathbf{false}$
+		\EndWhile		
+\end{algorithmic}
+
+\item 
+\pten{Considera o algoritmo de Hyman para a exclusão mútua}{Hyman algorithm}. \pten{As variáveis}{Variables}  $b_i$ \pten{são booleanas}{are Boolean} \pten{e}{and} $k$ \pten{é inteira}{is an integer}.
+\pten{Para os processos}{For processes}  $P_i$, $j,i=1,2$ \pten{e}{and} $i\not=j$.
+
+ \begin{algorithmic}
+		\While{\bf true}
+	\State {\color{green!75!black}noncricital actions}
+\State{$b_i\gets \mathbf{true}$;}
+\While{$k\not=i$} 
+\While{$b_j$}
+\State{\textbf{skip};}
+\EndWhile
+\State{$k \gets i$;}
+\EndWhile
+	\State {\color{red}critical actions;}
+\State{$b_i\gets \mathbf{false};$}
+		\EndWhile		
+\end{algorithmic}
+\item 
+\pten{Considera o algoritmo de Pnueli  para a exclusão mútua}{Pnueli algorithm}. 
+
+\pten{As variáveis}{Variables}  $y_i$ \pten{são booleanas}{are Boolean} \pten{e}{and} \pten{começam em}{start in} $false$ \pten{sendo locais}{being local}. \pten{A variável}{The variable} $s$ \pten{é partilhada e toma os valores}{is shared and has value} $0$ \pten{ou}{or} $1$ \pten{começando em}{starting in} $1$.
+\pten{Para o processo}{For process} $P_i$ \pten{e}{and}  $i=0,1$:
+ \begin{algorithmic}
+		\While{\bf true}
+	\State {\color{green!75!black} noncricital actions}
+\State{$y_i\gets \mathbf{true}$;}
+\State{$s\gets i$;}
+\While{$\lnot(y_{1-i}=0\lor (s\neq i))$}
+\State{\textbf{skip};}
+\EndWhile
+	\State {\color{red}critical actions;}
+\State{$y_i\gets \mathbf{false};$}
+		\EndWhile		
+\end{algorithmic}
+
+
+\item 
+\pten{Considera o algoritmo simplificado de exclusão mútua}{Simple algorithm}. 
+
+\pten{A variável}{Variable}  $y$ \pten{é partilhada e booleana}{is shared and Boolean}, \pten{e}{and} \pten{começa em}{starts in} $0$.
+\pten{Para o processo}{For process} $P_i$ \pten{e}{and}  $i=0,1$:
+\begin{algorithmic}
+\While{\bf true}
+	\State {\color{green!75!black} noncricital actions}
+  \While{$y=0$}
+    \State{\textbf{skip};}
+  \EndWhile
+  % \State{$y\gets 0$; $\mathbf{crit_i}$; $y\gets 1$;}
+  \State{$y\gets 0$;}
+	\State {\color{red}critical actions;}
+	\State{$y\gets 1$;}
+\EndWhile		
+\end{algorithmic}
+
+\end{enumerate}
+
+\question \pten{Resolve os exercícios no livro do Pseuco.com}{Solve the exercises from the Pseuco.com book}:
+\begin{itemize}
+	\item \url{https://book.pseuco.com/#/read/equality/weak-bisimilarity}
+	\item \url{https://book.pseuco.com/#/read/equality/observation-congruence}
+	\item \url{https://book.pseuco.com/#/read/equality/workout}
+\end{itemize}
+
+\end{questions}
+\end{document}
