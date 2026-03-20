@@ -71,7 +71,8 @@ The goal of this course is to introduce students to the fundamental theoretic an
 2. [Exercises on sequential CCS](exercises/p1/exerc02.pdf)
 3. [Exercises on full CCS (with concurrency)](exercises/p1/exerc03.pdf)
 4. [Exercises on observational equivalences](exercises/p1/exerc04.pdf) and [solutions](exercises/p1/exerc04_sol.pdf)
-5. ...
+5. [Exercises on weak equivalences](exercises/p1/exerc05.pdf)
+6. ...
 
 <!--
 1. [Exercises on Scala](exercises/ex-scala.pdf)
