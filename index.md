@@ -56,6 +56,9 @@ The goal of this course is to introduce students to the fundamental theoretic an
 4. [Full CCS (with concurrency)](slides/4-ccs-par.pdf)
 5. [Equivalences](slides/5-equiv.pdf)
 6. [CCS with data](slides/6-ccs-data.pdf)
+7. [Scala primer](slides/7-scala.pdf)
+8. [Java Memory Model](slides/8-javamemory.pdf)
+
 
 <!--
 6. [CCS with data](slides/6-ccs-data.pdf)
@@ -72,7 +75,7 @@ The goal of this course is to introduce students to the fundamental theoretic an
 3. [Exercises on full CCS (with concurrency)](exercises/p1/exerc03.pdf)
 4. [Exercises on observational equivalences](exercises/p1/exerc04.pdf) and [solutions](exercises/p1/exerc04_sol.pdf)
 5. [Exercises on weak equivalences](exercises/p1/exerc5.pdf)
-6. ...
+6. [Exercises on Scala](exercises/p2/ex-scala.pdf)
 
 <!--
 1. [Exercises on Scala](exercises/ex-scala.pdf)
