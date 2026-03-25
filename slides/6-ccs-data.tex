@@ -140,8 +140,8 @@ Act &=&Com \cup \{\tau\}
 }
 \only<3->{
 \begin{eqnarray*}
-P&::=& 0 \;\mid\; X[r_1,\ldots ,r_n] \;\mid \;P+P\;  \mid \; \chi.P\;\mid\; P | P \;\mid\; P\backslash H \\
-\chi& ::=& \tau \mid a! \mid a? \mid a!v \mid a?v \mid a!x \mid a?x  \end{eqnarray*}
+P&::=& 0 \;\mid\; X[r_1,\ldots ,r_n] \;\mid \;P+P\;  \mid \; \alert{\alpha}.P\;\mid\; P | P \;\mid\; P\backslash H \\
+\alert{\alpha}& ::=& \tau \mid a! \mid a? \mid a!v \mid a?v \mid a!x \mid a?x  \end{eqnarray*}
 onde $X\in Var$, $x\in D$, $r_i \in D\cup \mathbb{V} \cup \mathbb{K}$
 }
 \end{frame}
@@ -265,8 +265,8 @@ Vamos só considerar expressões  com inteiros.
 \begin{frame}
 Acrescentamos à gramática
 \begin{eqnarray*}
-P&::=& 0 \;\mid\; X[r_1,\ldots ,r_n] \;\mid \;P+P\;  \mid \;\chi.P\;\mid\; P | P \;\mid\; P\backslash H\mid\alert{ when(b) P}\\
-\chi& ::=& \tau \mid a! \mid a? \mid a!v \mid a?v \mid a!x \mid a?x  
+P&::=& 0 \;\mid\; X[r_1,\ldots ,r_n] \;\mid \;P+P\;  \mid \;\alpha.P\;\mid\; P | P \;\mid\; P\backslash H\mid\alert{ when(b) P}\\
+\alpha& ::=& \tau \mid a! \mid a? \mid a!v \mid a?v \mid a!x \mid a?x  
 \end{eqnarray*}
 
 \end{frame}
@@ -381,7 +381,7 @@ Cell_x[cur]& :=& get_x!cur.Cell_x[cur] + set_x?new:0..2.Cell_x[new]
 \item $Cell[rdA,wrA,0] | Cell[rdB,wrB,0]$
 \end{itemize}
 }
-\only<4->{
+\only<4->{~\\[-15mm]
 \begin{eqnarray*}
 Cells&:=&Cell[rdA,wrA,0] | Cell[rdB,wrB,0]\\
 Serve &:=& mult?. rdA?x:R. rdB?y:R. IterMult[0,x,y]\\
@@ -408,7 +408,7 @@ Fac[n,j] &:= &when (j>0) i. Fac[n*j,j-1]\\
 \only<article>
 {\begin{exem} O exemplo do factorial em versao iterativa}
 	
-\only<2->{\begin{eqnarray*}
+\only<2->{~\\[-10mm]\begin{eqnarray*}
 	Fak&:= &rdJ?j:R. ( when (j>0) rdN?n.wrN!(n*j).wrJ!(j-1).Fak\\
 &&                + when (j==0) rdN?n.print!n.0 )\\
 Cell[v,rd,wr]&:=& rd!v.Cell[v,rd,wr] + wr?x:R.Cell[x,rd,wr]\\
@@ -462,9 +462,9 @@ println("a is zero");
 pode ser escrito em CCS
 {\small
 \begin{verbatim}
-P[a] := when( a<=0)i.Q[a] 
-        + when(a>0) println!"loop". P[a-1]
-Q[a] :=println!"a is zero"
+P[a] := when(a<=0) i.Q[a] +
+        when(a>0)  println!"loop" . P[a-1]
+Q[a] := println!"a is zero"
 \end{verbatim}
 }
 \end{column}
