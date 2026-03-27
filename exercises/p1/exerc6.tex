@@ -1,0 +1,137 @@
+\documentclass[11pt]{exam}
+%\usepackage[portuges]{babel}
+\usepackage{enumerate}
+\usepackage[utf8]{inputenc}
+
+\input sli_aux
+\newboolean{portuguese}
+\setboolean{portuguese}{true}
+\setboolean{portuguese}{false}
+
+\newboolean{normal}
+\setboolean{normal}{true}
+
+\newcommand{\pten}[2]{\ifthenelse{\boolean{portuguese}}{#1}{#2}}
+\pten{\usepackage[portuges]{babel}}{\usepackage[british]{babel}}
+
+\setcounter{aula}{6}
+
+\begin{document}
+\begin{center} 
+{\bf {\large \pten{Programação Concorrente}{Concurrent Programming} - \pten{Exercícios}{Exercises} \theaula} }\\
+
+\medskip
+\pten{CCS com passagem de valores  }{Value passing CCS}
+\end{center}
+\begin{questions}
+\question \pten{Para cada um dos seguintes processos}{For each process} $P$ \pten{calcula o}{compute the} LTS $\bras{P}$
+\begin{parts}
+\part $(a!21.0 | a?x.b!(x*2).0)\backslash\{a\}$
+	\part $(a!42.0 | a?x.Sender[x])\backslash\{a\}$
+	
+\end{parts}
+\question \pten{Considera o seguinte programa  em $CCS_{vp}$ e calcula o seu LTS usando as regras}{For the following program compute its LTS}.
+\begin{eqnarray*}
+Sender &:= &put?x . send!x . Sending[x]\\
+Sending[x]& :=& receiveAck? . Sender +receiveNAck?.send!x.Sending[x]\\
+Receiver &:= &receive?x . get!x . sendAck! . Receiver +\\
+&&gargled?.sendNAck!.Receiver\\
+	Medium& :=& send?x . (receive! x. Medium +i.garbled!.Medium)\\
+AckMedium &:=& sendAck? . receiveAck! . AckMedium+\\
+&&sendNAck?.receivedNAck!.AckMedium\\
+DupMedium &:= &Medium | AckMedium\\
+Protocol &:=& (Sender \mid Receiver \mid DupMedium) \backslash \\
+&&\{send, receive, sendAck, receiveAck,\\
+&&receiveNAck,sendNAck,garbled\}
+\end{eqnarray*}
+
+\pten{Calcula }{Compute also}
+ $\bras{(Protocol | put!1.put!2.put!3.put!4.0)\backslash \{put\}}$. \pten{Restringe os valores}{Restrict the values to} $range R:=0..9$.
+
+\question \pten{Dado}{Given}
+\begin{eqnarray*}
+Fac[n,j] &:= &when (j>0) i. Fac[n*j,j-1]\\
+&&             + when (j==0) println!n. 0\\
+\end{eqnarray*}
+\pten{Calcular}{Compute}
+$\bras{Fac[1,5]}$.
+\question \pten{Considera a seguinte máquina de vendas que aceita moedas de $1$, $2$ e $5$ euros. Quando o valor é suficiente para tirar um café a máquina dá o café e dá troco se existir. Cada café custa 5 euros.}{Consider the following vending machine that accepts coins of $1$, $2$ and $5$ euros. If the price of a coffee has not been paid yet, more coins are required before a coffee is dispensed. Once enough money has been paid, no more coins are accepted, and a coffee is dispensed.If the last inserted coin caused the coffee to be overpaid, some change is given. Each coffee cost $5$ euros.}
+\begin{eqnarray*}
+Machine[b]&:=&when(b<5)coin?c.Machine[b+c]+when(b\geq 5)coffee!.ReturnMachine[b-1]\\
+ReturnMachine[b] &:=& when(b>0)change!.ReturnMachine[b-1]+Machine[0]\\
+ User&:=&coin!2.coin!2.coin!2.coffee?.change?.0
+\end{eqnarray*}
+
+\pten{Calcula}{Construct} $\bras{(Machine[0] | User)\backslash\{coin,change,coffee\}}$.
+\question 
+ \pten{Dado}{Given}
+\begin{eqnarray*}
+Cell[rd,wr,x]&:=& rd!x.Cell[rd,wr,x]+wr?y.Cell[rd,wr,y]\\
+Cells&:=&Cell[rdA,wrA,0] | Cell[rdB,wrB,0]\\
+Serve &:=& mult?. rdA?x:R. rdB?y:R. IterMult[0,x,y]\\
+IterMult[z,x,y]& :=& when(x>0) i.IterMult[z+y,x-1,y] \\&&
+        + when(x==0) println!z.Serve\\
+Use &:=& wrA!7.wrB!5.mult!.0
+\end{eqnarray*} 
+
+\pten{Calcular}{Compute}
+$\bras{(Cells| Serve | Use )\backslash\{rdA,wrA,rdB,wrB,mult\}}$.
+
+\question \pten{Considera o exercício 9 da folha 5 com $CCS_{vp}$.}{Consider the exercise 9 from Practical 5 with value passing CCS.}
+\end{questions}
+\end{document}
+\question (Alternating bit protocol)
+Alternating-Bit Protocol
+(ABP) \pten{é um protocolo entre um emissor (Sender) e um receptor (Receiver) sobre um canal não confiável}{is a simple protocol for reliably transmitting data from a sender to a receiver over unreliable communication channels}. \pten{Isto é conseguido com a retransmissão de mensagens se necessário}{This is accomplished by retransmitting lost messages if required}. 
+
+\includegraphics[width=200pt]{IMG/abp}
+
+ \pten{Funciona do seguinte modo}{ABP works as follows}. \pten{Para o envio da mensagem }{For the process to send a message}:
+    \begin{itemize}
+    \item  \pten{Aceita mensagem para envio}{Accepts a message to send}.
+    \item  \pten{Envia-a com o bit $b$  pelo Trans e activa um temporizador}{Sends it with the bit $b$ and activates the timer}.
+\item \pten{Quando este atinge ”timeout” reenvia $b$}{When the timer timeout the sender resends $b$}.
+\item  \pten{Ao receber a  confirmação $b$ pelo canal Ack, continua com uma nova mensagem e $1-b$.} {If if gets a confirmation $b$ by the channel Ack, continues to accept a new messagen and the bit $1-b$.}
+\item \pten{Ignora qualquer confirmação no canal Ack de $1-b$}{Ignores any confirmation in Ack of $1-b$}.
+    \end{itemize}
+    \pten{Para o receptor  é semelhante}{For the receiver is similar}:
+      \begin{itemize}
+    \item  \pten{Recebe e entrega a mensagem }{Receives and delivers the message}.
+
+     \item \pten{Envia confirmação com o bit $b$ e activa um temporizador}{Replies with bit $b$ and activates a timer}.
+     \item \pten{Quando atinge ”timeout” reenvia $b$}{When the timer timeout resends $b$}.
+\item \pten{Na recepção de uma nova mensagem $1-b$ entrega-a e prossegue com $1-b$}{Receiving a message $1-b$ delivers it and continues with $1-b$}.
+ \item\pten{Ignora mensagens etiquetadas com $b$}{Ignores any message  in Trans with $b$}.
+    \end{itemize}
+    
+\pten{Os processos Sender e Receiver obtêm-se pela composição paralela com o temporizador (Timer) e ignorando as ações do Timer (internas)}{The processes Sender and Receiver are obtained by parallel composition with the Timer ignoring the Timer actions.}
+\pten{Os processos Trans e Ack têm de ser não deterministicos e simular o meio não confiável}{The processes Trans and Ack are nondeterministic and simulates the unreliable communication}.
+%    	\item 
+%  \pten{ O emissor (Sender) envia ao}{ Sender sends data to} Receiver\pten{ pelo canal}{ via transport channel} Trans, \pten{e o receptor}{and} Receiver \pten{confirma a recepção pelo canal}{confirms
+%reception via acknowledgment channel} Ack;
+%\item \pten{Sender envia os dados pelo Trans com um bit the controlo $b$ (inicialmente com o valor $0$) repetidamente até a confirmação $b$ seja receviba pelo canal Ack. No envio seguinte  o bit de controlo será $1-b$, e assim sucessivamente. }{
+% Sender sends the data via Trans with a control bit $b$ (which is initially set to $0$) repeatedly until the acknowledgment $b$ is received over Ack. For the next data item, control bit $1-b$ is used, and so on.}
+%\pten{O receptor ou recebe a mensagem com o bit the controlo ou a informação que há um erro. No primeiro caso se $b$ é o pretendido (também começa em $0$), $b$ é retornado pelo canal $Ack$. Senão é enviado o bit $1-b$ pelo canal $Ack$.}{Receiver gets the data item with a control bit $b$ or the information that the data is corrupted. In the first case, if $b$ is the expected value of the control bit (which is initially set to $0$ also on the receiving side), $b$ is returned via Ack. Otherwise, the transmission is re-initiated by returning the “wrong” control bit $1-b$ to Sender.}
+%\item \pten{Se o Receptor recebe o bit correcto passa também para $1-b$ para a nova mensagem.}{When Receiver receives an acknowledgment containing the same bit as the message it is currently transmitting, it stops transmitting that message, flips the protocol bit, and repeats the protocol for the next message.}
+%\end{itemize}
+\begin{parts}
+\part \pten{Implementa ABP em CCS considerando apenas o bit de controlo (e não os dados).}{Implement ABP as a CCS process definition. You can abstract away from the content of the messages and focus only on the additional control bit.}	
+\part \pten{Escreve uma especificação de comunicação  e compara com o ABP.}{Suggest a specification of the protocol in CCS and check whether it is equivalent to your implementation of ABP.}
+\part \pten{Verifica se existem deadlocks}{Check for deadlocks.}
+\end{parts}
+
+
+\question (\pten{Jantar dos Filósofos}{Philosophers Dinner})\pten{Cinco filósofos estão sentados à volta duma mesa com uma taça de arroz no meio e um pauzinho colocado entre cada um dos filósofos. Não falam  e apenas têm duas actividades: pensar e comer, alternadamente. Cada filósofo precisa de dois pauzinhos para comer arroz  e só pode usar os adjacentes se estiverem livres.}{There are five philosophers Chuang-Tzu, Wong-Chongyang, Sun-Tzu, Lie-Yukou and Lao-Tsu (clock-wise from the top) sitting around a round table with a bowl of rice in front of them and a chopstick placed between each pair of adjacent philosophers. Being Tao monks, they are silent, and the only activity they engage themselves in are thinking and eating, alternatively. Each philosopher needs two chopsticks to eat (duh!) and can only use the ones adjacent to them if they are free.}
+
+\begin{center}\includegraphics[width=200pt]{IMG/phil}\end{center}
+
+\begin{parts}
+\part \pten{Escreve um processo CCS para modelar o comportamento dos filósofos e os pauzinhos. Podes começar por considerar só 2. }{Write a CCS statement to model the behaviour of all philosophers and chopsticks}.
+\part  \pten{Verifica se existe deadlock}{See if there is any deadlock if the philosophers are left to their own devices}.
+\part\pten{Os pauzinhos podem ser ordenados de modo que um filósofo tenha que pegar num pauzinho de orem menor antes de um de ordem maior, se disponível. Escreve um processo CCS para este caso.}{ Dijkstra’s “resource hierarchy solution” ranks each chopstick. A philosopher can only pick a chopstick of lower rank first and then the higher rank if available. Write CCS commands to implement this}.
+	
+\end{parts}
+
+
+\end{questions}
+\end{document}
