@@ -25,6 +25,10 @@ The goal of this course is to introduce students to the fundamental theoretic an
 - __6 Mar 26__: [P] Exercises on parallel composition and synchronization. ([exerc03.pdf](exercises/p1/exerc03.pdf))
 - __12 Mar 26__: [T] Bisimilarity and weak bisimilarity. ([5-equiv.pdf, slides 1-15](slides/5-equiv.pdf))
 - __13 Mar 26__: [P]Exercises on observational equivalences (exerc04.pdf)[(exercises/p1/exerc04.pdf) and [exerc04_sol.pdf](exercises/p1/exerc04_sol.pdf)
+- __19 Mar 26__: [T] More on bisimilarity; observational congruence; minimisation. ([5-equiv.pdf, slides 15-end](slides/5-equiv.pdf))
+- __20 Mar 26__: [P] More exercises on observational equivalences [exerc5.pdf](exercises/p1/exerc5_sol.pdf)
+- __26 Mar 26__: [T] CCS with variables. Introduction to the second module and quick overview of Scala ([7-scala.pdf](slides/7-sala.pdf))
+- __27 Mar 26__: [P] Exercises on CCS with variables [exerc6.pdf](exercises/p1/exerc6_sol.pdf). Hands-on introduction on how to run Scala using SBT [ex-scala.pdf](exercises/p2/ex-scala.pdf)
 
 <!-- - __27 Mar 25__: [T] Introduction to the second module ([1-intro.pdf](slides/1-intro.pdf)). Overview of Scala ([2-scala.pdf](slides/2-scala.pdf)).  
 [P] Exercises on Scala ([ex-scala.pdf](exercises/ex-scala.pdf)).
