@@ -81,10 +81,9 @@ The goal of this course is to introduce students to the fundamental theoretic an
 5. [Exercises on weak equivalences](exercises/p1/exerc5.pdf)
 5. [Exercises on CCS with Data](exercises/p1/exerc6.pdf)
 6. [Exercises on Scala](exercises/p2/ex-scala.pdf)
+7. [Exercises on Java Memory](exercises/p2/ex-javamemory.pdf)
 
 <!--
-1. [Exercises on Scala](exercises/ex-scala.pdf)
-2. [Exercises on Java Memory](exercises/ex-javamemory.pdf)
 4. [Exercises on building blocks of concurrency](exercises/ex-concblocks.pdf)
 5. [Exercises on the actor model](exercises/ex-actors.pdf)
 6. [Exercises on futures and promises](exercises/ex-futures.pdf)
