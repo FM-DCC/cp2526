@@ -362,12 +362,43 @@ case class MyInt(i:Int)      extends IntOrError
 case class MyError(e:String) extends IntOrError
 
 //...
-def show(ie: IntOrError)
+def show(ie: IntOrError) {
   ie match {
     case MyInt(i)   => println(s"Number: \§i")
     case MyError(e) => println(s"Error: \§e")
   }
 }
+\end{lstlisting}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Pattern matching (in Scala 3)}
+~\\[-8mm]
+\begin{columns}
+\begin{column}{0.56\textwidth}
+\begin{lstlisting}
+val successors =
+  Map(1 -> 2, 2 -> 3, 3 -> 4)
+successors.get(5) match
+  case Some(n) =>
+    println(s"Successor is: \§n")
+  case None    =>
+    println("Could not find successor.")
+\end{lstlisting}
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{lstlisting}[morekeywords={enum}]
+enum IntOrError:
+  case MyInt(i:Int)
+  case MyError(e:String)
+
+//...
+def show(ie: IntOrError) =
+  ie match 
+    case MyInt(i)   => println(s"Number: \§i")
+    case MyError(e) => println(s"Error: \§e")
+  
 \end{lstlisting}
 \end{column}
 \end{columns}
@@ -384,7 +415,7 @@ case class MyInt(i:Int)      extends IntOrError
 case class MyError(e:String) extends IntOrError
 
 //...
-def getInt(ie: IntOrError)
+def getInt(ie: IntOrError) {
   ie match {
     case MyInt(i)   => i
     //case MyError(e) => ???
@@ -397,7 +428,7 @@ def getInt(ie: IntOrError)
 \begin{lstlisting}
 def showInt(ie:IntOrError) = 
   try {
-    println(s"Int value: \§{getInt(i)}")
+    println(s"Int value: \§{getInt(ie)}")
   } catch { 
     case _: Throwable => println("Got some error - probably not an int.")
   } finally {
