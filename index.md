@@ -27,8 +27,11 @@ The goal of this course is to introduce students to the fundamental theoretic an
 - __13 Mar 26__: [P]Exercises on observational equivalences (exerc04.pdf)[(exercises/p1/exerc04.pdf) and [exerc04_sol.pdf](exercises/p1/exerc04_sol.pdf)
 - __19 Mar 26__: [T] More on bisimilarity; observational congruence; minimisation. ([5-equiv.pdf, slides 15-end](slides/5-equiv.pdf))
 - __20 Mar 26__: [P] More exercises on observational equivalences [exerc5.pdf](exercises/p1/exerc5_sol.pdf)
-- __26 Mar 26__: [T] CCS with variables. Introduction to the second module and quick overview of Scala ([7-scala.pdf](slides/7-sala.pdf))
+- __26 Mar 26__: [T] CCS with variables. Introduction to the second module and quick overview of Scala ([7-scala.pdf, slides 1-9](slides/7-sala.pdf))
 - __27 Mar 26__: [P] Exercises on CCS with variables [exerc6.pdf](exercises/p1/exerc6_sol.pdf). Hands-on introduction on how to run Scala using SBT [ex-scala.pdf](exercises/p2/ex-scala.pdf)
+- __10 Apr 26__: [P] Test on the first module.
+- __16 Apr 26__: [T] Continuation of the introduction to Scala ([7-scala.pdf, slides 10-20](slides/7-sala.pdf)); introduction to the Java Memory Model ([8-javamemory.pdf, slides 1-10](slides/8-javamemory.pdf))
+- __17 Apr 26__: [P] Exercises on Scala [ex-scala.pdf](exercises/p2/ex-scala.pdf) and boostrapping exercises on Java threads [ex-javamemory.pdf](exercises/p2/ex-javamemory.pdf).
 
 <!-- - __27 Mar 25__: [T] Introduction to the second module ([1-intro.pdf](slides/1-intro.pdf)). Overview of Scala ([2-scala.pdf](slides/2-scala.pdf)).  
 [P] Exercises on Scala ([ex-scala.pdf](exercises/ex-scala.pdf)).
@@ -62,6 +65,7 @@ The goal of this course is to introduce students to the fundamental theoretic an
 6. [CCS with data](slides/6-ccs-data.pdf)
 7. [Scala primer](slides/7-scala.pdf)
 8. [Java Memory Model](slides/8-javamemory.pdf)
+9. [Basic building blocks of concurrency](slides/9-concblocks.pdf)
 
 
 <!--
