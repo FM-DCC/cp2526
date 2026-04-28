@@ -32,6 +32,8 @@ The goal of this course is to introduce students to the fundamental theoretic an
 - __10 Apr 26__: [P] Test on the first module.
 - __16 Apr 26__: [T] Continuation of the introduction to Scala ([7-scala.pdf, slides 10-20](slides/7-sala.pdf)); introduction to the Java Memory Model ([8-javamemory.pdf, slides 1-10](slides/8-javamemory.pdf))
 - __17 Apr 26__: [P] Exercises on Scala [ex-scala.pdf](exercises/p2/ex-scala.pdf) and boostrapping exercises on Java threads [ex-javamemory.pdf](exercises/p2/ex-javamemory.pdf).
+- __23 Apr 26__: [T] Continuation of the Java Memory Model; Deadlocks; Waiting and notifying; Graceful shutdown ([3-javamemory.pdf, slides 11-35](slides/3-javamemory.pdf)).
+- __24 Apr 26__: [P] Exercises on the Java Memory Model ([ex-javamemory.pdf](exercises/ex-javamemory.pdf)).
 
 <!-- - __27 Mar 25__: [T] Introduction to the second module ([1-intro.pdf](slides/1-intro.pdf)). Overview of Scala ([2-scala.pdf](slides/2-scala.pdf)).  
 [P] Exercises on Scala ([ex-scala.pdf](exercises/ex-scala.pdf)).
@@ -86,9 +88,9 @@ The goal of this course is to introduce students to the fundamental theoretic an
 5. [Exercises on CCS with Data](exercises/p1/exerc6.pdf)
 6. [Exercises on Scala](exercises/p2/ex-scala.pdf)
 7. [Exercises on Java Memory](exercises/p2/ex-javamemory.pdf)
+8. [Exercises on building blocks of concurrency](exercises/p2/ex-concblocks.pdf)
 
 <!--
-4. [Exercises on building blocks of concurrency](exercises/ex-concblocks.pdf)
 5. [Exercises on the actor model](exercises/ex-actors.pdf)
 6. [Exercises on futures and promises](exercises/ex-futures.pdf)
  -->
