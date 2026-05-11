@@ -68,6 +68,7 @@ The goal of this course is to introduce students to the fundamental theoretic an
 7. [Scala primer](slides/7-scala.pdf)
 8. [Java Memory Model](slides/8-javamemory.pdf)
 9. [Basic building blocks of concurrency](slides/9-concblocks.pdf)
+10. [Actor model](slides/10-actors.pdf)
 
 
 <!--
@@ -89,10 +90,10 @@ The goal of this course is to introduce students to the fundamental theoretic an
 6. [Exercises on Scala](exercises/p2/ex-scala.pdf)
 7. [Exercises on Java Memory](exercises/p2/ex-javamemory.pdf)
 8. [Exercises on building blocks of concurrency](exercises/p2/ex-concblocks.pdf)
+9. [Exercises on the actor model](exercises/ex-actors.pdf)
+10. [Exercises on futures and promises](exercises/ex-futures.pdf)
 
 <!--
-5. [Exercises on the actor model](exercises/ex-actors.pdf)
-6. [Exercises on futures and promises](exercises/ex-futures.pdf)
  -->
 
 <!--
@@ -109,12 +110,12 @@ The goal of this course is to introduce students to the fundamental theoretic an
 - [2018-2019 - Test for the first module (authentication needed - during the semester)](https://www.dcc.fc.up.pt/~nam/Teaching/progcon2324/ligacoes/index.html)
  -->
 
-<!--
+
 ### Assignment
 
-- [Practical assignment on Concurrent Programming 2024/25](exercises/cp-project-2425.pdf)
-- Chose your group [via Moodle](https://moodle2425.up.pt/mod/choicegroup/view.php?id=186186) - there should be two people in each group.
- -->
+- [Practical assignment on Concurrent Programming 2025/26](exercises/cp-project-2526.pdf)
+- Chose your group [in a shared spreadheet](https://docs.google.com/spreadsheets/d/1dwH-LwGZIRH9VDvvbYXB75-E5nUp4bvxM7FM8MewgRI/edit?usp=sharing) - there should be two people in each group.
+ 
 
 <!-- - Submit your assignment [via moodle](https://moodle2324.up.pt/mod/assign/view.php?id=180761) (only one of the group members needs to submit it, and the latest submission is used) -->
 <!-- - Book your presentation using this [shared spreadsheet](https://docs.google.com/spreadsheets/d/1HZqn6nFbYI_LbvfNnqcqlh0gF30DGociU0w0wfwkiyg/edit?usp=sharing) (you must login with your google account from the faculty, e.g., "up202000000@g.uporto.pt") -->
