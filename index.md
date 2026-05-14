@@ -90,8 +90,8 @@ The goal of this course is to introduce students to the fundamental theoretic an
 6. [Exercises on Scala](exercises/p2/ex-scala.pdf)
 7. [Exercises on Java Memory](exercises/p2/ex-javamemory.pdf)
 8. [Exercises on building blocks of concurrency](exercises/p2/ex-concblocks.pdf)
-9. [Exercises on the actor model](exercises/ex-actors.pdf)
-10. [Exercises on futures and promises](exercises/ex-futures.pdf)
+9. [Exercises on the actor model](exercises/p2/ex-actors.pdf)
+10. [Exercises on futures and promises](exercises/p2/ex-futures.pdf)
 
 <!--
  -->
