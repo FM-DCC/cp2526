@@ -810,7 +810,7 @@ object CommunicatingGracefulStop extends App {
   gracePingy ! "start"
 
   val stopped = gracefulStop(gracePingy, 3.seconds, "Die, Pingy!")
-  stopped onComplete { // stopped is a Future (not covered)
+  stopped onComplete { // stopped is a Future
     case Success(x) =>
       log("graceful shutdown successful")
       ourSystem.terminate()
