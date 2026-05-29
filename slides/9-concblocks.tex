@@ -1011,7 +1011,7 @@ import scala.concurrent.duration._
 val futFive = Future { ... }
 
 def getFive  = // : Int
-  Await.result(futFive, Duration.inf) 
+  Await.result(futFive, Duration.Inf) 
 def doneFive = // : Future[Int]
   Await.ready (futFive, 10.seconds)
 
