@@ -32,8 +32,13 @@ The goal of this course is to introduce students to the fundamental theoretic an
 - __10 Apr 26__: [P] Test on the first module.
 - __16 Apr 26__: [T] Continuation of the introduction to Scala ([7-scala.pdf, slides 10-20](slides/7-sala.pdf)); introduction to the Java Memory Model ([8-javamemory.pdf, slides 1-10](slides/8-javamemory.pdf))
 - __17 Apr 26__: [P] Exercises on Scala [ex-scala.pdf](exercises/p2/ex-scala.pdf) and boostrapping exercises on Java threads [ex-javamemory.pdf](exercises/p2/ex-javamemory.pdf).
-- __23 Apr 26__: [T] Continuation of the Java Memory Model; Deadlocks; Waiting and notifying; Graceful shutdown ([3-javamemory.pdf, slides 11-35](slides/3-javamemory.pdf)).
+- __23 Apr 26__: [T] Continuation of the Java Memory Model; Deadlocks; Waiting and notifying; Graceful shutdown ([8-javamemory.pdf, slides 11-35](slides/8-javamemory.pdf)).
 - __24 Apr 26__: [P] Exercises on the Java Memory Model ([ex-javamemory.pdf](exercises/ex-javamemory.pdf)).
+- __14 May 26__:[T] Processes outside the JVM; lazy values and hidden locks; concurrent structures: thread-safe queues and maps ([9-concblocks.pdf, slides 22-36]([slides/9-concblocks.pdf])). Actor in Akka: creation, execution, and behaviour ([10-actors.pdf, slides 1-16](slides/10-actors.pdf)).
+- __15 May 26__:[P] Exercises on concurrency building blocks, using atomic variables and lazy concepts (ex-concblocks.pdf); deploying actors in Akka (ex-actors.pdf]); support for the practical assignment.
+- __28 May 26__:[T] Futures and promises: creating, using, poling, and composing futures ([9-concblocks.pdf, slides 37-end](slides/9-concblocks.pdf)). Actors in Akka: actor hierarchy amd relation with CCS ([10-actors.pdf, slides 16-23](slides/10-actors.pdf)).
+- __29 May 26__:[P] Exercises on Futures & Promises (ex-futures.pdf); deploying actors in Akka (ex-actors.pdf]); support for the practical assignment.
+
 
 <!-- - __27 Mar 25__: [T] Introduction to the second module ([1-intro.pdf](slides/1-intro.pdf)). Overview of Scala ([2-scala.pdf](slides/2-scala.pdf)).  
 [P] Exercises on Scala ([ex-scala.pdf](exercises/ex-scala.pdf)).
